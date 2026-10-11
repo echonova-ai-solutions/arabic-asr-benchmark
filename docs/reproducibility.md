@@ -14,6 +14,25 @@ any EchoNova model, service or credential.
 | Results on the unreleased five sixths (paper tables) | Not externally | Recomputed by EchoNova with this package from stored outputs |
 | Sada-ASR on the leaderboard test sets | Protocol only | Test sets are public; Sada-ASR's outputs on them are not published |
 
+## Inference check on the released audio
+
+To check that the released audio reproduces the original inference, EchoNova
+re-ran Whisper large-v3 (`openai/whisper-large-v3`, transformers, fp16, greedy
+decoding, batch size 1, `language="ar"`) on all 7,396 clips of the `default`
+config, loaded from the released files:
+
+| | Original run (published outputs) | Re-run on released audio |
+| :--- | ---: | ---: |
+| Identical transcripts | | 7,210 of 7,396 (97.5%) |
+| WER (`echonova-v1`) | 32.04% | 32.09% |
+| CER (`echonova-v1`) | 18.43% | 18.44% |
+
+The small remainder is expected: the original run fed the model the decoded
+floating-point waveform, while the released audio is the same waveform stored as
+16-bit PCM (the form the commercial APIs received). Expect differences of this
+order when re-running other models, plus differences from library and hardware
+versions.
+
 ## 1. Install
 
 ```bash
