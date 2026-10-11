@@ -1,0 +1,8 @@
+system,type,normalizer,n_utterances,ref_words,wer,macro_wer,cer,macro_cer,sub,del,ins,empty_rate
+sada-asr,proprietary,echonova-v1,381,5957,0.166527,0.166527,0.085862,0.085862,632,125,235,0.000000
+mai-transcribe-2,commercial API,echonova-v1,381,5957,0.218399,0.218399,0.121066,0.121066,758,83,460,0.000000
+gpt-transcribe,commercial API,echonova-v1,381,5957,0.250630,0.250630,0.146098,0.146098,776,575,142,0.000000
+audar-asr-v1-turbo,open-weight,echonova-v1,381,5957,0.291254,0.291254,0.172484,0.172484,914,568,253,0.000000
+nvidia-fastconformer-ar,open-weight,echonova-v1,381,5957,0.350512,0.350512,0.191770,0.191770,1233,594,261,0.000000
+nemotron-3.5-asr-streaming-0.6b,open-weight,echonova-v1,381,5957,0.369985,0.369985,0.182986,0.182986,1406,421,377,0.007874
+whisper-large-v3,open-weight,echonova-v1,381,5957,0.430922,0.430922,0.279086,0.279086,1146,598,823,0.000000

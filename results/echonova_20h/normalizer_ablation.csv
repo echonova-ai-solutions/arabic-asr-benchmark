@@ -1,0 +1,71 @@
+system,variant,wer,cer,wer_minus_v1.1,cer_minus_v1.1
+sada-asr,echonova-v1,0.146988,0.065110,0.000578,0.001010
+sada-asr,echonova-v1.1,0.146410,0.064100,0.000000,0.000000
+sada-asr,echonova-v1.1 without nfkc,0.146410,0.064100,0.000000,0.000000
+sada-asr,echonova-v1.1 without event_tags,0.146429,0.064124,0.000019,0.000024
+sada-asr,echonova-v1.1 without punctuation,0.146372,0.064120,-0.000038,0.000020
+sada-asr,echonova-v1.1 without marks,0.146742,0.064272,0.000332,0.000172
+sada-asr,echonova-v1.1 without extra_folds,0.146410,0.064100,0.000000,0.000000
+sada-asr,echonova-v1.1 without persian_digits,0.146410,0.064100,0.000000,0.000000
+sada-asr,echonova-v1.1 without lowercase,0.146491,0.064127,0.000081,0.000027
+sada-asr,echonova-v1.1 without whitespace,0.146410,0.082855,0.000000,0.018755
+mai-transcribe-2,echonova-v1,0.165134,0.084015,0.000606,0.005254
+mai-transcribe-2,echonova-v1.1,0.164528,0.078761,0.000000,0.000000
+mai-transcribe-2,echonova-v1.1 without nfkc,0.164528,0.078761,0.000000,0.000000
+mai-transcribe-2,echonova-v1.1 without event_tags,0.164546,0.078784,0.000018,0.000024
+mai-transcribe-2,echonova-v1.1 without punctuation,0.164328,0.078810,-0.000199,0.000049
+mai-transcribe-2,echonova-v1.1 without marks,0.164918,0.078946,0.000390,0.000185
+mai-transcribe-2,echonova-v1.1 without extra_folds,0.164528,0.078761,0.000000,0.000000
+mai-transcribe-2,echonova-v1.1 without persian_digits,0.164528,0.078761,0.000000,0.000000
+mai-transcribe-2,echonova-v1.1 without lowercase,0.164594,0.078777,0.000066,0.000016
+mai-transcribe-2,echonova-v1.1 without whitespace,0.164528,0.105364,0.000000,0.026603
+gpt-transcribe,echonova-v1,0.201763,0.105104,0.000618,0.001002
+gpt-transcribe,echonova-v1.1,0.201145,0.104101,0.000000,0.000000
+gpt-transcribe,echonova-v1.1 without nfkc,0.201145,0.104101,0.000000,0.000000
+gpt-transcribe,echonova-v1.1 without event_tags,0.201162,0.104123,0.000018,0.000021
+gpt-transcribe,echonova-v1.1 without punctuation,0.200940,0.104137,-0.000205,0.000036
+gpt-transcribe,echonova-v1.1 without marks,0.201607,0.104397,0.000462,0.000295
+gpt-transcribe,echonova-v1.1 without extra_folds,0.201145,0.104101,0.000000,0.000000
+gpt-transcribe,echonova-v1.1 without persian_digits,0.201145,0.104101,0.000000,0.000000
+gpt-transcribe,echonova-v1.1 without lowercase,0.201233,0.104123,0.000088,0.000021
+gpt-transcribe,echonova-v1.1 without whitespace,0.201145,0.125928,0.000000,0.021827
+audar-asr-v1-turbo,echonova-v1,0.264085,0.138624,0.000684,0.001622
+audar-asr-v1-turbo,echonova-v1.1,0.263401,0.137002,0.000000,0.000000
+audar-asr-v1-turbo,echonova-v1.1 without nfkc,0.263401,0.137002,0.000000,0.000000
+audar-asr-v1-turbo,echonova-v1.1 without event_tags,0.263469,0.137034,0.000068,0.000032
+audar-asr-v1-turbo,echonova-v1.1 without punctuation,0.263679,0.137107,0.000278,0.000106
+audar-asr-v1-turbo,echonova-v1.1 without marks,0.263553,0.137169,0.000152,0.000168
+audar-asr-v1-turbo,echonova-v1.1 without extra_folds,0.263401,0.137002,0.000000,0.000000
+audar-asr-v1-turbo,echonova-v1.1 without persian_digits,0.263401,0.137002,0.000000,0.000000
+audar-asr-v1-turbo,echonova-v1.1 without lowercase,0.263431,0.137012,0.000029,0.000010
+audar-asr-v1-turbo,echonova-v1.1 without whitespace,0.263401,0.145410,0.000000,0.008408
+nvidia-fastconformer-ar,echonova-v1,0.289065,0.136304,0.000281,0.000916
+nvidia-fastconformer-ar,echonova-v1.1,0.288784,0.135388,0.000000,0.000000
+nvidia-fastconformer-ar,echonova-v1.1 without nfkc,0.288784,0.135388,0.000000,0.000000
+nvidia-fastconformer-ar,echonova-v1.1 without event_tags,0.288792,0.135396,0.000008,0.000008
+nvidia-fastconformer-ar,echonova-v1.1 without punctuation,0.288727,0.135403,-0.000056,0.000015
+nvidia-fastconformer-ar,echonova-v1.1 without marks,0.288927,0.135546,0.000143,0.000158
+nvidia-fastconformer-ar,echonova-v1.1 without extra_folds,0.288784,0.135388,0.000000,0.000000
+nvidia-fastconformer-ar,echonova-v1.1 without persian_digits,0.288784,0.135388,0.000000,0.000000
+nvidia-fastconformer-ar,echonova-v1.1 without lowercase,0.288784,0.135388,0.000000,0.000000
+nvidia-fastconformer-ar,echonova-v1.1 without whitespace,0.288784,0.139711,0.000000,0.004323
+whisper-large-v3,echonova-v1,0.320438,0.184310,0.000270,0.001383
+whisper-large-v3,echonova-v1.1,0.320169,0.182926,0.000000,0.000000
+whisper-large-v3,echonova-v1.1 without nfkc,0.320169,0.182926,0.000000,0.000000
+whisper-large-v3,echonova-v1.1 without event_tags,0.320184,0.182946,0.000015,0.000019
+whisper-large-v3,echonova-v1.1 without punctuation,0.320053,0.182967,-0.000116,0.000041
+whisper-large-v3,echonova-v1.1 without marks,0.320333,0.183608,0.000164,0.000682
+whisper-large-v3,echonova-v1.1 without extra_folds,0.320169,0.182926,0.000000,0.000000
+whisper-large-v3,echonova-v1.1 without persian_digits,0.320169,0.182926,0.000000,0.000000
+whisper-large-v3,echonova-v1.1 without lowercase,0.320176,0.182936,0.000007,0.000010
+whisper-large-v3,echonova-v1.1 without whitespace,0.320169,0.188453,0.000000,0.005527
+nemotron-3.5-asr-streaming-0.6b,echonova-v1,0.331963,0.147840,0.000406,0.000823
+nemotron-3.5-asr-streaming-0.6b,echonova-v1.1,0.331558,0.147017,0.000000,0.000000
+nemotron-3.5-asr-streaming-0.6b,echonova-v1.1 without nfkc,0.331558,0.147017,0.000000,0.000000
+nemotron-3.5-asr-streaming-0.6b,echonova-v1.1 without event_tags,0.331565,0.147039,0.000007,0.000022
+nemotron-3.5-asr-streaming-0.6b,echonova-v1.1 without punctuation,0.331535,0.147036,-0.000023,0.000019
+nemotron-3.5-asr-streaming-0.6b,echonova-v1.1 without marks,0.331773,0.147192,0.000215,0.000175
+nemotron-3.5-asr-streaming-0.6b,echonova-v1.1 without extra_folds,0.331558,0.147017,0.000000,0.000000
+nemotron-3.5-asr-streaming-0.6b,echonova-v1.1 without persian_digits,0.331558,0.147017,0.000000,0.000000
+nemotron-3.5-asr-streaming-0.6b,echonova-v1.1 without lowercase,0.331558,0.147017,0.000000,0.000000
+nemotron-3.5-asr-streaming-0.6b,echonova-v1.1 without whitespace,0.331558,0.151216,0.000000,0.004199

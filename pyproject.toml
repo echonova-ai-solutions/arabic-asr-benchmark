@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "arabic-asr-benchmark"
+dynamic = ["version"]
+description = "Model-agnostic evaluation for Arabic speech recognition: versioned normalizers, WER/CER, per-dialect results, bootstrap CIs."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+authors = [{ name = "EchoNova" }]
+dependencies = [
+    "numpy>=1.24",
+    "editdistance>=0.6",
+]
+
+[project.optional-dependencies]
+hf = ["datasets>=2.19", "pyarrow>=14"]
+dev = ["pytest>=7", "ruff>=0.6", "jiwer>=3", "pyarrow>=14"]
+
+[project.scripts]
+asr-bench = "arabic_asr_benchmark.cli:main"
+
+[project.urls]
+Dataset = "https://huggingface.co/datasets/echonova-ai/arabic-dialect-asr-benchmark"
+Repository = "https://github.com/echonova-ai-solutions/arabic-asr-benchmark"
+
+[tool.setuptools.dynamic]
+version = { attr = "arabic_asr_benchmark.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

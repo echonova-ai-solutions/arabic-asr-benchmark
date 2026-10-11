@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "system": {
+    "name": "audar-asr-v1-turbo",
+    "display_name": "Audar-ASR-V1-Turbo",
+    "type": "open-weight",
+    "provider": "Audar",
+    "model_id": "audarai/Audar-ASR-V1-Turbo",
+    "version": null,
+    "evaluation_date": "2026-09-03",
+    "inference": {
+      "hosting": "self-hosted"
+    },
+    "notes": "Model revision and decoding parameters were not recorded."
+  },
+  "dataset": {
+    "source": "hf:echonova-ai/arabic-dialect-asr-benchmark",
+    "config": "omani_unverified",
+    "split": "test",
+    "revision": "unreleased",
+    "n_references": 381
+  },
+  "normalizer": "echonova-v1",
+  "package": {
+    "name": "arabic-asr-benchmark",
+    "version": "1.0.0"
+  },
+  "predictions_sha256": "034db15134d668270ab7b08fae8806f4eb4869d0f422a4036ae17a1be90ff06d",
+  "n_missing_predictions": 0,
+  "overall": {
+    "n_utterances": 381,
+    "ref_words": 5957,
+    "hyp_words": 5642,
+    "word_errors": 1735,
+    "sub": 914,
+    "ins": 253,
+    "ref_chars": 30281,
+    "char_errors": 5223,
+    "empty_hypotheses": 0,
+    "del": 568,
+    "wer": 0.29125398690616083,
+    "cer": 0.17248439615600542,
+    "empty_rate": 0.0
+  },
+  "macro": {
+    "wer": 0.29125398690616083,
+    "cer": 0.17248439615600542,
+    "groups": [
+      "omani"
+    ]
+  },
+  "per_dialect": {
+    "omani": {
+      "n_utterances": 381,
+      "ref_words": 5957,
+      "hyp_words": 5642,
+      "word_errors": 1735,
+      "sub": 914,
+      "ins": 253,
+      "ref_chars": 30281,
+      "char_errors": 5223,
+      "empty_hypotheses": 0,
+      "del": 568,
+      "wer": 0.29125398690616083,
+      "cer": 0.17248439615600542,
+      "empty_rate": 0.0
+    }
+  }
+}

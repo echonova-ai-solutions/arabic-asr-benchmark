@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "system": {
+    "name": "gpt-transcribe",
+    "display_name": "OpenAI gpt-transcribe",
+    "type": "commercial API",
+    "provider": "OpenAI",
+    "model_id": "gpt-transcribe",
+    "version": null,
+    "evaluation_date": "2026-09-03",
+    "inference": {
+      "languages": [
+        "ar"
+      ],
+      "temperature": 0.0,
+      "response_format": "json",
+      "contextual_biasing": false
+    },
+    "notes": "Settings as configured in the evaluation client; not recorded in run logs. No dated model snapshot identifier is available."
+  },
+  "dataset": {
+    "source": "hf:echonova-ai/arabic-dialect-asr-benchmark",
+    "config": "default",
+    "split": "test",
+    "revision": "unreleased",
+    "n_references": 7396
+  },
+  "normalizer": "echonova-v1.1",
+  "package": {
+    "name": "arabic-asr-benchmark",
+    "version": "1.0.0"
+  },
+  "predictions_sha256": "f78c92d2f3ec03af61654c5f506b07880af7f58409a4416601fe8decff889cb8",
+  "n_missing_predictions": 0,
+  "overall": {
+    "n_utterances": 7396,
+    "ref_words": 136275,
+    "hyp_words": 128399,
+    "word_errors": 27411,
+    "sub": 15753,
+    "ins": 1891,
+    "ref_chars": 703852,
+    "char_errors": 73272,
+    "empty_hypotheses": 14,
+    "del": 9767,
+    "wer": 0.20114474408365438,
+    "cer": 0.10410143041434847,
+    "empty_rate": 0.0018929150892374256
+  },
+  "macro": {
+    "wer": 0.22792326283729386,
+    "cer": 0.11776349588434441,
+    "groups": [
+      "egyptian",
+      "emirati",
+      "kuwaiti",
+      "lebanese",
+      "msa",
+      "qatari",
+      "saudi",
+      "syrian"
+    ]
+  },
+  "per_dialect": {
+    "egyptian": {
+      "n_utterances": 1272,
+      "ref_words": 27439,
+      "hyp_words": 26345,
+      "word_errors": 5301,
+      "sub": 3235,
+      "ins": 486,
+      "ref_chars": 142540,
+      "char_errors": 13469,
+      "empty_hypotheses": 1,
+      "del": 1580,
+      "wer": 0.19319217172637487,
+      "cer": 0.09449277395818717,
+      "empty_rate": 0.0007861635220125787
+    },
+    "emirati": {
+      "n_utterances": 1161,
+      "ref_words": 18981,
+      "hyp_words": 16568,
+      "word_errors": 5010,
+      "sub": 2379,
+      "ins": 109,
+      "ref_chars": 98010,
+      "char_errors": 14613,
+      "empty_hypotheses": 2,
+      "del": 2522,
+      "wer": 0.26394815868500077,
+      "cer": 0.14909703091521273,
+      "empty_rate": 0.0017226528854435831
+    },
+    "kuwaiti": {
+      "n_utterances": 473,
+      "ref_words": 5649,
+      "hyp_words": 5275,
+      "word_errors": 1146,
+      "sub": 692,
+      "ins": 40,
+      "ref_chars": 28426,
+      "char_errors": 2403,
+      "empty_hypotheses": 0,
+      "del": 414,
+      "wer": 0.20286776420605418,
+      "cer": 0.0845352845986069,
+      "empty_rate": 0.0
+    },
+    "lebanese": {
+      "n_utterances": 388,
+      "ref_words": 6704,
+      "hyp_words": 5739,
+      "word_errors": 2012,
+      "sub": 995,
+      "ins": 26,
+      "ref_chars": 33469,
+      "char_errors": 5848,
+      "empty_hypotheses": 0,
+      "del": 991,
+      "wer": 0.3001193317422434,
+      "cer": 0.17472885356598644,
+      "empty_rate": 0.0
+    },
+    "msa": {
+      "n_utterances": 2332,
+      "ref_words": 50928,
+      "hyp_words": 50047,
+      "word_errors": 7556,
+      "sub": 4835,
+      "ins": 920,
+      "ref_chars": 266860,
+      "char_errors": 20811,
+      "empty_hypotheses": 10,
+      "del": 1801,
+      "wer": 0.14836632108074144,
+      "cer": 0.07798471108446377,
+      "empty_rate": 0.004288164665523156
+    },
+    "qatari": {
+      "n_utterances": 381,
+      "ref_words": 6151,
+      "hyp_words": 5493,
+      "word_errors": 1289,
+      "sub": 533,
+      "ins": 49,
+      "ref_chars": 31851,
+      "char_errors": 3870,
+      "empty_hypotheses": 1,
+      "del": 707,
+      "wer": 0.20955942123231994,
+      "cer": 0.12150324950551003,
+      "empty_rate": 0.0026246719160104987
+    },
+    "saudi": {
+      "n_utterances": 1001,
+      "ref_words": 14100,
+      "hyp_words": 13130,
+      "word_errors": 3448,
+      "sub": 2054,
+      "ins": 212,
+      "ref_chars": 70692,
+      "char_errors": 8377,
+      "empty_hypotheses": 0,
+      "del": 1182,
+      "wer": 0.24453900709219858,
+      "cer": 0.11849997170825553,
+      "empty_rate": 0.0
+    },
+    "syrian": {
+      "n_utterances": 388,
+      "ref_words": 6323,
+      "hyp_words": 5802,
+      "word_errors": 1649,
+      "sub": 1030,
+      "ins": 49,
+      "ref_chars": 32004,
+      "char_errors": 3881,
+      "empty_hypotheses": 0,
+      "del": 570,
+      "wer": 0.2607939269334177,
+      "cer": 0.12126609173853269,
+      "empty_rate": 0.0
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "system": {
+    "name": "mai-transcribe-2",
+    "display_name": "Microsoft MAI-Transcribe-2",
+    "type": "commercial API",
+    "provider": "Microsoft (Azure Speech fast transcription)",
+    "model_id": "MAI-Transcribe-2",
+    "version": null,
+    "evaluation_date": "2026-09-06",
+    "inference": {
+      "locale": "ar-EG",
+      "api_version": "2025-10-15",
+      "contextual_biasing": false
+    },
+    "notes": "Locale and API version as configured in the evaluation client; not recorded in run logs. The API writes numbers as digits and English words in Latin script; neither can be turned off."
+  },
+  "dataset": {
+    "source": "hf:echonova-ai/arabic-dialect-asr-benchmark",
+    "config": "omani_unverified",
+    "split": "test",
+    "revision": "unreleased",
+    "n_references": 381
+  },
+  "normalizer": "echonova-v1",
+  "package": {
+    "name": "arabic-asr-benchmark",
+    "version": "1.0.0"
+  },
+  "predictions_sha256": "aa02eb2ace1ddd69f0a9d92dc4e350b448c1d324740530e05fb4fda54fa01e5e",
+  "n_missing_predictions": 0,
+  "overall": {
+    "n_utterances": 381,
+    "ref_words": 5957,
+    "hyp_words": 6334,
+    "word_errors": 1301,
+    "sub": 758,
+    "ins": 460,
+    "ref_chars": 30281,
+    "char_errors": 3666,
+    "empty_hypotheses": 0,
+    "del": 83,
+    "wer": 0.21839852274634883,
+    "cer": 0.12106601499289983,
+    "empty_rate": 0.0
+  },
+  "macro": {
+    "wer": 0.21839852274634883,
+    "cer": 0.12106601499289983,
+    "groups": [
+      "omani"
+    ]
+  },
+  "per_dialect": {
+    "omani": {
+      "n_utterances": 381,
+      "ref_words": 5957,
+      "hyp_words": 6334,
+      "word_errors": 1301,
+      "sub": 758,
+      "ins": 460,
+      "ref_chars": 30281,
+      "char_errors": 3666,
+      "empty_hypotheses": 0,
+      "del": 83,
+      "wer": 0.21839852274634883,
+      "cer": 0.12106601499289983,
+      "empty_rate": 0.0
+    }
+  }
+}

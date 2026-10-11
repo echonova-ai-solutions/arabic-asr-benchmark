@@ -1,0 +1,72 @@
+{
+  "sada-asr": {
+    "display_name": "Sada-ASR (EchoNova)",
+    "type": "proprietary",
+    "provider": "EchoNova",
+    "model_id": null,
+    "version": null,
+    "evaluation_date": null,
+    "inference": {"hosting": "self-hosted", "language": "ar", "contextual_biasing": false},
+    "notes": "Proprietary; weights not released. Decode date and configuration of the benchmark run were not recorded."
+  },
+  "mai-transcribe-2": {
+    "display_name": "Microsoft MAI-Transcribe-2",
+    "type": "commercial API",
+    "provider": "Microsoft (Azure Speech fast transcription)",
+    "model_id": "MAI-Transcribe-2",
+    "version": null,
+    "evaluation_date": "2026-09-06",
+    "inference": {"locale": "ar-EG", "api_version": "2025-10-15", "contextual_biasing": false},
+    "notes": "Locale and API version as configured in the evaluation client; not recorded in run logs. The API writes numbers as digits and English words in Latin script; neither can be turned off."
+  },
+  "gpt-transcribe": {
+    "display_name": "OpenAI gpt-transcribe",
+    "type": "commercial API",
+    "provider": "OpenAI",
+    "model_id": "gpt-transcribe",
+    "version": null,
+    "evaluation_date": "2026-09-03",
+    "inference": {"languages": ["ar"], "temperature": 0.0, "response_format": "json", "contextual_biasing": false},
+    "notes": "Settings as configured in the evaluation client; not recorded in run logs. No dated model snapshot identifier is available."
+  },
+  "audar-asr-v1-turbo": {
+    "display_name": "Audar-ASR-V1-Turbo",
+    "type": "open-weight",
+    "provider": "Audar",
+    "model_id": "audarai/Audar-ASR-V1-Turbo",
+    "version": null,
+    "evaluation_date": "2026-09-03",
+    "inference": {"hosting": "self-hosted"},
+    "notes": "Model revision and decoding parameters were not recorded."
+  },
+  "nvidia-fastconformer-ar": {
+    "display_name": "NVIDIA FastConformer (Arabic)",
+    "type": "open-weight",
+    "provider": "NVIDIA",
+    "model_id": "nvidia/stt_ar_fastconformer_hybrid_large_pc_v1.0",
+    "version": null,
+    "evaluation_date": "2026-09-03",
+    "inference": {"hosting": "self-hosted"},
+    "notes": "Model revision and decoding parameters were not recorded."
+  },
+  "whisper-large-v3": {
+    "display_name": "OpenAI Whisper large-v3",
+    "type": "open-weight",
+    "provider": "OpenAI",
+    "model_id": "openai/whisper-large-v3",
+    "version": null,
+    "evaluation_date": "2026-09-03",
+    "inference": {"hosting": "self-hosted", "language": "ar"},
+    "notes": "Model revision and decoding parameters were not recorded."
+  },
+  "nemotron-3.5-asr-streaming-0.6b": {
+    "display_name": "NVIDIA Nemotron-3.5 ASR streaming 0.6B",
+    "type": "open-weight",
+    "provider": "NVIDIA",
+    "model_id": "nvidia/nemotron-3.5-asr-streaming-0.6b",
+    "version": null,
+    "evaluation_date": "2026-09-03",
+    "inference": {"hosting": "self-hosted", "chunk_ms": 1120},
+    "notes": "Model revision and remaining decoding parameters were not recorded."
+  }
+}

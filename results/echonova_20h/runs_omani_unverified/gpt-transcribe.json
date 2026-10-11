@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "system": {
+    "name": "gpt-transcribe",
+    "display_name": "OpenAI gpt-transcribe",
+    "type": "commercial API",
+    "provider": "OpenAI",
+    "model_id": "gpt-transcribe",
+    "version": null,
+    "evaluation_date": "2026-09-03",
+    "inference": {
+      "languages": [
+        "ar"
+      ],
+      "temperature": 0.0,
+      "response_format": "json",
+      "contextual_biasing": false
+    },
+    "notes": "Settings as configured in the evaluation client; not recorded in run logs. No dated model snapshot identifier is available."
+  },
+  "dataset": {
+    "source": "hf:echonova-ai/arabic-dialect-asr-benchmark",
+    "config": "omani_unverified",
+    "split": "test",
+    "revision": "unreleased",
+    "n_references": 381
+  },
+  "normalizer": "echonova-v1",
+  "package": {
+    "name": "arabic-asr-benchmark",
+    "version": "1.0.0"
+  },
+  "predictions_sha256": "3c45f59f97df154962b331342fa0c9a921cd38d7762bf4e3db0a32cde96f517e",
+  "n_missing_predictions": 0,
+  "overall": {
+    "n_utterances": 381,
+    "ref_words": 5957,
+    "hyp_words": 5524,
+    "word_errors": 1493,
+    "sub": 776,
+    "ins": 142,
+    "ref_chars": 30281,
+    "char_errors": 4424,
+    "empty_hypotheses": 0,
+    "del": 575,
+    "wer": 0.2506295114990767,
+    "cer": 0.14609821340114262,
+    "empty_rate": 0.0
+  },
+  "macro": {
+    "wer": 0.2506295114990767,
+    "cer": 0.14609821340114262,
+    "groups": [
+      "omani"
+    ]
+  },
+  "per_dialect": {
+    "omani": {
+      "n_utterances": 381,
+      "ref_words": 5957,
+      "hyp_words": 5524,
+      "word_errors": 1493,
+      "sub": 776,
+      "ins": 142,
+      "ref_chars": 30281,
+      "char_errors": 4424,
+      "empty_hypotheses": 0,
+      "del": 575,
+      "wer": 0.2506295114990767,
+      "cer": 0.14609821340114262,
+      "empty_rate": 0.0
+    }
+  }
+}

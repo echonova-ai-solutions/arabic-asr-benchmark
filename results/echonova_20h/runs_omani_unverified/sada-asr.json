@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "system": {
+    "name": "sada-asr",
+    "display_name": "Sada-ASR (EchoNova)",
+    "type": "proprietary",
+    "provider": "EchoNova",
+    "model_id": null,
+    "version": null,
+    "evaluation_date": null,
+    "inference": {
+      "hosting": "self-hosted",
+      "language": "ar",
+      "contextual_biasing": false
+    },
+    "notes": "Proprietary; weights not released. Decode date and configuration of the benchmark run were not recorded."
+  },
+  "dataset": {
+    "source": "hf:echonova-ai/arabic-dialect-asr-benchmark",
+    "config": "omani_unverified",
+    "split": "test",
+    "revision": "unreleased",
+    "n_references": 381
+  },
+  "normalizer": "echonova-v1",
+  "package": {
+    "name": "arabic-asr-benchmark",
+    "version": "1.0.0"
+  },
+  "predictions_sha256": "1ce63bd08767252fd1d20dcf2f023347b4dc26b1faac33ff6096113924b47f94",
+  "n_missing_predictions": 0,
+  "overall": {
+    "n_utterances": 381,
+    "ref_words": 5957,
+    "hyp_words": 6067,
+    "word_errors": 992,
+    "sub": 632,
+    "ins": 235,
+    "ref_chars": 30281,
+    "char_errors": 2600,
+    "empty_hypotheses": 0,
+    "del": 125,
+    "wer": 0.1665267752224274,
+    "cer": 0.08586242198078002,
+    "empty_rate": 0.0
+  },
+  "macro": {
+    "wer": 0.1665267752224274,
+    "cer": 0.08586242198078002,
+    "groups": [
+      "omani"
+    ]
+  },
+  "per_dialect": {
+    "omani": {
+      "n_utterances": 381,
+      "ref_words": 5957,
+      "hyp_words": 6067,
+      "word_errors": 992,
+      "sub": 632,
+      "ins": 235,
+      "ref_chars": 30281,
+      "char_errors": 2600,
+      "empty_hypotheses": 0,
+      "del": 125,
+      "wer": 0.1665267752224274,
+      "cer": 0.08586242198078002,
+      "empty_rate": 0.0
+    }
+  }
+}

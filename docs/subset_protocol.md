@@ -77,3 +77,20 @@ approximate.
 After release, the WER of every benchmarked system is reported on all six folds,
 so readers can see where the released fold falls. The fold is not re-drawn
 whatever the outcome.
+
+---
+
+## Addendum: implementation erratum (appended 2026-10-11; rules above unchanged)
+
+The first implementation of eligibility rule 3 grouped clips by the raw source
+file name. Some source recordings appear under two names (a title and a
+`<title>_<title>_concat_...` variant with the same absolute segment times), so
+overlaps across the two names were missed. Twelve of these clips were already
+excluded by rule 4 (identical audio); six were not.
+
+This was found after fold 0 had been drawn and scored. To keep the draw fixed,
+the folds were **not** re-drawn: the six clips are treated as ineligible and
+dropped wherever they occur. None of them is in fold 0, so the released clips
+are unchanged. The same correction merges the two name variants into one
+`recording_id` (Egyptian: 1,229 recordings instead of 1,271 in the released
+fold).

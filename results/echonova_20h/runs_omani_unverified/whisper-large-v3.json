@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "system": {
+    "name": "whisper-large-v3",
+    "display_name": "OpenAI Whisper large-v3",
+    "type": "open-weight",
+    "provider": "OpenAI",
+    "model_id": "openai/whisper-large-v3",
+    "version": null,
+    "evaluation_date": "2026-09-03",
+    "inference": {
+      "hosting": "self-hosted",
+      "language": "ar"
+    },
+    "notes": "Model revision and decoding parameters were not recorded."
+  },
+  "dataset": {
+    "source": "hf:echonova-ai/arabic-dialect-asr-benchmark",
+    "config": "omani_unverified",
+    "split": "test",
+    "revision": "unreleased",
+    "n_references": 381
+  },
+  "normalizer": "echonova-v1",
+  "package": {
+    "name": "arabic-asr-benchmark",
+    "version": "1.0.0"
+  },
+  "predictions_sha256": "35295626026290e3927f34558502b49eca698941e9745a7c806ea7c6d6a28175",
+  "n_missing_predictions": 0,
+  "overall": {
+    "n_utterances": 381,
+    "ref_words": 5957,
+    "hyp_words": 6182,
+    "word_errors": 2567,
+    "sub": 1146,
+    "ins": 823,
+    "ref_chars": 30281,
+    "char_errors": 8451,
+    "empty_hypotheses": 0,
+    "del": 598,
+    "wer": 0.4309216048346483,
+    "cer": 0.2790858954459892,
+    "empty_rate": 0.0
+  },
+  "macro": {
+    "wer": 0.4309216048346483,
+    "cer": 0.2790858954459892,
+    "groups": [
+      "omani"
+    ]
+  },
+  "per_dialect": {
+    "omani": {
+      "n_utterances": 381,
+      "ref_words": 5957,
+      "hyp_words": 6182,
+      "word_errors": 2567,
+      "sub": 1146,
+      "ins": 823,
+      "ref_chars": 30281,
+      "char_errors": 8451,
+      "empty_hypotheses": 0,
+      "del": 598,
+      "wer": 0.4309216048346483,
+      "cer": 0.2790858954459892,
+      "empty_rate": 0.0
+    }
+  }
+}
