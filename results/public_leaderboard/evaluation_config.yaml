@@ -1,0 +1,26 @@
+# Protocol of the EchoNova-reproduced results in results.csv.
+upstream:
+  repository: https://github.com/Natural-Language-Processing-Elm/open_universal_arabic_asr_leaderboard
+  leaderboard: https://huggingface.co/spaces/elmresearchcenter/open_universal_arabic_asr_leaderboard
+  paper: "Wang, Alhmoud and Alqurishi (2024). Open Universal Arabic ASR Leaderboard. arXiv:2412.13788"
+  license: none published (code not redistributed here; normalizers re-implemented)
+  evaluation_code_commits:
+    oual-2024-12: 7185c3b2c7444edbc7c4aea4af9f5d5d4aa71588   # 2024-12-10, first commit
+    oual-2026-07: 8fce8595b49057c98bafc2ba41b69c331cb5176e   # 2026-07-27, punctuation fix + و attachment
+system:
+  name: sada-asr
+  type: proprietary
+  status: EchoNova-reproduced   # run by EchoNova following the leaderboard protocol; not an official entry
+metric:
+  wer_cer: corpus-level (total edit distance / total reference length), per test set
+  average: unweighted mean over the six test sets (leaderboard convention)
+  headline_normalizer: oual-2026-07
+test_sets:
+  - {name: sada, display: SADA, clips: 6189, source: "Kaggle sdaiancai/sada2022 (leaderboard test manifest)"}
+  - {name: commonvoice, display: Common Voice 18.0, clips: 10471, source: "leaderboard CV 18.0 test manifest; audio files read from the Common Voice 23.0 release"}
+  - {name: masc_clean, display: MASC clean test, clips: 8612, source: "IEEE DataPort (leaderboard test manifest)"}
+  - {name: masc_noisy, display: MASC noisy test, clips: 9394, source: "IEEE DataPort (leaderboard test manifest)"}
+  - {name: casablanca, display: Casablanca, clips: 6726, source: "Hugging Face UBC-NLP/Casablanca (leaderboard test manifest)"}
+  - {name: mgb2, display: MGB-2, clips: 5365, source: "mgb-challenge.org (leaderboard test manifest)"}
+dataset_revisions: not recorded
+evaluation_date: null   # not recorded for the Sada-ASR run

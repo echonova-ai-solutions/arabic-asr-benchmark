@@ -1,0 +1,33 @@
+system,metric,sada,commonvoice,masc_clean,masc_noisy,casablanca,mgb2,average,source,status
+Falcon-ASR,wer,,,,,,,20.92,"Muneer et al. (2026), Falcon ASR, Hugging Face blog, 7 Oct 2026",published by third party
+Audar-ASR-V1-Turbo,wer,28.92,8.09,16.73,27.19,47.02,11.08,23.17,"Open Universal Arabic ASR Leaderboard (Wang et al., 2024), accessed 10 Oct 2026",published by third party
+Munsit,wer,27.71,10.42,21.74,28.08,60.04,12.10,26.68,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+ElevenLabs Scribe,wer,49.44,28.27,31.93,41.23,63.77,25.68,40.05,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+OpenAI GPT-4o-transcribe,wer,66.47,28.19,31.53,43.29,70.72,29.62,44.97,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+Microsoft Azure STT (mean of Saudi and Jordanian models),wer,58.50,33.77,40.66,45.64,64.84,30.91,45.72,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+NVIDIA Conformer-CTC large,wer,47.26,10.60,24.12,35.64,71.13,19.69,34.74,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+Whisper large-v3,wer,55.96,17.83,24.66,34.63,71.81,16.26,36.86,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+SeamlessM4T large-v2,wer,62.52,21.70,25.04,33.24,66.25,20.23,38.16,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+Whisper large-v3-turbo,wer,60.36,25.73,25.51,37.16,73.79,17.75,40.05,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+Whisper large-v2,wer,57.46,21.77,27.25,38.55,71.01,25.17,40.20,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+Whisper large,wer,63.24,26.04,28.89,40.79,72.18,24.28,42.57,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+Whisper medium,wer,67.71,28.07,29.99,42.91,75.44,29.32,45.57,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+Parakeet CTC 1.1B (concat),wer,70.70,26.34,30.49,45.95,80.80,24.94,46.54,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+Parakeet CTC 1.1B (universal),wer,73.58,40.01,36.16,50.03,81.30,30.68,51.96,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+Whisper small,wer,78.02,24.18,35.93,56.36,87.64,48.64,55.13,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+Falcon-ASR,cer,,,,,,,8.79,"Muneer et al. (2026), Falcon ASR, Hugging Face blog, 7 Oct 2026",published by third party
+Audar-ASR-V1-Turbo,cer,13.40,2.46,5.32,9.78,18.75,5.64,9.23,"Open Universal Arabic ASR Leaderboard (Wang et al., 2024), accessed 10 Oct 2026",published by third party
+Munsit,cer,11.65,3.21,5.80,8.88,25.51,5.27,10.05,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+ElevenLabs Scribe,cer,23.33,7.33,8.23,13.14,27.17,9.27,14.74,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+Microsoft Azure STT (mean of Saudi and Jordanian models),cer,35.39,9.29,14.73,15.77,27.84,13.70,19.45,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+OpenAI GPT-4o-transcribe,cer,49.57,8.14,8.85,18.81,43.15,17.34,24.31,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+NVIDIA Conformer-CTC large,cer,22.54,3.05,5.63,11.02,30.50,7.46,13.37,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+SeamlessM4T large-v2,cer,37.61,6.24,7.19,11.92,29.85,9.37,17.03,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+Whisper large-v3,cer,34.62,5.74,7.24,12.89,35.04,7.74,17.21,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+Whisper large-v3-turbo,cer,37.67,10.89,7.55,13.93,34.83,8.34,18.87,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+Whisper large-v2,cer,36.59,7.44,8.28,15.49,36.00,13.48,19.55,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+Whisper large,cer,40.16,9.61,9.05,16.31,35.71,12.10,20.49,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+Whisper small,cer,33.17,6.79,9.01,19.43,46.12,15.56,21.68,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+Whisper medium,cer,43.83,10.38,8.98,17.49,38.12,14.82,22.27,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+Parakeet CTC 1.1B (concat),cer,46.70,9.82,8.41,18.72,49.77,9.87,23.88,"Salhab et al. (2025a), arXiv:2504.12254",published by third party
+Parakeet CTC 1.1B (universal),cer,49.48,14.64,10.29,20.09,45.31,11.36,25.19,"Salhab et al. (2025a), arXiv:2504.12254",published by third party

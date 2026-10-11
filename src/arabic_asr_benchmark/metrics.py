@@ -12,6 +12,7 @@ defined error rate and raises ``ValueError``.
 
 from __future__ import annotations
 
+import math
 from collections.abc import Iterable, Sequence
 from dataclasses import dataclass, fields
 
@@ -165,8 +166,12 @@ def score_corpus(utterances: Iterable[UtteranceScore]) -> CorpusScore:
 
 
 def macro_average(values: Iterable[float]) -> float:
-    """Unweighted mean (of unrounded per-group rates)."""
+    """Unweighted mean (of unrounded per-group rates).
+
+    Uses ``math.fsum`` (exactly rounded) so the result is identical on every
+    Python version; the built-in ``sum`` of floats changed in Python 3.12.
+    """
     vals = list(values)
     if not vals:
         raise ValueError("macro average of no groups")
-    return sum(vals) / len(vals)
+    return math.fsum(vals) / len(vals)
