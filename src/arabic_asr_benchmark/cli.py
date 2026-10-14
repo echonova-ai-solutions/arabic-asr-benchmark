@@ -31,6 +31,7 @@ from .report import (
     update_markers,
     write_csv,
 )
+from .scoring import list_scorings, resolve_scoring
 
 DEFAULT_DATASET = "hf:echonova-ai/arabic-dialect-asr-benchmark"
 
@@ -79,7 +80,15 @@ def cmd_validate(a: argparse.Namespace) -> int:
     return 0 if report.ok else 1
 
 
+def _scoring_or_exit(a: argparse.Namespace) -> str:
+    try:
+        return resolve_scoring(a.scoring, a.normalizer).name
+    except (KeyError, ValueError) as e:
+        raise SystemExit(f"asr-bench: {e.args[0]}") from None
+
+
 def cmd_evaluate(a: argparse.Namespace) -> int:
+    scoring = _scoring_or_exit(a)
     refs = load_references(a.references, config=a.config, split=a.split)
     preds, dups = load_predictions(a.predictions)
     system = {
@@ -102,11 +111,12 @@ def cmd_evaluate(a: argparse.Namespace) -> int:
         system=system,
         dataset=dataset,
         predictions_sha256=file_sha256(a.predictions),
+        scoring=scoring,
     )
     _dump(result, a.output)
     o = result["overall"]
     print(
-        f"{system['name']}  [{a.normalizer}]  WER {100 * o['wer']:.2f}  "
+        f"{system['name']}  [{a.normalizer}, scoring {result['scoring']}]  WER {100 * o['wer']:.2f}  "
         f"macro WER {100 * result['macro']['wer']:.2f}  CER {100 * o['cer']:.2f}  "
         f"n={o['n_utterances']}  missing={result['n_missing_predictions']}",
         file=sys.stderr,
@@ -125,6 +135,7 @@ def _parse_named(items: list[str]) -> dict[str, str]:
 
 
 def cmd_compare(a: argparse.Namespace) -> int:
+    scoring = _scoring_or_exit(a)
     refs = load_references(a.references, config=a.config, split=a.split)
     named = _parse_named(a.predictions)
     if a.baseline not in named:
@@ -132,7 +143,7 @@ def cmd_compare(a: argparse.Namespace) -> int:
     scores = {}
     for name, path in named.items():
         preds, dups = load_predictions(path)
-        scores[name] = score_utterances(refs, preds, a.normalizer, duplicates=dups)
+        scores[name] = score_utterances(refs, preds, a.normalizer, duplicates=dups, scoring=scoring)
     if a.unit == "recording" and any(r.recording_id is None for r in refs):
         raise SystemExit("--unit recording needs a recording_id for every reference")
     order = a.order.split(",") if a.order else sorted({r.dialect for r in refs})
@@ -156,6 +167,7 @@ def cmd_compare(a: argparse.Namespace) -> int:
                     "baseline": a.baseline,
                     "other": other,
                     "normalizer": a.normalizer,
+                    "scoring": scoring,
                     "group": g,
                     "unit": b.unit,
                     "n_units": b.n_units,
@@ -170,6 +182,7 @@ def cmd_compare(a: argparse.Namespace) -> int:
         "baseline",
         "other",
         "normalizer",
+        "scoring",
         "group",
         "unit",
         "n_units",
@@ -199,10 +212,10 @@ def cmd_report(a: argparse.Namespace) -> int:
         out = Path(a.out)
         write_csv(out / "summary.csv", SUMMARY_HEADER, summary_rows(runs))
         write_csv(out / "per_dialect.csv", PER_DIALECT_HEADER, per_dialect_rows(runs))
-    normalizers = sorted({r["normalizer"] for r in runs})
+    setups = sorted({(r["normalizer"], r.get("scoring", "none")) for r in runs})
     if a.readme:
-        if len(normalizers) != 1:
-            raise SystemExit("README tables need runs from exactly one normalizer; filter with --normalizer")
+        if len(setups) != 1:
+            raise SystemExit("README tables need runs from exactly one normalizer and scoring protocol")
         order = a.order.split(",") if a.order else sorted(runs[0]["per_dialect"])
         blocks = {
             f"{a.block}-summary": summary_markdown(runs, display),
@@ -212,8 +225,9 @@ def cmd_report(a: argparse.Namespace) -> int:
         path = Path(a.readme)
         path.write_text(update_markers(path.read_text(encoding="utf-8"), blocks), encoding="utf-8")
     else:
-        for n in normalizers:
-            print(f"## {n}\n\n" + summary_markdown([r for r in runs if r["normalizer"] == n], display) + "\n")
+        for n, sc in setups:
+            sel = [r for r in runs if r["normalizer"] == n and r.get("scoring", "none") == sc]
+            print(f"## {n}, scoring {sc}\n\n" + summary_markdown(sel, display) + "\n")
     return 0
 
 
@@ -238,6 +252,12 @@ def build_parser() -> argparse.ArgumentParser:
     _add_reference_args(s)
     s.add_argument("--predictions", required=True, help='JSONL: {"id": ..., "prediction": ...}')
     s.add_argument("--normalizer", default="echonova-v1", choices=list_normalizers())
+    s.add_argument(
+        "--scoring",
+        default="auto",
+        choices=["auto", *list_scorings()],
+        help="scoring protocol (default auto: sada-paper with echonova-v1, none otherwise)",
+    )
     s.add_argument("--system", help="system name (default: predictions file stem)")
     s.add_argument("--system-meta", help="JSON file mapping system name -> metadata to record")
     s.add_argument("--dataset-revision", help="dataset revision to record in the result")
@@ -253,6 +273,12 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--predictions", nargs="+", required=True, help="name=path.jsonl (or path; name = stem)")
     s.add_argument("--baseline", required=True)
     s.add_argument("--normalizer", default="echonova-v1", choices=list_normalizers())
+    s.add_argument(
+        "--scoring",
+        default="auto",
+        choices=["auto", *list_scorings()],
+        help="scoring protocol (default auto: sada-paper with echonova-v1, none otherwise)",
+    )
     s.add_argument("--unit", choices=["clip", "recording"], default="recording")
     s.add_argument("--resamples", type=int, default=DEFAULT_RESAMPLES)
     s.add_argument("--seed", type=int, default=DEFAULT_SEED)

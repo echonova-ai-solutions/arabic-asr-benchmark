@@ -28,6 +28,7 @@ SUMMARY_HEADER = [
     "system",
     "type",
     "normalizer",
+    "scoring",
     "n_utterances",
     "ref_words",
     "wer",
@@ -42,6 +43,7 @@ SUMMARY_HEADER = [
 PER_DIALECT_HEADER = [
     "system",
     "normalizer",
+    "scoring",
     "dialect",
     "n_utterances",
     "ref_words",
@@ -79,6 +81,7 @@ def summary_rows(runs: Sequence[dict]) -> list[dict]:
                 "system": _name(r),
                 "type": r.get("system", {}).get("type", ""),
                 "normalizer": r["normalizer"],
+                "scoring": r.get("scoring", "none"),
                 "n_utterances": o["n_utterances"],
                 "ref_words": o["ref_words"],
                 "wer": o["wer"],
@@ -91,7 +94,7 @@ def summary_rows(runs: Sequence[dict]) -> list[dict]:
                 "empty_rate": o["empty_rate"],
             }
         )
-    return sorted(rows, key=lambda x: (x["normalizer"], x["wer"]))
+    return sorted(rows, key=lambda x: (x["normalizer"], x["scoring"], x["wer"]))
 
 
 def per_dialect_rows(runs: Sequence[dict]) -> list[dict]:
@@ -102,8 +105,9 @@ def per_dialect_rows(runs: Sequence[dict]) -> list[dict]:
                 {
                     "system": _name(r),
                     "normalizer": r["normalizer"],
+                    "scoring": r.get("scoring", "none"),
                     "dialect": d,
-                    **{k: s[k] for k in PER_DIALECT_HEADER[3:]},
+                    **{k: s[k] for k in PER_DIALECT_HEADER[4:]},
                 }
             )
     return rows
