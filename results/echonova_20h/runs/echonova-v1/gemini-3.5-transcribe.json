@@ -25,7 +25,7 @@
     "source": "hf:echonova-ai/arabic-dialect-asr-benchmark",
     "config": "default",
     "split": "test",
-    "revision": "unreleased",
+    "revision": "4f033cf1277967e4652d2b92365c59374dd9205c",
     "n_references": 8925
   },
   "normalizer": "echonova-v1",
