@@ -1,15 +1,15 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.svg">
-  <img src="assets/banner-light.svg" alt="EchoNova Arabic Dialect ASR Benchmark">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.png">
+  <img src="assets/banner-light.png" alt="EchoNova Arabic Dialect ASR Benchmark">
 </picture>
 
 <p>
-  <a href="https://huggingface.co/datasets/echonova-ai/arabic-dialect-asr-benchmark"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Dataset-arabic--dialect--asr--benchmark-ffcc4d" alt="Hugging Face dataset"></a>
-  <img src="https://img.shields.io/badge/paper-coming%20soon-lightgrey" alt="Paper: coming soon">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/code-Apache--2.0-blue" alt="Code license: Apache-2.0"></a>
-  <img src="https://img.shields.io/badge/python-3.10%2B-3776ab" alt="Python 3.10+">
+  <a href="https://huggingface.co/datasets/echonova-ai/arabic-dialect-asr-benchmark"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Dataset-arabic--dialect--asr--benchmark-4a443e?labelColor=171310" alt="Hugging Face dataset"></a>
+  <img src="https://img.shields.io/badge/paper-coming%20soon-7a726a?labelColor=171310" alt="Paper: coming soon">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/code-Apache--2.0-4a443e?labelColor=171310" alt="Code license: Apache-2.0"></a>
+  <img src="https://img.shields.io/badge/python-3.10%2B-4a443e?labelColor=171310" alt="Python 3.10+">
   <a href="https://github.com/echonova-ai-solutions/arabic-asr-benchmark/actions/workflows/ci.yml"><img src="https://github.com/echonova-ai-solutions/arabic-asr-benchmark/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
 </p>
 
@@ -52,8 +52,8 @@ file, not access to any model, API key or EchoNova service.
 
 <p align="center">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/test-set-composition-dark.svg">
-  <img src="assets/test-set-composition-light.svg" alt="Hours and clips per variety in the public test set: MSA 8.27 h, Egyptian 3.37 h, Emirati 2.50 h, Saudi 1.67 h, and about 0.8 h each for Kuwaiti, Syrian, Lebanese, Qatari and Omani" width="720">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/test-set-composition-dark.png">
+  <img src="assets/test-set-composition-light.png" alt="Hours and clips per variety in the public test set: MSA 8.27 h, Egyptian 3.37 h, Emirati 2.50 h, Saudi 1.67 h, and about 0.8 h each for Kuwaiti, Syrian, Lebanese, Qatari and Omani" width="720">
 </picture>
 </p>
 
@@ -83,8 +83,8 @@ published in [`results/echonova_20h/predictions/`](results/echonova_20h/predicti
 
 <p align="center">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/wer-overview-dark.svg">
-  <img src="assets/wer-overview-light.svg" alt="Bar chart of word error rate on the public test set; Sada-ASR has the lowest WER of the eight systems. Values are in the table below" width="720">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/wer-overview-dark.png">
+  <img src="assets/wer-overview-light.png" alt="Bar chart of word error rate on the public test set; Sada-ASR has the lowest WER of the eight systems. Values are in the table below" width="720">
 </picture>
 </p>
 
@@ -105,8 +105,8 @@ WER (%) by variety (best per row in bold):
 
 <p align="center">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/wer-by-variety-dark.svg">
-  <img src="assets/wer-by-variety-light.svg" alt="Heatmap of word error rate by variety and system on the public test set. Values are in the table below" width="740">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/wer-by-variety-dark.png">
+  <img src="assets/wer-by-variety-light.png" alt="Heatmap of word error rate by variety and system on the public test set. Values are in the table below" width="740">
 </picture>
 </p>
 

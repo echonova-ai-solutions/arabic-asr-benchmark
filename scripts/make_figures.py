@@ -1,11 +1,17 @@
-"""Generate the README and dataset-card figures (SVG, light and dark) from the results.
+"""Generate the README figures (SVG, light and dark) from the results, in the EchoNova brand style.
 
 Every number in a figure is read from the published result files (and, for the
 test-set composition, from the dataset's parquet files); nothing is typed by hand.
 
-    python scripts/make_figures.py --dataset <local copy of the HF dataset>
+    python scripts/make_figures.py --dataset <local copy of the HF dataset> [--out build/figures]
 
-Writes assets/<name>-light.svg and assets/<name>-dark.svg.
+Brand rules applied (EchoNova Brand Book v4): papyrus #F7F3EC background, ink #171310
+text, exactly one red #D40000 element per figure, no gradients, glow or waveforms;
+Lyon Display for the hero headline only, Codec Pro for text, IBM Plex Mono for numbers;
+the EchoNova logo alone (no Arabic lockup) on English material.
+
+The SVGs name the brand typefaces; the PNGs in assets/ are rendered from them with
+EchoNova's licensed fonts, which are not distributed with this repository.
 """
 
 from __future__ import annotations
@@ -20,7 +26,12 @@ from xml.sax.saxutils import escape
 ROOT = Path(__file__).resolve().parents[1]
 R20 = ROOT / "results" / "echonova_20h"
 ASSETS = ROOT / "assets"
-FONT = "system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+LOGO = ASSETS / "echonova-logo.svg"
+
+TEXT = "'Codec Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
+DISPLAY = "'Lyon Display', Georgia, 'Times New Roman', serif"
+MONO = "'IBM Plex Mono', 'SFMono-Regular', Menlo, Consolas, monospace"
+
 ORDER = ["msa", "egyptian", "saudi", "emirati", "kuwaiti", "qatari", "omani", "syrian", "lebanese"]
 VARIETY = {
     "msa": "MSA",
@@ -43,7 +54,6 @@ SHORT = {
     "whisper-large-v3": "Whisper",
     "nemotron-3.5-asr-streaming-0.6b": "Nemotron",
 }
-# Row labels for the overview chart (full names, trimmed to fit the label column).
 LABEL = {
     "sada-asr": "Sada-ASR (EchoNova)",
     "mai-transcribe-2": "Microsoft MAI-Transcribe-2",
@@ -56,39 +66,38 @@ LABEL = {
 }
 HIGHLIGHT = "sada-asr"
 
-# Tokens: EchoNova website palette (echonova.ai) - paper #f7f3ec, ink #171310, brand red #d40000,
-# warm neutrals - mapped onto the dataviz roles and validated against both surfaces.
+RED = "#d40000"
 THEMES = {
     "light": {
         "surface": "#f7f3ec",
         "ink": "#171310",
         "ink2": "#4a443e",
         "muted": "#7a726a",
+        "rule": "#ddd5ca",
         "grid": "#e9e2d9",
-        "axis": "#ddd5ca",
-        "border": "#e9e2d9",
-        "accent": "#d40000",
         "rest": "#7a726a",
-        "series": "#7a726a",
+        "series": "#4a443e",
+        # papyrus -> ink, darker is worse
+        "ramp": ["#e3dbcf", "#c2bbb0", "#a29b92", "#837d75", "#666059", "#4a443f", "#2f2b26", "#171310"],
+        "ramp_note": "darker is worse",
     },
     "dark": {
         "surface": "#171310",
         "ink": "#f7f3ec",
         "ink2": "#ddd5ca",
-        "muted": "#898781",
+        "muted": "#a29b92",
+        "rule": "#3a342e",
         "grid": "#2b2621",
-        "axis": "#3a342e",
-        "border": "rgba(247,243,236,0.12)",
-        "accent": "#d40000",
         "rest": "#898781",
-        "series": "#898781",
+        "series": "#c2bbb0",
+        # just-off-ink -> papyrus, lighter is worse
+        "ramp": ["#2f2b26", "#4a443f", "#666059", "#837d75", "#a29b92", "#c2bbb0", "#e3dbcf", "#f7f3ec"],
+        "ramp_note": "lighter is worse",
     },
 }
-# Sequential single-hue red ramp (OKLCH hue 29, the brand red's hue), light -> dark, for the heatmap.
-RAMP = ["#fdc9c1", "#ffa294", "#ff7a69", "#f75141", "#e4251b", "#c11911", "#981f16", "#722018", "#4d1c16"]
-SERIF = "'Lyon Display', 'Iowan Old Style', Georgia, 'Times New Roman', serif"
-ARABIC = "'Lyon Arabic Text', Amiri, 'Noto Naskh Arabic', 'Geeza Pro', serif"
-LOGO = ASSETS / "echonova-logo.svg"
+
+
+# --------------------------------------------------------------------------- helpers
 
 
 def _svg(width: int, height: int, body: list[str], t: dict, title: str) -> str:
@@ -97,9 +106,8 @@ def _svg(width: int, height: int, body: list[str], t: dict, title: str) -> str:
             f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" '
             f'role="img" aria-label="{escape(title)}">',
             f"<title>{escape(title)}</title>",
-            f'<rect x="0.5" y="0.5" width="{width - 1}" height="{height - 1}" rx="12" fill="{t["surface"]}" '
-            f'stroke="{t["border"]}"/>',
-            f'<g font-family="{FONT}">',
+            f'<rect x="0.5" y="0.5" width="{width - 1}" height="{height - 1}" fill="{t["surface"]}" stroke="{t["rule"]}"/>',
+            f'<g font-family="{TEXT}">',
             *body,
             "</g>",
             "</svg>",
@@ -108,16 +116,38 @@ def _svg(width: int, height: int, body: list[str], t: dict, title: str) -> str:
     )
 
 
-def _text(x, y, s, t, size=13, color="ink", weight=400, anchor="start", extra=""):
+def _text(x, y, s, t, size=14, color="ink", weight=400, anchor="start", family=None, spacing=None):
     fill = t[color] if color in t else color
+    fam = f' font-family="{family}"' if family else ""
+    ls = f' letter-spacing="{spacing}"' if spacing else ""
     return (
         f'<text x="{x:.1f}" y="{y:.1f}" font-size="{size}" font-weight="{weight}" fill="{fill}" '
-        f'text-anchor="{anchor}"{extra}>{escape(s)}</text>'
+        f'text-anchor="{anchor}"{fam}{ls}>{escape(s)}</text>'
     )
 
 
-def _hbar(x0, y, length, h, r, color):
-    """Horizontal bar, square at the baseline, 4px-rounded data end."""
+def _eyebrow(x, y, s, t):
+    return _text(x, y, s.upper(), t, 11, "muted", 400, family=MONO, spacing=2)
+
+
+def _logo(t: dict, x: float, y: float, height: float) -> str:
+    src = LOGO.read_text(encoding="utf-8")
+    inner = re.search(r"<g[^>]*>(.*)</g>", src, re.S).group(1).replace('fill="black"', f'fill="{t["ink"]}"')
+    return f'<g transform="translate({x:.1f},{y:.1f}) scale({height / 19:.4f})">{inner}</g>'
+
+
+def _footer(t: dict, w: int, h: int, note: str) -> list[str]:
+    # The logo's clear space is its own height on every side.
+    return [
+        f'<line x1="40" y1="{h - 52}" x2="{w - 40}" y2="{h - 52}" stroke="{t["rule"]}" stroke-width="1"/>',
+        _text(40, h - 24, note, t, 11, "muted", family=MONO),
+        _logo(t, w - 40 - 137.141 * 12 / 19, h - 34, 12),
+    ]
+
+
+def _hbar(x0, y, length, h, color):
+    """Horizontal bar, square at the baseline, 2px-rounded data end."""
+    r = 2
     if length <= r:
         return f'<rect x="{x0:.1f}" y="{y:.1f}" width="{max(length, 0):.1f}" height="{h}" fill="{color}"/>'
     x1 = x0 + length
@@ -127,6 +157,12 @@ def _hbar(x0, y, length, h, r, color):
     )
 
 
+def _lum(hexcolor):
+    c = [int(hexcolor[i : i + 2], 16) / 255 for i in (1, 3, 5)]
+    c = [x / 12.92 if x <= 0.03928 else ((x + 0.055) / 1.055) ** 2.4 for x in c]
+    return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]
+
+
 def _load_runs():
     meta = json.loads((R20 / "systems.json").read_text(encoding="utf-8"))
     summary = {
@@ -134,108 +170,157 @@ def _load_runs():
         for r in csv.DictReader(open(R20 / "summary.csv", encoding="utf-8"))
         if r["normalizer"] == "echonova-v1"
     }
-    per = {}
-    for r in csv.DictReader(open(R20 / "per_dialect.csv", encoding="utf-8")):
-        if r["normalizer"] == "echonova-v1":
-            per[(r["system"], r["dialect"])] = 100 * float(r["wer"])
+    per = {
+        (r["system"], r["dialect"]): 100 * float(r["wer"])
+        for r in csv.DictReader(open(R20 / "per_dialect.csv", encoding="utf-8"))
+        if r["normalizer"] == "echonova-v1"
+    }
     return meta, summary, per
 
 
+def _dataset_stats(dataset: Path):
+    import pyarrow.parquet as pq
+
+    hours, clips = dict.fromkeys(ORDER, 0.0), dict.fromkeys(ORDER, 0)
+    for f in sorted((dataset / "data").glob("test-*.parquet")):
+        tab = pq.read_table(f, columns=["dialect", "duration"]).to_pydict()
+        for d, dur in zip(tab["dialect"], tab["duration"], strict=True):
+            hours[d] += dur / 3600
+            clips[d] += 1
+    return hours, clips
+
+
+# --------------------------------------------------------------------------- figures
+
+
+def banner(t: dict, summary, hours_total: float | None) -> str:
+    """The hero: Lyon Display headline whose full stop is the one red element."""
+    w, h = 1200, 340
+    n = int(next(iter(summary.values()))["n_utterances"])
+    stats = ([f"{hours_total:.2f} hours"] if hours_total else []) + [
+        f"{n:,} clips",
+        f"{len(ORDER)} varieties",
+        f"{len(summary)} systems",
+    ]
+    body = [
+        _eyebrow(64, 72, "Open benchmark · Arabic speech recognition", t),
+        f'<text x="64" y="160" font-family="{DISPLAY}" font-size="60" font-weight="400" fill="{t["ink"]}">'
+        f'Arabic Dialect ASR Benchmark<tspan fill="{RED}">.</tspan></text>',
+        _text(
+            64, 204, "Reproducible evaluation for Modern Standard Arabic and eight dialects.", t, 20, "ink2"
+        ),
+        f'<line x1="64" y1="244" x2="{w - 64}" y2="244" stroke="{t["rule"]}" stroke-width="1"/>',
+        _text(64, 282, "  ·  ".join(s.upper() for s in stats), t, 14, "ink", 400, family=MONO, spacing=1),
+        _logo(t, w - 64 - 137.141 * 22 / 19, 268, 22),
+    ]
+    return _svg(w, h, body, t, "EchoNova Arabic Dialect ASR Benchmark")
+
+
 def wer_overview(t: dict, meta, summary) -> str:
+    """Emphasis bar chart: Sada-ASR's bar is the one red element."""
     rows = sorted(summary.values(), key=lambda r: float(r["wer"]))
-    w, left, right, top, row_h, bar_h = 820, 250, 92, 92, 36, 20
+    w, left, right, top, row_h, bar_h = 880, 270, 100, 130, 38, 18
     plot_w = w - left - right
     vmax = 30.0
-    h = top + row_h * len(rows) + 64
+    h = top + row_h * len(rows) + 86
     n = int(rows[0]["n_utterances"])
     body = [
-        _text(24, 38, "Word error rate on the public test set", t, 18, "ink", 600),
+        _eyebrow(40, 48, "Results · public test set", t),
+        _text(40, 82, "Word error rate", t, 24, "ink", 700),
         _text(
-            24,
-            60,
-            f"{n:,} clips, MSA and eight dialects · lower is better · paper scoring (echonova-v1 + sada-paper)",
+            40,
+            106,
+            f"{n:,} clips, MSA and eight dialects. Lower is better. Paper scoring "
+            "(echonova-v1 + sada-paper).",
             t,
-            13,
+            14,
             "ink2",
         ),
     ]
+    base_y = top + row_h * len(rows) - 12
     for v in range(0, 31, 10):
         x = left + plot_w * v / vmax
         body.append(
-            f'<line x1="{x:.1f}" y1="{top - 8}" x2="{x:.1f}" y2="{top + row_h * len(rows) - 8}" '
-            f'stroke="{t["grid"] if v else t["axis"]}" stroke-width="1"/>'
+            f'<line x1="{x:.1f}" y1="{top - 10}" x2="{x:.1f}" y2="{base_y}" '
+            f'stroke="{t["grid"] if v else t["rule"]}" stroke-width="1"/>'
         )
-        body.append(_text(x, top + row_h * len(rows) + 10, f"{v}%", t, 12, "muted", anchor="middle"))
+        body.append(_text(x, base_y + 20, f"{v}%", t, 11, "muted", anchor="middle", family=MONO))
     for i, r in enumerate(rows):
         s = r["system"]
         y = top + i * row_h
         wer = 100 * float(r["wer"])
         hi = s == HIGHLIGHT
-        body.append(_text(left - 14, y + 11, LABEL[s], t, 13, "ink", 600 if hi else 400, "end"))
-        body.append(_text(left - 14, y + 26, meta[s]["type"], t, 11, "muted", anchor="end"))
-        body.append(_hbar(left, y, plot_w * wer / vmax, bar_h, 4, t["accent"] if hi else t["rest"]))
+        body.append(_text(left - 16, y + 9, LABEL[s], t, 14, "ink", 700 if hi else 400, "end"))
         body.append(
-            _text(left + plot_w * wer / vmax + 8, y + 15, f"{wer:.2f}%", t, 13, "ink", 600 if hi else 400)
+            _text(
+                left - 16,
+                y + 25,
+                meta[s]["type"].upper(),
+                t,
+                9,
+                "muted",
+                anchor="end",
+                family=MONO,
+                spacing=1,
+            )
         )
-    body.append(
-        _text(
-            24,
-            h - 18,
-            "Source: results/echonova_20h/summary.csv. Per-clip outputs of every system are "
-            "published, so these figures can be recomputed.",
-            t,
-            11,
-            "muted",
+        body.append(_hbar(left, y, plot_w * wer / vmax, bar_h, RED if hi else t["rest"]))
+        body.append(
+            _text(
+                left + plot_w * wer / vmax + 10,
+                y + 14,
+                f"{wer:.2f}%",
+                t,
+                13,
+                "ink",
+                500 if hi else 400,
+                family=MONO,
+            )
         )
-    )
+    body += _footer(t, w, h, "Source: results/echonova_20h/summary.csv")
     return _svg(w, h, body, t, "Word error rate of eight ASR systems on the EchoNova public Arabic test set")
 
 
-def _ramp_color(v, lo, hi):
-    k = 0 if hi == lo else round((v - lo) / (hi - lo) * (len(RAMP) - 1))
-    return RAMP[max(0, min(len(RAMP) - 1, k))]
-
-
-def _lum(hexcolor):
-    c = [int(hexcolor[i : i + 2], 16) / 255 for i in (1, 3, 5)]
-    c = [x / 12.92 if x <= 0.03928 else ((x + 0.055) / 1.055) ** 2.4 for x in c]
-    return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]
-
-
 def wer_heatmap(t: dict, meta, summary, per) -> str:
+    """Ink-ramp heatmap; a red dot marks Sada-ASR's column (the one red element)."""
+    ramp = t["ramp"]
     systems = [r["system"] for r in sorted(summary.values(), key=lambda r: float(r["wer"]))]
     vals = [per[(s, d)] for s in systems for d in ORDER]
     lo, hi = min(vals), max(vals)
-    left, top, cw, ch, gap = 112, 112, 86, 34, 2
-    w = left + cw * len(systems) + 28
-    h = top + ch * len(ORDER) + 88
+    left, top, cw, ch, gap = 120, 168, 88, 34, 2
+    w = left + cw * len(systems) + 40
+    h = top + ch * len(ORDER) + 118
     body = [
-        _text(24, 38, "Word error rate by variety", t, 18, "ink", 600),
+        _eyebrow(40, 48, "Results · by variety", t),
+        _text(40, 82, "Word error rate by variety", t, 24, "ink", 700),
         _text(
-            24,
-            60,
-            "Public test set · darker is worse · bold marks the best system in each row",
+            40,
+            106,
+            f"Public test set, % WER. {t['ramp_note'].capitalize()}; bold marks the best system in each row.",
             t,
-            13,
+            14,
             "ink2",
         ),
     ]
     for j, s in enumerate(systems):
         x = left + j * cw + cw / 2
-        body.append(_text(x, top - 14, SHORT[s], t, 12, "ink", 600 if s == HIGHLIGHT else 400, "middle"))
+        is_hi = s == HIGHLIGHT
+        body.append(_text(x, top - 14, SHORT[s], t, 12, "ink", 700 if is_hi else 400, "middle"))
+        if is_hi:
+            body.append(f'<circle cx="{x:.1f}" cy="{top - 38:.1f}" r="4" fill="{RED}"/>')
     for i, d in enumerate(ORDER):
         y = top + i * ch
         row = {s: per[(s, d)] for s in systems}
         best = min(row.values())
-        body.append(_text(left - 12, y + ch / 2 + 4, VARIETY[d], t, 13, "ink", anchor="end"))
+        body.append(_text(left - 14, y + ch / 2 + 5, VARIETY[d], t, 13, "ink", anchor="end"))
         for j, s in enumerate(systems):
             x = left + j * cw
-            fill = _ramp_color(row[s], lo, hi)
-            ink = "#0b0b0b" if _lum(fill) > 0.32 else "#ffffff"
+            k = 0 if hi == lo else round((row[s] - lo) / (hi - lo) * (len(ramp) - 1))
+            fill = ramp[max(0, min(len(ramp) - 1, k))]
+            ink = "#171310" if _lum(fill) > 0.3 else "#f7f3ec"
             body.append(
                 f'<rect x="{x + gap / 2:.1f}" y="{y + gap / 2:.1f}" width="{cw - gap}" height="{ch - gap}" '
-                f'rx="3" fill="{fill}"><title>{escape(VARIETY[d])}, {escape(SHORT[s])}: '
-                f"{row[s]:.2f}% WER</title></rect>"
+                f'fill="{fill}"><title>{escape(VARIETY[d])}, {escape(SHORT[s])}: {row[s]:.2f}% WER</title></rect>'
             )
             body.append(
                 _text(
@@ -245,162 +330,88 @@ def wer_heatmap(t: dict, meta, summary, per) -> str:
                     t,
                     12,
                     ink,
-                    700 if row[s] == best else 400,
+                    600 if row[s] == best else 400,
                     "middle",
+                    family=MONO,
                 )
             )
-    ly = top + ch * len(ORDER) + 26
-    lw = 220
-    for k, c in enumerate(RAMP):
+    ly = top + ch * len(ORDER) + 28
+    lw = 240
+    for k, c in enumerate(ramp):
         body.append(
-            f'<rect x="{left + k * lw / len(RAMP):.1f}" y="{ly}" width="{lw / len(RAMP) + 0.5:.1f}" '
+            f'<rect x="{left + k * lw / len(ramp):.1f}" y="{ly}" width="{lw / len(ramp) + 0.5:.1f}" '
             f'height="10" fill="{c}"/>'
         )
-    body.append(_text(left - 8, ly + 9, f"{lo:.1f}%", t, 11, "muted", anchor="end"))
-    body.append(_text(left + lw + 8, ly + 9, f"{hi:.1f}% WER", t, 11, "muted"))
-    body.append(
-        _text(
-            24,
-            h - 18,
-            "Source: results/echonova_20h/per_dialect.csv (echonova-v1 + sada-paper scoring).",
-            t,
-            11,
-            "muted",
-        )
-    )
+    body.append(_text(left - 8, ly + 9, f"{lo:.1f}%", t, 11, "muted", anchor="end", family=MONO))
+    body.append(_text(left + lw + 8, ly + 9, f"{hi:.1f}%", t, 11, "muted", family=MONO))
+    body += _footer(t, w, h, "Source: results/echonova_20h/per_dialect.csv")
     return _svg(w, h, body, t, "Word error rate by Arabic variety and system on the EchoNova public test set")
 
 
-def composition(t: dict, dataset: Path) -> str:
-    import pyarrow.parquet as pq
-
-    hours, clips = dict.fromkeys(ORDER, 0.0), dict.fromkeys(ORDER, 0)
-    for f in sorted((dataset / "data").glob("test-*.parquet")):
-        tab = pq.read_table(f, columns=["dialect", "duration"]).to_pydict()
-        for d, dur in zip(tab["dialect"], tab["duration"], strict=True):
-            hours[d] += dur / 3600
-            clips[d] += 1
+def composition(t: dict, hours: dict, clips: dict) -> str:
+    """Neutral bars; the title's red full stop is the one red element."""
     rows = sorted(ORDER, key=lambda d: -hours[d])
-    w, left, right, top, row_h, bar_h = 820, 112, 170, 92, 30, 18
+    w, left, right, top, row_h, bar_h = 880, 120, 210, 130, 32, 16
     plot_w = w - left - right
     vmax = max(hours.values())
-    h = top + row_h * len(rows) + 52
+    h = top + row_h * len(rows) + 90
     total_h, total_c = sum(hours.values()), sum(clips.values())
     body = [
-        _text(24, 38, "What is in the public test set", t, 18, "ink", 600),
+        _eyebrow(40, 48, "Dataset · public test set", t),
+        f'<text x="40" y="82" font-size="24" font-weight="700" fill="{t["ink"]}">What is in the test set'
+        f'<tspan fill="{RED}">.</tspan></text>',
         _text(
-            24,
-            60,
-            f"{total_h:.2f} hours · {total_c:,} clips · one sixth of every variety of the 120-hour "
-            "private test set",
+            40,
+            106,
+            f"{total_h:.2f} hours and {total_c:,} clips: one sixth of every variety of the 120-hour "
+            "private test set.",
             t,
-            13,
+            14,
             "ink2",
         ),
     ]
     for i, d in enumerate(rows):
         y = top + i * row_h
-        body.append(_text(left - 12, y + 13, VARIETY[d], t, 13, "ink", anchor="end"))
-        body.append(_hbar(left, y, plot_w * hours[d] / vmax, bar_h, 4, t["series"]))
+        body.append(_text(left - 14, y + 13, VARIETY[d], t, 13, "ink", anchor="end"))
+        body.append(_hbar(left, y, plot_w * hours[d] / vmax, bar_h, t["series"]))
         body.append(
             _text(
-                left + plot_w * hours[d] / vmax + 8,
+                left + plot_w * hours[d] / vmax + 10,
                 y + 13,
                 f"{hours[d]:.2f} h · {clips[d]:,} clips",
                 t,
                 12,
                 "ink2",
+                family=MONO,
             )
         )
-    body.append(
-        _text(
-            24,
-            h - 18,
-            "Source: the dataset's parquet files (duration of the released 16 kHz audio).",
-            t,
-            11,
-            "muted",
-        )
-    )
+    body += _footer(t, w, h, "Source: the dataset's parquet files (released 16 kHz audio)")
     return _svg(w, h, body, t, "Hours and clips per Arabic variety in the EchoNova public test set")
-
-
-def banner(t: dict, mode: str, summary, dataset: Path | None) -> str:
-    w, h = 1200, 300
-    logo = ""
-    if LOGO.exists():
-        src = LOGO.read_text(encoding="utf-8")
-        inner = re.search(r"<g[^>]*>(.*)</g>", src, re.S).group(1)
-        inner = inner.replace('fill="black"', f'fill="{t["ink"]}"')
-        logo = f'<g transform="translate(64,60) scale(1.6)">{inner}</g>'
-    n = int(next(iter(summary.values()))["n_utterances"])
-    hours = ""
-    if dataset is not None:
-        import pyarrow.parquet as pq
-
-        tot = sum(
-            sum(pq.read_table(f, columns=["duration"]).column(0).to_pylist())
-            for f in (dataset / "data").glob("test-*.parquet")
-        )
-        hours = f"{tot / 3600:.2f} hours · "
-    # A stylised echo (Sada, صدى): arcs radiating from a source point, fading out.
-    import math
-
-    cx, cy = 1004, 150
-    arcs = []
-    for k, r in enumerate(range(34, 171, 34)):
-        a = math.radians(48)
-        x0, y0 = cx + r * math.cos(-a), cy + r * math.sin(-a)
-        x1, y1 = cx + r * math.cos(a), cy + r * math.sin(a)
-        arcs.append(
-            f'<path d="M{x0:.1f},{y0:.1f} A{r},{r} 0 0 1 {x1:.1f},{y1:.1f}" fill="none" '
-            f'stroke="{t["accent"]}" stroke-width="4" stroke-linecap="round" '
-            f'opacity="{1 - k * 0.17:.2f}"/>'
-        )
-    body = [
-        logo,
-        _text(64, 150, "Arabic Dialect ASR Benchmark", t, 46, "ink", 500, extra=f' font-family="{SERIF}"'),
-        _text(
-            64,
-            192,
-            "Reproducible speech-recognition evaluation for MSA and eight Arabic dialects",
-            t,
-            19,
-            "ink2",
-        ),
-        _text(
-            64,
-            238,
-            f"{hours}{n:,} clips · 9 varieties · 8 systems · normalizers, scoring and per-clip outputs",
-            t,
-            15,
-            "muted",
-        ),
-        f'<circle cx="{cx}" cy="{cy}" r="9" fill="{t["accent"]}"/>',
-        *arcs,
-        f'<text x="{cx - 26}" y="{cy + 14}" font-size="42" font-family="{ARABIC}" fill="{t["ink"]}" '
-        f'text-anchor="end">صدى</text>',
-    ]
-    return _svg(w, h, body, t, "EchoNova Arabic Dialect ASR Benchmark")
 
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--dataset", type=Path, help="local copy of the HF dataset (for the composition figure)")
+    ap.add_argument(
+        "--dataset", type=Path, help="local copy of the HF dataset (composition figure, banner hours)"
+    )
+    ap.add_argument("--out", type=Path, default=ROOT / "build" / "figures")
     a = ap.parse_args()
     meta, summary, per = _load_runs()
-    ASSETS.mkdir(exist_ok=True)
+    hours = clips = None
+    if a.dataset:
+        hours, clips = _dataset_stats(a.dataset)
+    a.out.mkdir(parents=True, exist_ok=True)
     for mode, t in THEMES.items():
         figs = {
+            "banner": banner(t, summary, sum(hours.values()) if hours else None),
             "wer-overview": wer_overview(t, meta, summary),
             "wer-by-variety": wer_heatmap(t, meta, summary, per),
-            "banner": banner(t, mode, summary, a.dataset),
         }
-        if a.dataset:
-            figs["test-set-composition"] = composition(t, a.dataset)
+        if hours:
+            figs["test-set-composition"] = composition(t, hours, clips)
         for name, svg in figs.items():
-            (ASSETS / f"{name}-{mode}.svg").write_text(svg, encoding="utf-8")
-    print("wrote", sorted(p.name for p in ASSETS.glob("*.svg")))
+            (a.out / f"{name}-{mode}.svg").write_text(svg, encoding="utf-8")
+    print("wrote", sorted(p.name for p in a.out.glob("*.svg")))
 
 
 if __name__ == "__main__":
