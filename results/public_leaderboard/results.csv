@@ -1,22 +1,22 @@
-system,normalizer,test_set,n_utterances,wer,cer,status
-sada-asr,oual-2026-07,sada,6189,0.253715,0.118799,EchoNova-reproduced
-sada-asr,oual-2026-07,commonvoice,10471,0.036174,0.011248,EchoNova-reproduced
-sada-asr,oual-2026-07,masc_clean,8612,0.052992,0.021236,EchoNova-reproduced
-sada-asr,oual-2026-07,masc_noisy,9394,0.169991,0.067902,EchoNova-reproduced
-sada-asr,oual-2026-07,casablanca,6726,0.416249,0.157149,EchoNova-reproduced
-sada-asr,oual-2026-07,mgb2,5365,0.099020,0.051115,EchoNova-reproduced
-sada-asr,oual-2026-07,"average (unweighted, 6 sets)",46757,0.171357,0.071242,EchoNova-reproduced
-sada-asr,oual-2024-12,sada,6189,0.378594,0.149604,EchoNova-reproduced
-sada-asr,oual-2024-12,commonvoice,10471,0.249137,0.056249,EchoNova-reproduced
-sada-asr,oual-2024-12,masc_clean,8612,0.228946,0.053358,EchoNova-reproduced
-sada-asr,oual-2024-12,masc_noisy,9394,0.327559,0.101152,EchoNova-reproduced
-sada-asr,oual-2024-12,casablanca,6726,0.547926,0.190488,EchoNova-reproduced
-sada-asr,oual-2024-12,mgb2,5365,0.251941,0.080842,EchoNova-reproduced
-sada-asr,oual-2024-12,"average (unweighted, 6 sets)",46757,0.330684,0.105282,EchoNova-reproduced
-sada-asr,echonova-v1,sada,6189,0.256258,0.118699,EchoNova-reproduced
-sada-asr,echonova-v1,commonvoice,10471,0.039111,0.012620,EchoNova-reproduced
-sada-asr,echonova-v1,masc_clean,8612,0.078596,0.023178,EchoNova-reproduced
-sada-asr,echonova-v1,masc_noisy,9394,0.170225,0.066847,EchoNova-reproduced
-sada-asr,echonova-v1,casablanca,6726,0.447287,0.161576,EchoNova-reproduced
-sada-asr,echonova-v1,mgb2,5365,0.099289,0.051133,EchoNova-reproduced
-sada-asr,echonova-v1,"average (unweighted, 6 sets)",46757,0.181795,0.072342,EchoNova-reproduced
+system,normalizer,scoring,test_set,n_utterances,wer,cer,status
+sada-asr,oual-2026-07,none,sada,6189,0.257600,0.120725,EchoNova-reproduced
+sada-asr,oual-2026-07,none,commonvoice,10471,0.039451,0.011876,EchoNova-reproduced
+sada-asr,oual-2026-07,none,masc_clean,8612,0.053483,0.021297,EchoNova-reproduced
+sada-asr,oual-2026-07,none,masc_noisy,9394,0.166965,0.066528,EchoNova-reproduced
+sada-asr,oual-2026-07,none,casablanca,6726,0.417204,0.154085,EchoNova-reproduced
+sada-asr,oual-2026-07,none,mgb2,5365,0.095603,0.048246,EchoNova-reproduced
+sada-asr,oual-2026-07,none,"average (unweighted, 6 sets)",46757,0.171718,0.070460,EchoNova-reproduced
+sada-asr,oual-2024-12,none,sada,6189,0.378779,0.150985,EchoNova-reproduced
+sada-asr,oual-2024-12,none,commonvoice,10471,0.252458,0.056996,EchoNova-reproduced
+sada-asr,oual-2024-12,none,masc_clean,8612,0.230271,0.053636,EchoNova-reproduced
+sada-asr,oual-2024-12,none,masc_noisy,9394,0.323888,0.099653,EchoNova-reproduced
+sada-asr,oual-2024-12,none,casablanca,6726,0.548006,0.187280,EchoNova-reproduced
+sada-asr,oual-2024-12,none,mgb2,5365,0.252532,0.078591,EchoNova-reproduced
+sada-asr,oual-2024-12,none,"average (unweighted, 6 sets)",46757,0.330989,0.104523,EchoNova-reproduced
+sada-asr,echonova-v1,sada-paper,sada,6189,0.259196,0.119643,EchoNova-reproduced
+sada-asr,echonova-v1,sada-paper,commonvoice,10471,0.043165,0.012156,EchoNova-reproduced
+sada-asr,echonova-v1,sada-paper,masc_clean,8612,0.079935,0.023353,EchoNova-reproduced
+sada-asr,echonova-v1,sada-paper,masc_noisy,9394,0.168629,0.065725,EchoNova-reproduced
+sada-asr,echonova-v1,sada-paper,casablanca,6726,0.447234,0.156542,EchoNova-reproduced
+sada-asr,echonova-v1,sada-paper,mgb2,5365,0.095950,0.048254,EchoNova-reproduced
+sada-asr,echonova-v1,sada-paper,"average (unweighted, 6 sets)",46757,0.182351,0.070946,EchoNova-reproduced

@@ -16,8 +16,8 @@ Registered protocols
     1. **Loop crop (hypothesis only).** Any 1-3-word unit repeated more than 10
        times back-to-back is cut to 10 copies. The longest real back-to-back
        repetition in any reference of the test set is 7 (a stutter), so no correct
-       transcript is altered; runaway outputs (one system returned one word 15,008
-       times) are.
+       transcript is altered; runaway outputs (one output repeated a single word
+       15,006 times) are.
     2. **Whitespace canonicalization (both sides).** Every whitespace run becomes
        one space, so CER counts characters rather than layout (line breaks, double
        spaces). WER is unaffected.

@@ -7,31 +7,12 @@ any EchoNova model, service or credential.
 
 | Claim | Verifiable by | How |
 | :--- | :--- | :--- |
-| Metrics of all seven systems on the public test set | Anyone | Score the published outputs (step 3) |
+| Metrics of the eight systems on the public test set | Anyone | Score the published outputs (step 3) |
 | Outputs of the four open-weight models | Anyone | Re-run the models on the public audio; settings we recorded are in `results/echonova_20h/systems.json` |
-| Outputs of MAI-Transcribe-2 and gpt-transcribe | Approximately | Hosted APIs change without notice; ours are dated measurements |
+| Outputs of MAI-Transcribe-2, Gemini 3.5 Transcribe and gpt-transcribe | Approximately | Hosted APIs change without notice; ours are dated measurements (13 October 2026) |
 | Outputs of Sada-ASR | Not externally | Proprietary model; its outputs are published so its metrics can be checked |
 | Results on the unreleased five sixths (paper tables) | Not externally | Recomputed by EchoNova with this package from stored outputs |
 | Sada-ASR on the leaderboard test sets | Protocol only | Test sets are public; Sada-ASR's outputs on them are not published |
-
-## Inference check on the released audio
-
-To check that the released audio reproduces the original inference, EchoNova
-re-ran Whisper large-v3 (`openai/whisper-large-v3`, transformers, fp16, greedy
-decoding, batch size 1, `language="ar"`) on all 7,396 clips of the `default`
-config, loaded from the released files:
-
-| | Original run (published outputs) | Re-run on released audio |
-| :--- | ---: | ---: |
-| Identical transcripts | | 7,210 of 7,396 (97.5%) |
-| WER (`echonova-v1`) | 32.04% | 32.09% |
-| CER (`echonova-v1`) | 18.43% | 18.44% |
-
-The small remainder is expected: the original run fed the model the decoded
-floating-point waveform, while the released audio is the same waveform stored as
-16-bit PCM (the form the commercial APIs received). Expect differences of this
-order when re-running other models, plus differences from library and hardware
-versions.
 
 ## 1. Install
 
@@ -58,7 +39,7 @@ ds = load_dataset("echonova-ai/arabic-dialect-asr-benchmark", split="test")
 ```
 
 Scoring only reads the `id`, `text`, `dialect` and `recording_id` columns.
-Decoding audio with `datasets` 4.x requires `pip install "datasets[audio]"`.
+Decoding audio with `datasets` 4.x or later requires `pip install "datasets[audio]"`.
 To pin the exact version used for the published results, pass the revision
 recorded in `results/echonova_20h/runs/*/*.json` (`dataset.revision`), e.g.
 `--references hf:echonova-ai/arabic-dialect-asr-benchmark@<revision>`.
@@ -74,14 +55,16 @@ asr-bench report my_runs --system-meta results/echonova_20h/systems.json
 ```
 
 The table should match `results/echonova_20h/summary.csv` (rows with
-`normalizer = echonova-v1`) exactly. Add `--normalizer echonova-v1.1` or
-`--normalizer oual-2026-07` to reproduce the other rows.
+`normalizer = echonova-v1`, `scoring = sada-paper`) exactly; the default
+normalizer and scoring protocol are the paper's. Add `--normalizer echonova-v1.1`
+or `--normalizer oual-2026-07` to reproduce the other rows, and `--scoring none`
+to see the scores without the loop crop and whitespace canonicalization.
 
 Confidence intervals (`results/echonova_20h/bootstrap.csv`):
 
 ```bash
 asr-bench compare --baseline sada-asr --unit recording \
-    --order msa,egyptian,saudi,emirati,kuwaiti,qatari,syrian,lebanese \
+    --order msa,egyptian,saudi,emirati,kuwaiti,qatari,syrian,lebanese,omani \
     --predictions results/echonova_20h/predictions/*.jsonl --output my_bootstrap.csv
 ```
 
@@ -109,7 +92,7 @@ asr-bench compare --baseline sada-asr --unit recording \
    ```bash
    asr-bench compare --baseline my-system --predictions my-system=predictions.jsonl \
        results/echonova_20h/predictions/*.jsonl \
-       --order msa,egyptian,saudi,emirati,kuwaiti,qatari,syrian,lebanese
+       --order msa,egyptian,saudi,emirati,kuwaiti,qatari,syrian,lebanese,omani
    ```
 
 When reporting results, state the normalizer, the dataset revision, the date
@@ -125,6 +108,7 @@ alongside the overall WER. Do not tune on this test set.
 | `system` | Name plus any metadata passed with `--system-meta` |
 | `dataset` | Source, config, split, revision, number of references |
 | `normalizer` | Normalizer name |
+| `scoring` | Scoring protocol applied after normalization (`sada-paper` or `none`) |
 | `package` | Name and version of this package |
 | `predictions_sha256` | Hash of the scored predictions file |
 | `n_missing_predictions` | Clips scored as empty because `--allow-missing` was set |
@@ -141,5 +125,7 @@ Rates are fractions (multiply by 100 for %).
 - **`To support decoding audio data, please install 'torchcodec'`**: install
   `datasets[audio]`, or use `datasets<4`.
 - **Different numbers from another toolkit**: check the normalizer first (see
-  [normalization.md](normalization.md)), then whether the other toolkit
-  averages per-utterance WER instead of pooling errors.
+  [normalization.md](normalization.md)), then the scoring protocol (the default
+  crops runaway repetition loops and canonicalizes whitespace; `--scoring none`
+  turns this off), then whether the other toolkit averages per-utterance WER
+  instead of pooling errors.

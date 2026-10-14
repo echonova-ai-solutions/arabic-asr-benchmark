@@ -7,13 +7,21 @@ number:
 
 | Track | Data | Systems | Verifiable by others |
 | :--- | :--- | :--- | :--- |
-| `echonova_20h` | The public test set: 7,396 clips, 19.16 h, 8 varieties | 7 | Metrics: yes (references and outputs public) |
-| `echonova_private_115h` | The paper's private test set: 44,407 clips, 115 h, 8 varieties | 7 | No (data unreleased); recomputed by EchoNova |
+| `echonova_20h` | The public test set: 8,925 clips, 19.95 h, 9 varieties | 8 | Metrics: yes (references and outputs public) |
+| `echonova_private_120h` | The paper's private test set: 53,597 clips, 119.86 h, 9 varieties | 8 | No (five sixths unreleased); recomputed by EchoNova |
 | `public_leaderboard` | Six test sets of the Open Universal Arabic ASR Leaderboard: 46,757 clips | Sada-ASR | Protocol: yes; outputs: not published |
 
 The public test set is one sixth of the private one, so the first two tracks
 measure the same systems on overlapping data. Their figures are close but not
 identical and should not be mixed in one table.
+
+The eight systems are those compared in the paper: Sada-ASR, three commercial APIs
+(MAI-Transcribe-2, Gemini 3.5 Transcribe, gpt-transcribe) and four open-weight
+models (Audar-ASR-V1-Turbo, FastConformer, Whisper large-v3, Nemotron-3.5). All
+were run on 13 October 2026 on identical audio, with the settings recorded in
+[`results/echonova_20h/systems.json`](../results/echonova_20h/systems.json). No
+system, including Sada-ASR, used contextual biasing, custom vocabulary or other
+adaptation.
 
 ## Predictions
 
@@ -23,16 +31,30 @@ unknown id is an error; `--allow-missing` scores missing clips as empty
 transcripts instead and records how many there were. An empty transcript is a
 valid prediction and is scored as deleting every reference word.
 
-For the seven published systems, the prediction is the system's raw output
-before any normalization, exactly as stored during the paper's evaluation runs
-(September 2026). Every clip of every system has an output; no run failed.
+For the published systems, the prediction is the system's raw output before any
+normalization, exactly as stored during the paper's evaluation. One collection
+rule applied to every API: an output more than five times the reference's word
+count and longer than 50 words was re-requested up to three times, and the first
+normal output kept. This touched 2 Gemini clips on the full private set, both of
+which returned the same output every time.
 
-## Normalization
+## Normalization and scoring
 
 References and hypotheses are normalized identically before scoring. The
-default, `echonova-v1`, is the paper's normalizer; see
-[normalization.md](normalization.md) for all normalizers and their rules.
-Results under different normalizers are reported in separate tables.
+default, `echonova-v1`, is the paper's normalizer. With it, the `sada-paper`
+scoring protocol is applied to every system:
+
+1. **Loop crop (hypothesis only).** Any one- to three-word unit repeated more than
+   ten times back-to-back is cut to ten copies. No reference repeats a unit more
+   than seven times, so no correct transcript is altered.
+2. **Whitespace canonicalization (both sides).** CER counts characters, not
+   layout.
+
+Stored predictions are never edited, and the reference is never used to change a
+prediction. With the leaderboard normalizers the scoring is plain, as on the
+leaderboard. See [normalization.md](normalization.md) for every rule. Results
+under different normalizers or scoring protocols are reported in separate
+tables.
 
 ## Metrics
 
@@ -44,15 +66,15 @@ For a set of clips with normalized references r and hypotheses h:
   characters. Characters include spaces.
 - **Substitutions, deletions, insertions** come from a minimum-cost alignment
   (ties broken in that order) and sum to the edit distance.
-- **Macro WER / CER** = unweighted mean of the per-dialect corpus WER / CER
-  over the eight varieties (computed from unrounded values).
+- **Macro WER / CER** = unweighted mean of the per-variety corpus WER / CER
+  over the nine varieties (computed from unrounded values).
 - **Empty %** = share of clips whose normalized hypothesis is empty.
 
 WER and CER are corpus-level micro averages, never a mean of per-clip error
-rates, so long clips weigh more than short ones. Because MSA is 43.5% of the
-audio, the overall figure is dominated by MSA; read per-dialect and macro
-figures alongside it. A corpus whose references are all empty has no defined
-error rate and raises an error.
+rates, so long clips weigh more than short ones. Because MSA is about 41% of the
+audio, the overall figure is dominated by MSA; read per-variety and macro figures
+alongside it. A corpus whose references are all empty has no defined error rate
+and raises an error.
 
 ## Confidence intervals
 
@@ -63,34 +85,21 @@ delta = (errors_B − errors_A) / reference words × 100, positive when A is bet
 
 Each of 2,000 resamples draws units with replacement; the interval is the 2.5th
 and 97.5th percentile (linear interpolation). One random generator, seeded with
-0, is consumed per comparison across the dialects in a fixed order (MSA,
-Egyptian, Saudi, Emirati, Kuwaiti, Qatari, Syrian, Lebanese), then for the
+0, is consumed per comparison across the varieties in a fixed order, then for the
 pooled set.
 
 - **Recording-level** (default): the units are source recordings
-  (`recording_id`); a recording's clips are summed before resampling. Clips
-  from one recording share speakers and conditions, and Qatari, Lebanese and
-  Syrian come from 23-49 recordings in the public set, so this is the honest
-  default.
-- **Clip-level** (`--unit clip`): the units are clips. This is the procedure of
-  the paper's Table 3, which it reproduces exactly; its intervals are narrower
-  than recording-level ones.
+  (`recording_id`); a recording's clips are summed before resampling. Clips from
+  one recording share speakers and conditions, and Qatari, Lebanese and Syrian
+  come from 41-75 recordings in the public set, so this is the honest default.
+- **Clip-level** (`--unit clip`): the units are clips. Intervals are narrower.
 
-## Omani
+The paper's intervals also resample source recordings, stratified by variety,
+but with their own recording grouping and draw order. The package's intervals are
+reported as its own and can differ from the paper's in the second decimal.
 
-The Omani references did not pass EchoNova's label verification. Omani clips
-are released only in the separate `omani_unverified` configuration and are
-excluded from every headline figure, macro average and bootstrap.
-Results on it are in `results/echonova_20h/omani_unverified.csv` and
-`results/echonova_private_115h/with_omani.csv` for completeness.
+## Review status of the references
 
-## Systems and settings
-
-Every system was run on the same audio: each clip decoded, resampled to
-16 kHz mono and, for the APIs, sent as 16-bit PCM WAV. No system, including
-Sada-ASR, used contextual biasing, custom vocabulary or other adaptation. The
-recorded settings and dates of each system are in
-[`results/echonova_20h/systems.json`](../results/echonova_20h/systems.json);
-anything that was not recorded is `null` there rather than guessed. Commercial
-APIs change without notice, so their figures describe the API on the date
-given.
+The MSA, Egyptian, Emirati and Saudi transcripts were reviewed by a second
+person. Almost all Kuwaiti, Lebanese, Omani, Qatari and Syrian transcripts are
+single-pass annotations. All nine varieties are part of every headline figure.

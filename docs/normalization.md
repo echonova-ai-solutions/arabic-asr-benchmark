@@ -1,16 +1,17 @@
-# Arabic text normalization
+# Arabic text normalization and scoring
 
 Arabic ASR scores depend heavily on normalization: whether hamza forms, ta
 marbuta or punctuation count as errors can move WER by several points and
 change rankings. This page documents exactly what each normalizer in
-`arabic_asr_benchmark.normalization` does, quirks included. Every normalizer is
-applied identically to references and hypotheses, and the unnormalized text
-remains available in the dataset (`text`) and in the published predictions.
+`arabic_asr_benchmark.normalization` and each scoring protocol in
+`arabic_asr_benchmark.scoring` does, quirks included. Every normalizer is applied
+identically to references and hypotheses, and the unnormalized text remains
+available in the dataset (`text`) and in the published predictions.
 
 | Name | Status | Use it for |
 | :--- | :--- | :--- |
 | `echonova-v1` | Frozen. Default. | All EchoNova results; comparing with the paper. |
-| `echonova-v1.1` | Frozen. Opt-in. | Analyses where the `echonova-v1` quirks below matter (especially CER). |
+| `echonova-v1.1` | Frozen. Opt-in. | Analyses where the `echonova-v1` quirks below matter. |
 | `oual-2026-07` | Frozen. | Comparing with the Open Universal Arabic ASR Leaderboard as of July 2026. |
 | `oual-2024-12` | Frozen. | Comparing with leaderboard figures computed before 27 July 2026. |
 | `none` | | Inspecting raw error rates. |
@@ -19,11 +20,11 @@ A name never changes behaviour. Corrections get a new name.
 
 ## `echonova-v1`
 
-The normalizer behind every private-test-set figure in the EchoNova Sada paper
-(internally called `v2-ta`). It is a reproduction, not a redesign: it was
-checked character by character against the original implementation on every
-Unicode code point and on all 326,879 stored reference and hypothesis strings
-of the paper's evaluation, with zero differences.
+The normalizer behind every private-test-set figure in the EchoNova Sada paper.
+It was checked character by character against the implementation used for the
+paper on every Unicode code point and on all 1,393,522 stored reference and
+hypothesis strings of the paper's evaluation (13 systems × 53,597 clips), with
+zero differences.
 
 Rules, in order:
 
@@ -45,30 +46,45 @@ oversights in this reproduction):
 - Punctuation is *deleted*, not replaced by a space: `3.5` becomes `35`,
   `10:30` becomes `1030`, and `كلمة-كلمة` becomes one word.
 - Other punctuation is kept: « » … ٪ ۔ “ ” and the backslash.
-- Inner whitespace is not collapsed. This does not affect WER (words are split
-  on any whitespace) but double spaces count as characters in CER.
+- Inner whitespace is not collapsed by the normalizer itself; the `sada-paper`
+  scoring protocol does that (below).
 - Tatweel ـ, superscript alef (U+0670), other combining marks (U+0653-U+065F),
   alef wasla ٱ, Persian ک and ی, and Persian digits ۰-۹ are kept.
 - Alef maqsura ى is not folded into ي.
 - Latin text is not lowercased.
 - Numbers are not converted between digits and words, so a system that writes
   `10` where the reference says `عشرة` is charged an error.
-- Bracketed non-speech tags in references (for example `[موسيقى]`) lose their
-  brackets and the word inside is scored. Three clips in the public test set
-  contain such tags.
 
-**Differences from the paper's description.** The paper describes the
-normalizer in one sentence (Section 5.2). The code differs from that sentence in
-three places: punctuation removal covers the fixed set above rather than all
-punctuation; the "two Persian letters" are پ and ڤ (ڤ is used for /v/ in Arabic
-and is not a Persian letter); and ta marbuta is folded everywhere, not only
-word-finally. The last point changes no reported figure, because ة occurs
-almost only word-finally (60 non-final occurrences in the private test set).
+**Ta marbuta everywhere.** The paper describes the fold as word-final; the
+normalizer folds every ة, and the paper's figures were computed this way. In the
+references of the private test set, 1,505 of 89,441 ة (1.7%) are not word-final.
 
 **Lossy transformations.** All rules are lossy. The hamza folds, the ة→ه fold and
 punctuation deletion can merge distinct words. These merges are intended: they
 remove spelling conventions on which annotators and systems legitimately
 differ.
+
+## Scoring protocol `sada-paper`
+
+Two steps applied after `echonova-v1`, identically to every system, as in the
+paper (its §5.2). Stored predictions are never edited, and the reference is never
+used to change a prediction.
+
+1. **Loop crop, hypothesis only.** For n = 1, 2, 3 in turn, any n-word unit
+   repeated more than 10 times back-to-back is cut to 10 copies; text without such
+   a loop is returned unchanged. The longest real back-to-back repetition in any
+   reference of the private test set is 7 (a stutter), so no correct transcript
+   is altered. Runaway outputs are: on the full private test set the crop changes
+   the WER of Gemini 3.5 Transcribe (19.95 → 16.13; 2 clips, one of them a 15,008-word
+   output for a 13-word reference, a single word repeated 15,006 times) and Whisper large-v3 (28.94 → 26.57).
+2. **Whitespace canonicalization, both sides.** Every whitespace run becomes one
+   space, so CER counts characters, not layout (some systems separate phrases with
+   line breaks; some references contain double spaces). WER is unaffected.
+
+`asr-bench` uses `sada-paper` automatically with `echonova-v1` and plain scoring
+(`none`) with every other normalizer; `--scoring` overrides this, and every
+result records the protocol used. `sada-paper` cannot be combined with another
+normalizer.
 
 ## `echonova-v1.1`
 
@@ -86,28 +102,28 @@ differ.
 | `whitespace` | Collapse whitespace runs |
 
 It deliberately adds no new spelling policy: ى is still not folded and numbers
-are not verbalized.
+are not verbalized. It does not crop loops, so it is scored with the plain
+protocol. Not used for any headline figure.
 
-Effect on the public test set
+WER / CER (%) on the public test set
 ([`results/echonova_20h/normalizer_ablation.csv`](../results/echonova_20h/normalizer_ablation.csv),
 which also lists each fix's individual effect):
 
-| System | WER v1 → v1.1 | CER v1 → v1.1 |
-| :--- | :--- | :--- |
-| Sada-ASR | 14.70 → 14.64 | 6.51 → 6.41 |
-| MAI-Transcribe-2 | 16.51 → 16.45 | 8.40 → 7.88 |
-| gpt-transcribe | 20.18 → 20.11 | 10.51 → 10.41 |
-| Audar-ASR-V1-Turbo | 26.41 → 26.34 | 13.86 → 13.70 |
-| FastConformer | 28.91 → 28.88 | 13.63 → 13.54 |
-| Whisper large-v3 | 32.04 → 32.02 | 18.43 → 18.29 |
-| Nemotron-3.5 | 33.20 → 33.16 | 14.78 → 14.70 |
+| System | `echonova-v1`, plain | `echonova-v1` + `sada-paper` (headline) | `echonova-v1.1`, plain |
+| :--- | :--- | :--- | :--- |
+| Sada-ASR | 11.74 / 4.78 | 11.74 / 4.72 | 11.70 / 4.70 |
+| MAI-Transcribe-2 | 13.79 / 6.97 | 13.79 / 6.52 | 13.75 / 6.49 |
+| Gemini 3.5 Transcribe | 16.31 / 8.46 | 16.31 / 8.39 | 16.29 / 8.37 |
+| gpt-transcribe | 17.11 / 8.67 | 17.11 / 8.61 | 17.08 / 8.59 |
+| Audar-ASR-V1-Turbo | 21.01 / 10.28 | 21.01 / 10.09 | 20.99 / 10.07 |
+| FastConformer | 26.32 / 12.48 | 26.31 / 12.42 | 26.30 / 12.41 |
+| Whisper large-v3 | 28.93 / 16.80 | 26.82 / 15.17 | 28.91 / 16.73 |
+| Nemotron-3.5 | 28.52 / 11.70 | 28.52 / 11.65 | 28.48 / 11.63 |
 
-WER moves by at most 0.07 points and no ranking changes. Almost all of the CER
-change comes from whitespace: under `echonova-v1`, runs of spaces (including
-those left where punctuation is deleted next to a space) count as characters.
-MAI-Transcribe-2's CER changes most (8.40 → 7.88). The leave-one-out rows in the
-ablation file are not additive: the `punctuation` fix creates extra spaces that
-only the `whitespace` fix removes.
+The corrections in `echonova-v1.1` move WER by at most 0.04 points; the loop crop
+is what moves Whisper large-v3, whose outputs on 20 clips of this test set contain
+runaway loops. The leave-one-out rows in the ablation file are not additive: the
+`punctuation` fix creates extra spaces that only the `whitespace` fix removes.
 
 ## Open Universal Arabic ASR Leaderboard: `oual-2024-12` and `oual-2026-07`
 
@@ -129,8 +145,8 @@ independent re-implementations of the documented behaviour. Their output was
 checked against the upstream function at each commit on every Unicode code
 point (in four contexts) and on 200,000 random strings, with zero differences.
 
-Leaderboard entries computed before 27 July 2026 used the first version; the
-leaderboard does not record which version produced each entry.
+The leaderboard's rows from before 27 July 2026 were not re-scored after the change,
+and it does not record which version produced each entry.
 
 ## Comparing protocols
 
@@ -157,32 +173,57 @@ leaderboard does not record which version produced each entry.
 ### Why ta marbuta matters
 
 Whether a word-final feminine ending is written ة or ه is an annotation
-convention, not something a recognizer can hear, and conventions differ between
-dialect annotation teams and between systems. Normalizers that do not fold it
-measure agreement with the annotators' convention. On the public test set the
-effect is large for some dialects (WER, %):
+convention, not something a recognizer can hear. The references of the private
+test set follow no single convention: the share of word-final ة/ه written as ة,
+before folding, is
 
-| Dialect | Sada-ASR `echonova-v1` | Sada-ASR `oual-2026-07` | MAI-Transcribe-2 `echonova-v1` | MAI-Transcribe-2 `oual-2026-07` |
+| MSA | Egyptian | Saudi | Emirati | Kuwaiti | Qatari | Syrian | Lebanese | Omani |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 69.0% | 59.2% | 53.5% | 64.0% | 51.1% | 69.5% | 7.5% | 48.7% | 2.4% |
+
+The two Levantine varieties disagree with each other (7.5% against 48.7%), which
+points to the annotation teams rather than the dialects. Without the fold, WER
+partly measures whether a system guessed each team's convention. Effect of the
+fold on the full private test set (WER %, `sada-paper` scoring):
+
+| System | Without the fold | `echonova-v1` | Change |
+| :--- | ---: | ---: | ---: |
+| Gemini 3.5 Transcribe | 18.90 | 16.13 | −2.77 |
+| Sada-ASR | 14.06 | 11.69 | −2.37 |
+| FastConformer | 26.85 | 25.97 | −0.88 |
+| MAI-Transcribe-2 | 14.39 | 13.51 | −0.87 |
+| Audar-ASR-V1-Turbo | 21.63 | 20.86 | −0.76 |
+| gpt-transcribe | 17.78 | 17.03 | −0.75 |
+| Whisper large-v3 | 27.25 | 26.57 | −0.69 |
+| Nemotron-3.5 | 28.73 | 28.11 | −0.62 |
+
+The leaderboard normalizers do not fold ta marbuta. On the public test set the
+effect is large for some varieties (WER %; `echonova-v1` with `sada-paper`,
+`oual-2026-07` with plain scoring as on the leaderboard):
+
+| Variety | Sada-ASR `echonova-v1` | Sada-ASR `oual-2026-07` | MAI-Transcribe-2 `echonova-v1` | MAI-Transcribe-2 `oual-2026-07` |
 | :--- | ---: | ---: | ---: | ---: |
-| MSA | 11.89 | 12.34 | 13.43 | 13.72 |
-| Egyptian | 12.07 | 13.07 | 14.75 | 15.30 |
-| Saudi | 17.82 | 21.31 | 21.12 | 21.70 |
-| Emirati | 18.19 | 19.98 | 20.72 | 20.69 |
-| Kuwaiti | 15.03 | 22.16 | 15.45 | 16.54 |
-| Qatari | 15.34 | 24.22 | 16.84 | 16.96 |
-| Syrian | 19.63 | 19.48 | 19.42 | 26.78 |
-| Lebanese | 24.78 | 31.64 | 23.38 | 23.39 |
-| Overall (micro) | 14.70 | 16.70 | 16.51 | 17.18 |
-| Macro | 16.85 | 20.53 | 18.14 | 19.39 |
+| MSA | 5.54 | 6.65 | 7.18 | 7.28 |
+| Egyptian | 9.60 | 10.18 | 13.81 | 14.09 |
+| Saudi | 14.76 | 19.06 | 17.17 | 17.36 |
+| Emirati | 18.83 | 21.46 | 20.89 | 20.71 |
+| Kuwaiti | 14.94 | 21.40 | 15.70 | 16.14 |
+| Qatari | 15.71 | 23.40 | 16.15 | 16.42 |
+| Omani | 16.06 | 17.59 | 20.05 | 28.11 |
+| Syrian | 19.48 | 19.98 | 19.92 | 25.65 |
+| Lebanese | 25.07 | 30.12 | 22.74 | 23.18 |
+| Overall (micro) | 11.74 | 13.91 | 13.79 | 14.49 |
+| Macro | 15.56 | 18.87 | 17.07 | 18.77 |
 
 Under the leaderboard normalizer Sada-ASR's overall WER is still the lowest of
-the seven systems, but its macro WER is higher than MAI-Transcribe-2's, driven
-by Kuwaiti, Qatari and Lebanese, where its ta-marbuta convention differs from
-the references. Never mix normalizers within one comparison table.
+the eight systems, but its macro WER is slightly higher than MAI-Transcribe-2's,
+driven by Kuwaiti, Qatari, Saudi and Lebanese, whose references mostly write ة
+where Sada-ASR writes ه. Never mix normalizers within one comparison table.
 
-## Reproducing historical results
+## Reproducing the paper's figures
 
-- Private-test-set figures in the paper (Tables 1-3, 5, 6): `echonova-v1`.
-- Sada-ASR on the six leaderboard test sets: per set under `echonova-v1`
-  (paper Table 4 rows, Table 7) and as an average under `oual-2026-07` (17.14).
+- Private test set (paper Tables 1-3 and 5): `echonova-v1` with the `sada-paper`
+  scoring (the default).
+- Sada-ASR on the six leaderboard test sets (paper Tables 4 and 6): `oual-2026-07`,
+  average 17.17%.
 - See [paper_consistency.md](paper_consistency.md) for the cell-by-cell check.

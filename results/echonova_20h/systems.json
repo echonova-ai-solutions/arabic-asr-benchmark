@@ -1,23 +1,45 @@
 {
-  "sada-asr": {
-    "display_name": "Sada-ASR (EchoNova)",
-    "type": "proprietary",
-    "provider": "EchoNova",
-    "model_id": null,
+  "gemini-3.5-transcribe": {
+    "display_name": "Google Gemini 3.5 Transcribe",
+    "type": "commercial API",
+    "provider": "Google",
+    "model_id": "gemini-3.5-transcribe",
     "version": null,
-    "evaluation_date": null,
-    "inference": {"hosting": "self-hosted", "language": "ar", "contextual_biasing": false},
-    "notes": "Proprietary; weights not released. Decode date and configuration of the benchmark run were not recorded."
+    "evaluation_dates_utc": [
+      "2026-10-13",
+      "2026-10-13"
+    ],
+    "settings": {
+      "access": "OpenRouter",
+      "model": "google/gemini-3.5-transcribe",
+      "language": "ar",
+      "temperature": 0.0,
+      "note": "Google's verbatim mode is its default; OpenRouter does not expose it"
+    },
+    "failed_requests_scored_as_empty": 0,
+    "runaway_outputs_re_requested": 2
   },
   "mai-transcribe-2": {
     "display_name": "Microsoft MAI-Transcribe-2",
     "type": "commercial API",
-    "provider": "Microsoft (Azure Speech fast transcription)",
+    "provider": "Microsoft",
     "model_id": "MAI-Transcribe-2",
     "version": null,
-    "evaluation_date": "2026-09-06",
-    "inference": {"locale": "ar-EG", "api_version": "2025-10-15", "contextual_biasing": false},
-    "notes": "Locale and API version as configured in the evaluation client; not recorded in run logs. The API writes numbers as digits and English words in Latin script; neither can be turned off."
+    "evaluation_dates_utc": [
+      "2026-10-13",
+      "2026-10-13"
+    ],
+    "settings": {
+      "access": "Azure Speech fast transcription",
+      "locales": [
+        "ar"
+      ],
+      "model": "MAI-Transcribe-2",
+      "profanity_filter": "None",
+      "note": "digits (ITN) and punctuation cannot be disabled"
+    },
+    "failed_requests_scored_as_empty": 0,
+    "runaway_outputs_re_requested": 0
   },
   "gpt-transcribe": {
     "display_name": "OpenAI gpt-transcribe",
@@ -25,9 +47,20 @@
     "provider": "OpenAI",
     "model_id": "gpt-transcribe",
     "version": null,
-    "evaluation_date": "2026-09-03",
-    "inference": {"languages": ["ar"], "temperature": 0.0, "response_format": "json", "contextual_biasing": false},
-    "notes": "Settings as configured in the evaluation client; not recorded in run logs. No dated model snapshot identifier is available."
+    "evaluation_dates_utc": [
+      "2026-10-13",
+      "2026-10-13"
+    ],
+    "settings": {
+      "access": "OpenRouter (forwarded to OpenAI)",
+      "model": "openai/gpt-transcribe",
+      "languages": [
+        "ar"
+      ],
+      "temperature": 0.0
+    },
+    "failed_requests_scored_as_empty": 0,
+    "runaway_outputs_re_requested": 0
   },
   "audar-asr-v1-turbo": {
     "display_name": "Audar-ASR-V1-Turbo",
@@ -35,29 +68,35 @@
     "provider": "Audar",
     "model_id": "audarai/Audar-ASR-V1-Turbo",
     "version": null,
-    "evaluation_date": "2026-09-03",
-    "inference": {"hosting": "self-hosted"},
-    "notes": "Model revision and decoding parameters were not recorded."
+    "evaluation_dates_utc": [
+      "2026-10-13",
+      "2026-10-13"
+    ],
+    "settings": {
+      "hosting": "self-hosted",
+      "language": "Arabic",
+      "batch_size": 16
+    },
+    "failed_requests_scored_as_empty": 0,
+    "runaway_outputs_re_requested": 0
   },
-  "nvidia-fastconformer-ar": {
-    "display_name": "NVIDIA FastConformer (Arabic)",
-    "type": "open-weight",
-    "provider": "NVIDIA",
-    "model_id": "nvidia/stt_ar_fastconformer_hybrid_large_pc_v1.0",
+  "sada-asr": {
+    "display_name": "Sada-ASR (EchoNova)",
+    "type": "proprietary",
+    "provider": "EchoNova",
+    "model_id": null,
     "version": null,
-    "evaluation_date": "2026-09-03",
-    "inference": {"hosting": "self-hosted"},
-    "notes": "Model revision and decoding parameters were not recorded."
-  },
-  "whisper-large-v3": {
-    "display_name": "OpenAI Whisper large-v3",
-    "type": "open-weight",
-    "provider": "OpenAI",
-    "model_id": "openai/whisper-large-v3",
-    "version": null,
-    "evaluation_date": "2026-09-03",
-    "inference": {"hosting": "self-hosted", "language": "ar"},
-    "notes": "Model revision and decoding parameters were not recorded."
+    "evaluation_dates_utc": [
+      "2026-10-13",
+      "2026-10-13"
+    ],
+    "settings": {
+      "hosting": "self-hosted",
+      "decoding": "greedy (num_beams=1), no beam search, no decode-time tuning",
+      "batch_size": 1
+    },
+    "failed_requests_scored_as_empty": 0,
+    "runaway_outputs_re_requested": 0
   },
   "nemotron-3.5-asr-streaming-0.6b": {
     "display_name": "NVIDIA Nemotron-3.5 ASR streaming 0.6B",
@@ -65,8 +104,55 @@
     "provider": "NVIDIA",
     "model_id": "nvidia/nemotron-3.5-asr-streaming-0.6b",
     "version": null,
-    "evaluation_date": "2026-09-03",
-    "inference": {"hosting": "self-hosted", "chunk_ms": 1120},
-    "notes": "Model revision and remaining decoding parameters were not recorded."
+    "evaluation_dates_utc": [
+      "2026-10-13",
+      "2026-10-13"
+    ],
+    "settings": {
+      "hosting": "self-hosted",
+      "language": "ar-AR",
+      "latency_ms": 1120,
+      "batch_size": 32
+    },
+    "failed_requests_scored_as_empty": 0,
+    "runaway_outputs_re_requested": 0
+  },
+  "nvidia-fastconformer-ar": {
+    "display_name": "NVIDIA FastConformer (Arabic)",
+    "type": "open-weight",
+    "provider": "NVIDIA",
+    "model_id": "nvidia/stt_ar_fastconformer_hybrid_large_pc_v1.0",
+    "version": null,
+    "evaluation_dates_utc": [
+      "2026-10-13",
+      "2026-10-13"
+    ],
+    "settings": {
+      "hosting": "self-hosted (NeMo)",
+      "decoder": "model default",
+      "batch_size": 128
+    },
+    "failed_requests_scored_as_empty": 0,
+    "runaway_outputs_re_requested": 0
+  },
+  "whisper-large-v3": {
+    "display_name": "OpenAI Whisper large-v3",
+    "type": "open-weight",
+    "provider": "OpenAI",
+    "model_id": "openai/whisper-large-v3",
+    "version": null,
+    "evaluation_dates_utc": [
+      "2026-10-13",
+      "2026-10-13"
+    ],
+    "settings": {
+      "hosting": "self-hosted (transformers)",
+      "language": "ar",
+      "task": "transcribe",
+      "decoding": "greedy (num_beams=1, no sampling)",
+      "batch_size": 16
+    },
+    "failed_requests_scored_as_empty": 0,
+    "runaway_outputs_re_requested": 0
   }
 }

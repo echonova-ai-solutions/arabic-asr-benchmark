@@ -1,9 +1,3 @@
-# Internal planning / unpublished material — never publish
-PLAN.md
-IMPLEMENTATION_PLAN.md
-sada_paper.md
-internal/
-
 # Secrets
 .env
 .env.*
