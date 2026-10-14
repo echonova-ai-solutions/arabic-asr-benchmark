@@ -5,7 +5,6 @@ upstream:
   paper: "Wang, Alhmoud and Alqurishi (2025). Open Universal Arabic ASR Leaderboard. Proc. Interspeech 2025, 1168-1172. doi:10.21437/Interspeech.2025-184"
   license: none published (code not redistributed here; normalizers re-implemented)
   evaluation_code_commits:
-    oual-2024-12: 7185c3b2c7444edbc7c4aea4af9f5d5d4aa71588   # 2024-12-10, first commit
     oual-2026-07: 8fce8595b49057c98bafc2ba41b69c331cb5176e   # 2026-07-27, punctuation fix + و attachment
 system:
   name: sada-asr

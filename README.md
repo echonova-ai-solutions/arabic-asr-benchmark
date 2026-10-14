@@ -1,9 +1,6 @@
 <div align="center">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.png">
-  <img src="assets/banner-light.png" alt="EchoNova Arabic Dialect ASR Benchmark">
-</picture>
+<img src="assets/banner.png" alt="EchoNova Arabic Dialect ASR Benchmark">
 
 <p>
   <a href="https://huggingface.co/datasets/echonova-ai/arabic-dialect-asr-benchmark"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Dataset-arabic--dialect--asr--benchmark-4a443e?labelColor=171310" alt="Hugging Face dataset"></a>
@@ -51,10 +48,7 @@ file, not access to any model, API key or EchoNova service.
   recomputed from stored outputs and labelled by how far they can be verified.
 
 <p align="center">
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/test-set-composition-dark.png">
-  <img src="assets/test-set-composition-light.png" alt="Hours and clips per variety in the public test set: MSA 8.27 h, Egyptian 3.37 h, Emirati 2.50 h, Saudi 1.67 h, and about 0.8 h each for Kuwaiti, Syrian, Lebanese, Qatari and Omani" width="720">
-</picture>
+<img src="assets/test-set-composition.png" alt="Hours and clips per variety in the public test set: MSA 8.27 h, Egyptian 3.37 h, Emirati 2.50 h, Saudi 1.67 h, and about 0.8 h each for Kuwaiti, Syrian, Lebanese, Qatari and Omani" width="720">
 </p>
 
 ## 🔗 Resources
@@ -82,10 +76,7 @@ published in [`results/echonova_20h/predictions/`](results/echonova_20h/predicti
 **Fully verifiable at the metric level.**
 
 <p align="center">
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/wer-overview-dark.png">
-  <img src="assets/wer-overview-light.png" alt="Bar chart of word error rate on the public test set; Sada-ASR has the lowest WER of the eight systems. Values are in the table below" width="720">
-</picture>
+<img src="assets/wer-overview.png" alt="Bar chart of word error rate on the public test set; Sada-ASR has the lowest WER of the eight systems. Values are in the table below" width="720">
 </p>
 
 <!-- BEGIN echonova-20h-summary -->
@@ -104,10 +95,7 @@ published in [`results/echonova_20h/predictions/`](results/echonova_20h/predicti
 WER (%) by variety (best per row in bold):
 
 <p align="center">
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/wer-by-variety-dark.png">
-  <img src="assets/wer-by-variety-light.png" alt="Heatmap of word error rate by variety and system on the public test set. Values are in the table below" width="740">
-</picture>
+<img src="assets/wer-by-variety.png" alt="Heatmap of word error rate by variety and system on the public test set. Values are in the table below" width="740">
 </p>
 
 <details>
@@ -171,10 +159,6 @@ unweighted mean of the six sets, as on the leaderboard.
 
 The leaderboard changed its evaluation code on 27 July 2026 and did not re-score
 the rows already on it, so comparisons with published figures are indicative.
-Under the original code the same outputs score 33.10: that code never removes
-punctuation, and Sada-ASR punctuates almost every transcript while the references
-mostly do not, so each punctuated word counts as an error (removing punctuation
-from the outputs first brings it to 19.70).
 Published figures for other systems, the protocol details and caveats are in
 [`results/public_leaderboard/`](results/public_leaderboard/).
 

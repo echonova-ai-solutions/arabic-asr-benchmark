@@ -1,4 +1,4 @@
-"""Generate the README figures (SVG, light and dark) from the results, in the EchoNova brand style.
+"""Generate the README figures (SVG) from the results, in the EchoNova brand style (light palette).
 
 Every number in a figure is read from the published result files (and, for the
 test-set composition, from the dataset's parquet files); nothing is typed by hand.
@@ -80,19 +80,6 @@ THEMES = {
         # papyrus -> ink, darker is worse
         "ramp": ["#e3dbcf", "#c2bbb0", "#a29b92", "#837d75", "#666059", "#4a443f", "#2f2b26", "#171310"],
         "ramp_note": "darker is worse",
-    },
-    "dark": {
-        "surface": "#171310",
-        "ink": "#f7f3ec",
-        "ink2": "#ddd5ca",
-        "muted": "#a29b92",
-        "rule": "#3a342e",
-        "grid": "#2b2621",
-        "rest": "#898781",
-        "series": "#c2bbb0",
-        # just-off-ink -> papyrus, lighter is worse
-        "ramp": ["#2f2b26", "#4a443f", "#666059", "#837d75", "#a29b92", "#c2bbb0", "#e3dbcf", "#f7f3ec"],
-        "ramp_note": "lighter is worse",
     },
 }
 
@@ -401,16 +388,16 @@ def main() -> None:
     if a.dataset:
         hours, clips = _dataset_stats(a.dataset)
     a.out.mkdir(parents=True, exist_ok=True)
-    for mode, t in THEMES.items():
-        figs = {
-            "banner": banner(t, summary, sum(hours.values()) if hours else None),
-            "wer-overview": wer_overview(t, meta, summary),
-            "wer-by-variety": wer_heatmap(t, meta, summary, per),
-        }
-        if hours:
-            figs["test-set-composition"] = composition(t, hours, clips)
-        for name, svg in figs.items():
-            (a.out / f"{name}-{mode}.svg").write_text(svg, encoding="utf-8")
+    t = THEMES["light"]
+    figs = {
+        "banner": banner(t, summary, sum(hours.values()) if hours else None),
+        "wer-overview": wer_overview(t, meta, summary),
+        "wer-by-variety": wer_heatmap(t, meta, summary, per),
+    }
+    if hours:
+        figs["test-set-composition"] = composition(t, hours, clips)
+    for name, svg in figs.items():
+        (a.out / f"{name}.svg").write_text(svg, encoding="utf-8")
     print("wrote", sorted(p.name for p in a.out.glob("*.svg")))
 
 

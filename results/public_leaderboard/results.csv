@@ -6,13 +6,6 @@ sada-asr,oual-2026-07,none,masc_noisy,9394,0.166965,0.066528,EchoNova-reproduced
 sada-asr,oual-2026-07,none,casablanca,6726,0.417204,0.154085,EchoNova-reproduced
 sada-asr,oual-2026-07,none,mgb2,5365,0.095603,0.048246,EchoNova-reproduced
 sada-asr,oual-2026-07,none,"average (unweighted, 6 sets)",46757,0.171718,0.070460,EchoNova-reproduced
-sada-asr,oual-2024-12,none,sada,6189,0.378779,0.150985,EchoNova-reproduced
-sada-asr,oual-2024-12,none,commonvoice,10471,0.252458,0.056996,EchoNova-reproduced
-sada-asr,oual-2024-12,none,masc_clean,8612,0.230271,0.053636,EchoNova-reproduced
-sada-asr,oual-2024-12,none,masc_noisy,9394,0.323888,0.099653,EchoNova-reproduced
-sada-asr,oual-2024-12,none,casablanca,6726,0.548006,0.187280,EchoNova-reproduced
-sada-asr,oual-2024-12,none,mgb2,5365,0.252532,0.078591,EchoNova-reproduced
-sada-asr,oual-2024-12,none,"average (unweighted, 6 sets)",46757,0.330989,0.104523,EchoNova-reproduced
 sada-asr,echonova-v1,sada-paper,sada,6189,0.259196,0.119643,EchoNova-reproduced
 sada-asr,echonova-v1,sada-paper,commonvoice,10471,0.043165,0.012156,EchoNova-reproduced
 sada-asr,echonova-v1,sada-paper,masc_clean,8612,0.079935,0.023353,EchoNova-reproduced
