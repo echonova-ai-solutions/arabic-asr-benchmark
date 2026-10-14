@@ -1,6 +1,30 @@
-# EchoNova Arabic ASR Benchmark
+<div align="center">
 
-**Reproducible evaluation of Arabic speech recognition across MSA and eight dialects.**
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.svg">
+  <img src="assets/banner-light.svg" alt="EchoNova Arabic Dialect ASR Benchmark">
+</picture>
+
+<p>
+  <a href="https://huggingface.co/datasets/echonova-ai/arabic-dialect-asr-benchmark"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Dataset-arabic--dialect--asr--benchmark-ffcc4d" alt="Hugging Face dataset"></a>
+  <img src="https://img.shields.io/badge/paper-coming%20soon-lightgrey" alt="Paper: coming soon">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/code-Apache--2.0-blue" alt="Code license: Apache-2.0"></a>
+  <img src="https://img.shields.io/badge/python-3.10%2B-3776ab" alt="Python 3.10+">
+  <a href="https://github.com/echonova-ai-solutions/arabic-asr-benchmark/actions/workflows/ci.yml"><img src="https://github.com/echonova-ai-solutions/arabic-asr-benchmark/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+</p>
+
+<p>
+  <b>📊 <a href="#-results">Results</a></b> &nbsp;·&nbsp;
+  <b>⚡ <a href="#-quick-start">Quick start</a></b> &nbsp;·&nbsp;
+  <b>🗂️ <a href="docs/dataset.md">Test set</a></b> &nbsp;·&nbsp;
+  <b>🔤 <a href="docs/normalization.md">Normalization</a></b> &nbsp;·&nbsp;
+  <b>🔁 <a href="docs/reproducibility.md">Reproduce</a></b> &nbsp;·&nbsp;
+  <b>📄 <a href="#-citation">Cite</a></b>
+</p>
+
+<b>Reproducible evaluation of Arabic speech recognition across MSA and eight dialects.</b>
+
+</div>
 
 This repository holds the evaluation code, normalizers, scoring protocol, results
 and per-clip system outputs behind EchoNova's Arabic speech recognition benchmark.
@@ -11,7 +35,7 @@ Speech Recognition* and the public test set
 The evaluation works with any system's transcripts: you need a predictions
 file, not access to any model, API key or EchoNova service.
 
-## Overview
+## 🔎 Overview
 
 - **Public test set.** 19.95 hours (8,925 clips) of Modern Standard Arabic and
   Egyptian, Saudi, Emirati, Kuwaiti, Qatari, Omani, Syrian and Lebanese speech
@@ -26,7 +50,14 @@ file, not access to any model, API key or EchoNova service.
 - **Paper results** on the full private test set and on six public test sets,
   recomputed from stored outputs and labelled by how far they can be verified.
 
-## Resources
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/test-set-composition-dark.svg">
+  <img src="assets/test-set-composition-light.svg" alt="Hours and clips per variety in the public test set: MSA 8.27 h, Egyptian 3.37 h, Emirati 2.50 h, Saudi 1.67 h, and about 0.8 h each for Kuwaiti, Syrian, Lebanese, Qatari and Omani" width="720">
+</picture>
+</p>
+
+## 🔗 Resources
 
 | Resource | Link |
 | :--- | :--- |
@@ -39,7 +70,7 @@ file, not access to any model, API key or EchoNova service.
 | Reproducing the results | [docs/reproducibility.md](docs/reproducibility.md) |
 | Paper consistency review | [docs/paper_consistency.md](docs/paper_consistency.md) |
 
-## Results
+## 📊 Results
 
 ### Public test set (19.95 h, 9 varieties)
 
@@ -49,6 +80,13 @@ unweighted mean of the nine per-variety WERs; Empty is the share of clips with a
 empty transcript. Recomputed from each system's stored outputs, which are
 published in [`results/echonova_20h/predictions/`](results/echonova_20h/predictions/).
 **Fully verifiable at the metric level.**
+
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/wer-overview-dark.svg">
+  <img src="assets/wer-overview-light.svg" alt="Bar chart of word error rate on the public test set; Sada-ASR has the lowest WER of the eight systems. Values are in the table below" width="720">
+</picture>
+</p>
 
 <!-- BEGIN echonova-20h-summary -->
 | System | Type | WER | Macro WER | CER | Empty % |
@@ -65,6 +103,16 @@ published in [`results/echonova_20h/predictions/`](results/echonova_20h/predicti
 
 WER (%) by variety (best per row in bold):
 
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/wer-by-variety-dark.svg">
+  <img src="assets/wer-by-variety-light.svg" alt="Heatmap of word error rate by variety and system on the public test set. Values are in the table below" width="740">
+</picture>
+</p>
+
+<details>
+<summary>The same values as a table</summary>
+
 <!-- BEGIN echonova-20h-wer-by-dialect -->
 | Dialect | Clips | Sada-ASR (EchoNova) | Microsoft MAI-Transcribe-2 | Google Gemini 3.5 Transcribe | OpenAI gpt-transcribe | Audar-ASR-V1-Turbo | NVIDIA FastConformer (Arabic) | OpenAI Whisper large-v3 | NVIDIA Nemotron-3.5 ASR streaming 0.6B |
 | :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -78,6 +126,8 @@ WER (%) by variety (best per row in bold):
 | syrian | 361 | **19.48** | 19.92 | 24.81 | 26.68 | 31.77 | 39.20 | 41.31 | 50.59 |
 | lebanese | 363 | 25.07 | **22.74** | 32.63 | 30.88 | 34.75 | 43.74 | 44.13 | 56.48 |
 <!-- END echonova-20h-wer-by-dialect -->
+
+</details>
 
 The Kuwaiti, Qatari, Omani, Syrian and Lebanese slices hold under an hour each,
 so their figures carry wide confidence intervals; see
@@ -125,7 +175,7 @@ the rows already on it, so comparisons with published figures are indicative.
 Published figures for other systems, the protocol details and caveats are in
 [`results/public_leaderboard/`](results/public_leaderboard/).
 
-## Installation
+## 📦 Installation
 
 ```bash
 pip install "arabic-asr-benchmark[hf] @ git+https://github.com/echonova-ai-solutions/arabic-asr-benchmark"
@@ -134,7 +184,7 @@ pip install "arabic-asr-benchmark[hf] @ git+https://github.com/echonova-ai-solut
 Python 3.10 or newer. The core package depends only on `numpy` and
 `editdistance`; the `hf` extra adds `datasets` for loading the test set.
 
-## Quick start
+## ⚡ Quick start
 
 1. Transcribe every clip of the test set with your system:
 
@@ -178,7 +228,7 @@ asr-bench evaluate --references examples/synthetic/references.jsonl \
     --predictions examples/synthetic/predictions_system_a.jsonl
 ```
 
-## Evaluation methodology
+## 📐 Evaluation methodology
 
 - **Normalization.** References and hypotheses are normalized identically
   before scoring. `echonova-v1` (default) is the paper's normalizer: it removes
@@ -198,7 +248,7 @@ asr-bench evaluate --references examples/synthetic/references.jsonl \
 
 Details: [docs/methodology.md](docs/methodology.md).
 
-## Reproducibility
+## 🔁 Reproducibility
 
 | What | Who can verify it |
 | :--- | :--- |
@@ -210,7 +260,7 @@ Details: [docs/methodology.md](docs/methodology.md).
 
 Step-by-step commands: [docs/reproducibility.md](docs/reproducibility.md).
 
-## Citation
+## 📄 Citation
 
 If you use the test set or this code, please cite:
 
@@ -225,13 +275,13 @@ If you use the test set or this code, please cite:
 
 See also [CITATION.cff](CITATION.cff).
 
-## License
+## ⚖️ License
 
 Code: Apache License 2.0 (see [LICENSE](LICENSE)). The test set has its own
 license, stated on its Hugging Face page. Published system outputs are provided
 for verifying the reported metrics.
 
-## Acknowledgments
+## 🙏 Acknowledgments
 
 We thank the maintainers of the Open Universal Arabic ASR Leaderboard
 (Wang, Alhmoud and Alqurishi, 2025) and the creators of the SADA, Common Voice,
