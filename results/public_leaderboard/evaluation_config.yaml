@@ -9,6 +9,7 @@ upstream:
     oual-2026-07: 8fce8595b49057c98bafc2ba41b69c331cb5176e   # 2026-07-27, punctuation fix + و attachment
 system:
   name: sada-asr
+  version: Sada EchoNova v1
   type: proprietary
   status: EchoNova-reproduced   # run by EchoNova following the leaderboard protocol; not an official entry
   measured: 2026-10-13 to 2026-10-14

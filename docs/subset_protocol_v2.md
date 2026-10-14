@@ -2,7 +2,7 @@
 
 This file fixes how the public benchmark is drawn from version 2 of EchoNova's
 120-hour private Arabic test set. It replaces the protocol for version 1
-([subset_protocol.md](subset_protocol.md)), whose test set has been retired. It was
+([subset_protocol.md](https://github.com/echonova-ai-solutions/arabic-asr-benchmark/blob/0c2b515/docs/subset_protocol.md)), whose test set has been retired. It was
 committed **before** any metric was computed on any candidate subset of version 2
 and is not edited afterwards. (Some systems had already been run on the full
 version 2 set when this was written; no metric on any subset had been computed and
@@ -78,3 +78,11 @@ a seeded random order.
 
 The WER of every published system is reported on all six folds, so readers can
 see where the released fold falls. The fold is not re-drawn whatever the outcome.
+
+---
+
+## Addendum (appended 2026-10-14; rules above unchanged)
+
+The version 1 protocol was removed from the repository when its test set was
+retired. The link above now points to it as it stood when this protocol was
+registered (commit `0c2b515`); nothing else in this file was changed.
