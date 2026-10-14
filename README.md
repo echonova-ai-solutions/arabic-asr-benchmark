@@ -167,11 +167,14 @@ unweighted mean of the six sets, as on the leaderboard.
 | System | SADA | CV 18.0 | MASC-c | MASC-n | Casab. | MGB-2 | Avg |
 | :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Sada-ASR, leaderboard's current code (`oual-2026-07`) | 25.76 | 3.95 | 5.35 | 16.70 | 41.72 | 9.56 | 17.17 |
-| Sada-ASR, leaderboard's original code (`oual-2024-12`) | 37.88 | 25.25 | 23.03 | 32.39 | 54.80 | 25.25 | 33.10 |
 <!-- END public-leaderboard -->
 
 The leaderboard changed its evaluation code on 27 July 2026 and did not re-score
 the rows already on it, so comparisons with published figures are indicative.
+Under the original code the same outputs score 33.10: that code never removes
+punctuation, and Sada-ASR punctuates almost every transcript while the references
+mostly do not, so each punctuated word counts as an error (removing punctuation
+from the outputs first brings it to 19.70).
 Published figures for other systems, the protocol details and caveats are in
 [`results/public_leaderboard/`](results/public_leaderboard/).
 

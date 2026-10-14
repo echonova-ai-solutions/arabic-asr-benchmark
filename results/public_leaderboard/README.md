@@ -28,10 +28,14 @@ Under the leaderboard's current code, Sada-ASR's average WER is **17.17%**
   punctuation pattern never matched, so punctuation stayed attached to words and
   counted as errors. The rows already on the leaderboard were not re-scored after
   the change. Sada-ASR's average is 17.17% under the current code and 33.10% under
-  the original code; Sada-ASR punctuates almost every output, so the original code
-  penalizes it heavily. It is not recorded which version produced each figure in
-  `published_baselines.csv`, so comparisons with them are indicative, not
-  established.
+  the original code. The gap is punctuation: Sada-ASR punctuates 99.8% of its
+  outputs and only 7.9% of the references contain punctuation, and the original
+  code counts every word with attached punctuation as an error. With punctuation
+  removed from Sada-ASR's outputs first, the original code gives 19.70%; the rest
+  of the gap comes from the current code's other rules (attaching a standalone و
+  to the next word and collapsing whitespace). It is not recorded which version
+  produced each figure in `published_baselines.csv`, so comparisons with them are
+  indicative, not established.
 - **Common Voice audio.** The leaderboard's Common Voice 18.0 test manifest was
   used, with audio files read from the Common Voice 23.0 release.
 - **MASC-noisy manifest.** It lists one clip id twice; like the leaderboard, all

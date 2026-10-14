@@ -39,10 +39,7 @@ def leaderboard_markdown() -> str:
     for r in csv.DictReader(open(ROOT / "results/public_leaderboard/results.csv", encoding="utf-8")):
         rows[(r["normalizer"], r["test_set"])] = 100 * float(r["wer"])
     body = []
-    for norm, label in (
-        ("oual-2026-07", "leaderboard's current code (`oual-2026-07`)"),
-        ("oual-2024-12", "leaderboard's original code (`oual-2024-12`)"),
-    ):
+    for norm, label in (("oual-2026-07", "leaderboard's current code (`oual-2026-07`)"),):
         body.append([f"Sada-ASR, {label}"] + [f"{rows[(norm, s)]:.2f}" for s, _ in LB_SETS])
     return markdown_table(["System"] + [h for _, h in LB_SETS], body)
 
