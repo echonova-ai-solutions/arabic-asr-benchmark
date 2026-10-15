@@ -1,12 +1,12 @@
 <div align="center">
 
-<img src="assets/banner.png" alt="EchoNova Arabic Dialect ASR Benchmark">
+<img src="assets/banner.png" alt="Arabic Dialect ASR Benchmark, معيار اللهجات العربية, by EchoNova" width="100%">
 
 <p>
-  <a href="https://huggingface.co/datasets/echonova-ai/arabic-dialect-asr-benchmark"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Dataset-arabic--dialect--asr--benchmark-4a443e?labelColor=171310" alt="Hugging Face dataset"></a>
-  <img src="https://img.shields.io/badge/paper-coming%20soon-7a726a?labelColor=171310" alt="Paper: coming soon">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/code-Apache--2.0-4a443e?labelColor=171310" alt="Code license: Apache-2.0"></a>
-  <img src="https://img.shields.io/badge/python-3.10%2B-4a443e?labelColor=171310" alt="Python 3.10+">
+  <a href="https://huggingface.co/datasets/echonova-ai/arabic-dialect-asr-benchmark"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Dataset-arabic--dialect--asr--benchmark-6E665C?labelColor=171310" alt="Hugging Face dataset"></a>
+  <img src="https://img.shields.io/badge/paper-coming%20soon-6E665C?labelColor=171310" alt="Paper: coming soon">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/code-Apache--2.0-6E665C?labelColor=171310" alt="Code license: Apache-2.0"></a>
+  <img src="https://img.shields.io/badge/python-3.10%2B-6E665C?labelColor=171310" alt="Python 3.10+">
   <a href="https://github.com/echonova-ai-solutions/arabic-asr-benchmark/actions/workflows/ci.yml"><img src="https://github.com/echonova-ai-solutions/arabic-asr-benchmark/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
 </p>
 
@@ -20,6 +20,10 @@
 </p>
 
 <b>Reproducible evaluation of Arabic speech recognition across MSA and eight dialects.</b>
+
+<p dir="rtl">
+مجموعة اختبار مفتوحة لقياس دقة تحويل الكلام العربي إلى نص: الفصحى وثماني لهجات، في 19.95 ساعة و8,925 مقطعًا، ولكل مقطع نص مرجعي كتبه إنسان.
+</p>
 
 </div>
 
@@ -48,7 +52,7 @@ file, not access to any model, API key or EchoNova service.
   recomputed from stored outputs and labelled by how far they can be verified.
 
 <p align="center">
-<img src="assets/test-set-composition.png" alt="Hours and clips per variety in the public test set: MSA 8.27 h, Egyptian 3.37 h, Emirati 2.50 h, Saudi 1.67 h, and about 0.8 h each for Kuwaiti, Syrian, Lebanese, Qatari and Omani" width="720">
+<img src="assets/test-set-composition.png" alt="Hours and clips per variety in the public test set: MSA 8.27 h, Egyptian 3.37 h, Emirati 2.50 h, Saudi 1.67 h, and about 0.8 h each for Kuwaiti, Qatari, Lebanese, Syrian and Omani" width="800">
 </p>
 
 ## 🔗 Resources
@@ -76,7 +80,7 @@ published in [`results/echonova_20h/predictions/`](results/echonova_20h/predicti
 **Fully verifiable at the metric level.**
 
 <p align="center">
-<img src="assets/wer-overview.png" alt="Bar chart of word error rate on the public test set; Sada-ASR has the lowest WER of the eight systems. Values are in the table below" width="720">
+<img src="assets/wer-overview.png" alt="Word error rate of eight systems on the public test set. Sada-ASR is lowest at 11.74%. Values are in the table below" width="800">
 </p>
 
 <!-- BEGIN echonova-20h-summary -->
@@ -95,7 +99,7 @@ published in [`results/echonova_20h/predictions/`](results/echonova_20h/predicti
 WER (%) by variety (best per row in bold):
 
 <p align="center">
-<img src="assets/wer-by-variety.png" alt="Heatmap of word error rate by variety and system on the public test set. Values are in the table below" width="740">
+<img src="assets/wer-by-variety.png" alt="Heatmap of word error rate by variety and system on the public test set. Values are in the table below" width="800">
 </p>
 
 <details>

@@ -10,8 +10,10 @@ text, exactly one red #D40000 element per figure, no gradients, glow or waveform
 Lyon Display for the hero headline only, Codec Pro for text, IBM Plex Mono for numbers;
 the EchoNova logo alone (no Arabic lockup) on English material.
 
-The SVGs name the brand typefaces; the PNGs in assets/ are rendered from them with
-EchoNova's licensed fonts, which are not distributed with this repository.
+The PNGs in assets/ are the EchoNova design team's renders of these figures (with
+Arabic labels, in EchoNova's licensed fonts, which are not distributed here); their
+numbers were checked against the result files. This script draws the same figures
+as SVG from the result files, so they can be regenerated when the results change.
 """
 
 from __future__ import annotations
