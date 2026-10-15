@@ -256,11 +256,12 @@ Step-by-step commands: [docs/reproducibility.md](docs/reproducibility.md).
 If you use the test set or this code, please cite:
 
 ```bibtex
-@misc{khaled2026sada,
-  title  = {EchoNova Sada: A Benchmark Study of Dialectal Arabic Speech Recognition},
-  author = {Khaled, Mahmoud and Abd-Elnaser, Mohammed and Mohsen, Mahmoud},
-  year   = {2026},
-  note   = {EchoNova Technologies. Preprint forthcoming}
+@misc{mohsen2026echonova,
+  title        = {EchoNova Arabic Dialect ASR Benchmark},
+  author       = {Mohsen, Mahmoud and Khaled, Mahmoud},
+  year         = {2026},
+  howpublished = {\url{https://huggingface.co/datasets/echonova-ai/arabic-dialect-asr-benchmark}},
+  note         = {EchoNova Technologies. Code and results: \url{https://github.com/echonova-ai-solutions/arabic-asr-benchmark}}
 }
 ```
 

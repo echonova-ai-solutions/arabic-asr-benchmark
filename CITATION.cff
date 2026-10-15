@@ -1,29 +1,15 @@
 cff-version: 1.2.0
-message: "If you use this software or the EchoNova Arabic Dialect ASR Benchmark, please cite the paper below."
-title: "EchoNova Arabic ASR Benchmark"
+message: "If you use this code or the EchoNova Arabic Dialect ASR Benchmark test set, please cite it as below."
+title: "EchoNova Arabic Dialect ASR Benchmark"
 type: software
 version: 1.0.0
 license: Apache-2.0
 repository-code: "https://github.com/echonova-ai-solutions/arabic-asr-benchmark"
+url: "https://huggingface.co/datasets/echonova-ai/arabic-dialect-asr-benchmark"
 authors:
-  - family-names: Khaled
-    given-names: Mahmoud
-    affiliation: EchoNova Technologies
-  - family-names: Abd-Elnaser
-    given-names: Mohammed
-    affiliation: EchoNova Technologies
   - family-names: Mohsen
     given-names: Mahmoud
     affiliation: EchoNova Technologies
-preferred-citation:
-  type: article
-  title: "EchoNova Sada: A Benchmark Study of Dialectal Arabic Speech Recognition"
-  authors:
-    - family-names: Khaled
-      given-names: Mahmoud
-    - family-names: Abd-Elnaser
-      given-names: Mohammed
-    - family-names: Mohsen
-      given-names: Mahmoud
-  year: 2026
-  notes: "Preprint forthcoming."
+  - family-names: Khaled
+    given-names: Mahmoud
+    affiliation: EchoNova Technologies
