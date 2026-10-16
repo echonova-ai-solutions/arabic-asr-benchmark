@@ -7,8 +7,8 @@ any EchoNova model, service or credential.
 
 | Claim | Verifiable by | How |
 | :--- | :--- | :--- |
-| Metrics of the nine systems with published outputs on the public test set | Anyone | Score the published outputs (step 3) |
-| Metrics of ElevenLabs Scribe v2, Speechmatics Enhanced and Cohere Transcribe Arabic | Not externally | Their per-clip outputs are not published; their figures are recomputed by EchoNova |
+| Metrics of the ten systems with published outputs on the public test set | Anyone | Score the published outputs (step 3) |
+| Metrics of ElevenLabs Scribe v2 and Speechmatics Enhanced | Not externally | Their per-clip outputs are not published; their figures are recomputed by EchoNova |
 | Outputs of the six open-weight models | Anyone | Re-run the models on the public audio; settings we recorded are in `results/echonova_20h/systems.json` |
 | Outputs of the five commercial APIs | Approximately | Hosted APIs change without notice; ours are dated measurements (13 October 2026; Speechmatics 15 October) |
 | Outputs of Sada-ASR | Not externally | Proprietary model; its outputs are published so its metrics can be checked |

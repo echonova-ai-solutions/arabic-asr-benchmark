@@ -44,9 +44,8 @@ file, not access to any model, API key or EchoNova service.
   120-hour private test set evaluated in the paper.
 - **Twelve systems** measured on it: EchoNova's Sada-ASR, five commercial APIs
   and six open-weight models, the systems compared in the paper. The raw per-clip
-  outputs of nine of them are published, so their figures can be recomputed;
-  ElevenLabs Scribe v2, Speechmatics Enhanced and Cohere Transcribe Arabic are
-  reported as metrics only.
+  outputs of ten of them are published, so their figures can be recomputed;
+  ElevenLabs Scribe v2 and Speechmatics Enhanced are reported as metrics only.
 - **Versioned normalizers and scoring.** `echonova-v1` and the `sada-paper`
   scoring protocol reproduce the paper's scoring exactly; reproductions of the
   Open Universal Arabic ASR Leaderboard's normalizer are included too.
@@ -78,9 +77,9 @@ WER, macro WER and CER in %, normalizer `echonova-v1` with the `sada-paper`
 scoring protocol. WER and CER are corpus micro-averages; macro WER is the
 unweighted mean of the nine per-variety WERs; Empty is the share of clips with an
 empty transcript. Recomputed from each system's stored outputs. The outputs of
-nine systems are published in [`results/echonova_20h/predictions/`](results/echonova_20h/predictions/),
-so their figures are **fully verifiable at the metric level**; ElevenLabs Scribe v2,
-Speechmatics Enhanced and Cohere Transcribe Arabic are metrics only.
+ten systems are published in [`results/echonova_20h/predictions/`](results/echonova_20h/predictions/),
+so their figures are **fully verifiable at the metric level**; ElevenLabs Scribe v2
+and Speechmatics Enhanced are metrics only.
 
 <p align="center">
 <img src="assets/wer-overview.png" alt="Word error rate of twelve systems on the public test set. Sada-ASR is lowest at 11.74%. Values are in the table below" width="800">
@@ -254,8 +253,8 @@ Details: [docs/methodology.md](docs/methodology.md).
 
 | What | Who can verify it |
 | :--- | :--- |
-| Metric computation for the nine systems with published outputs | Anyone: references and per-clip outputs are public |
-| Metrics of ElevenLabs Scribe v2, Speechmatics Enhanced and Cohere Transcribe Arabic | Not externally: their per-clip outputs are not published |
+| Metric computation for the ten systems with published outputs | Anyone: references and per-clip outputs are public |
+| Metrics of ElevenLabs Scribe v2 and Speechmatics Enhanced | Not externally: their per-clip outputs are not published |
 | Inference of the open-weight models | Anyone with the models (settings and dates in [`systems.json`](results/echonova_20h/systems.json)) |
 | Inference of the commercial APIs | Only approximately: hosted models change without notice; measurements are dated |
 | Inference of Sada-ASR | Not externally: the model is proprietary |

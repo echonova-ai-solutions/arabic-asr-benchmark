@@ -5,13 +5,12 @@ The twelve systems compared in the paper, on
 (8,925 clips, 19.95 h, 9 varieties). Every file here is generated from the
 systems' predictions with the `asr-bench` CLI; see
 [docs/reproducibility.md](../../docs/reproducibility.md). Predictions are published
-for nine systems; ElevenLabs Scribe v2, Speechmatics Enhanced and Cohere
-Transcribe Arabic are published as metrics only, so their rows cannot be
-recomputed by others.
+for ten systems; ElevenLabs Scribe v2 and Speechmatics Enhanced are published as
+metrics only, so their rows cannot be recomputed by others.
 
 | File | Content |
 | :--- | :--- |
-| `predictions/<system>.jsonl` | Raw per-clip output (`{"id", "prediction"}`) of the nine systems with published outputs, exactly as returned, before any normalization or loop cropping |
+| `predictions/<system>.jsonl` | Raw per-clip output (`{"id", "prediction"}`) of the ten systems with published outputs, exactly as returned, before any normalization or loop cropping |
 | `systems.json` | Type, provider, model identifier, evaluation date, settings, and counts of failed requests and re-requested runaway outputs (`null` = not recorded) |
 | `runs/<normalizer>/<system>.json` | Full result records: `echonova-v1` with the `sada-paper` scoring (headline), `echonova-v1.1` and `oual-2026-07` (both with plain scoring) |
 | `summary.csv` | One row per system and normalizer: WER, macro WER, CER, S/D/I, empty rate |
