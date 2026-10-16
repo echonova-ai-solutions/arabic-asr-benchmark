@@ -14,6 +14,9 @@
     "settings": {
       "hosting": "self-hosted",
       "decoding": "greedy (num_beams=1), no beam search, no decode-time tuning",
+      "repetition_guard": "at most 3 repeats of any 4- to 8-token unit",
+      "max_new_tokens": "14 per second of audio + 16 (at least 20)",
+      "long_audio": "30 s windows with 2 s overlap (no clip of this test set is longer than 30 s)",
       "batch_size": 1
     },
     "failed_requests_scored_as_empty": 0,

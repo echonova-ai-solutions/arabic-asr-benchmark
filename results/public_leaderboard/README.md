@@ -14,7 +14,7 @@ entry, and Sada-ASR's per-clip outputs on these sets are not published.
 | File | Content |
 | :--- | :--- |
 | `results.csv` | Sada-ASR per test set and averaged, under `oual-2026-07` (the leaderboard's current code; headline) and `echonova-v1` with `sada-paper` scoring |
-| `published_baselines.csv` | Figures for other systems as published by their authors or by the leaderboard (not re-run by EchoNova), with sources |
+| `published_baselines.csv` | Figures for other systems as published by their authors, by IFM (Jais-ASR model card) or by the leaderboard (not re-run by EchoNova), with sources |
 | `evaluation_config.yaml` | Upstream commits, test-set sources and other protocol details |
 
 Under the leaderboard's current code, Sada-ASR's average WER is **17.17%**

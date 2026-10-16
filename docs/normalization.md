@@ -20,7 +20,7 @@ A name never changes behaviour. Corrections get a new name.
 
 ## `echonova-v1`
 
-The normalizer behind every private-test-set figure in the EchoNova Sada paper.
+The normalizer behind every private-test-set figure in the paper.
 It was checked character by character against the implementation used for the
 paper on every Unicode code point and on all 1,393,522 stored reference and
 hypothesis strings of the paper's evaluation (13 systems × 53,597 clips), with
@@ -216,14 +216,14 @@ effect is large for some varieties (WER %; `echonova-v1` with `sada-paper`,
 | Macro | 15.56 | 18.87 | 17.07 | 18.77 |
 
 Under the leaderboard normalizer Sada-ASR's overall WER is still the lowest of
-the eight systems, but its macro WER is slightly higher than MAI-Transcribe-2's,
+the twelve systems, but its macro WER is slightly higher than MAI-Transcribe-2's,
 driven by Kuwaiti, Qatari, Saudi and Lebanese, whose references mostly write ة
 where Sada-ASR writes ه. Never mix normalizers within one comparison table.
 
 ## Reproducing the paper's figures
 
-- Private test set (paper Tables 1-3 and 5): `echonova-v1` with the `sada-paper`
+- Private test set (paper Tables 1-3, 5 and 7): `echonova-v1` with the `sada-paper`
   scoring (the default).
-- Sada-ASR on the six leaderboard test sets (paper Tables 4 and 6): `oual-2026-07`,
+- Sada-ASR on the six leaderboard test sets (paper Tables 4 and 8): `oual-2026-07`,
   average 17.17%.
 - See [paper_consistency.md](paper_consistency.md) for the cell-by-cell check.

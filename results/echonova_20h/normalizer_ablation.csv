@@ -1,4 +1,15 @@
 system,variant,wer,cer,wer_minus_v1.1,cer_minus_v1.1
+elevenlabs-scribe-v2,echonova-v1,0.163535,0.077822,0.000986,0.001158
+elevenlabs-scribe-v2,echonova-v1.1,0.162548,0.076664,0.000000,0.000000
+elevenlabs-scribe-v2,echonova-v1.1 without nfkc,0.162548,0.076664,0.000000,0.000000
+elevenlabs-scribe-v2,echonova-v1.1 without event_tags,0.162548,0.076664,0.000000,0.000000
+elevenlabs-scribe-v2,echonova-v1.1 without punctuation,0.162540,0.076645,-0.000008,-0.000019
+elevenlabs-scribe-v2,echonova-v1.1 without marks,0.163538,0.077294,0.000990,0.000630
+elevenlabs-scribe-v2,echonova-v1.1 without extra_folds,0.162548,0.076664,0.000000,0.000000
+elevenlabs-scribe-v2,echonova-v1.1 without persian_digits,0.162548,0.076664,0.000000,0.000000
+elevenlabs-scribe-v2,echonova-v1.1 without lowercase,0.162555,0.076665,0.000007,0.000001
+elevenlabs-scribe-v2,echonova-v1.1 without whitespace,0.162548,0.091226,0.000000,0.014562
+elevenlabs-scribe-v2,echonova-v1 + sada-paper scoring,0.163535,0.077275,0.000986,0.000611
 gemini-3.5-transcribe,echonova-v1,0.163069,0.084581,0.000172,0.000911
 gemini-3.5-transcribe,echonova-v1.1,0.162896,0.083670,0.000000,0.000000
 gemini-3.5-transcribe,echonova-v1.1 without nfkc,0.162896,0.083670,0.000000,0.000000
@@ -32,6 +43,17 @@ gpt-transcribe,echonova-v1.1 without persian_digits,0.170778,0.085884,0.000000,0
 gpt-transcribe,echonova-v1.1 without lowercase,0.170778,0.085884,0.000000,0.000000
 gpt-transcribe,echonova-v1.1 without whitespace,0.170778,0.105474,0.000000,0.019590
 gpt-transcribe,echonova-v1 + sada-paper scoring,0.171123,0.086133,0.000344,0.000249
+speechmatics-enhanced,echonova-v1,0.182898,0.089655,0.000195,0.000785
+speechmatics-enhanced,echonova-v1.1,0.182703,0.088871,0.000000,0.000000
+speechmatics-enhanced,echonova-v1.1 without nfkc,0.182703,0.088871,0.000000,0.000000
+speechmatics-enhanced,echonova-v1.1 without event_tags,0.182703,0.088871,0.000000,0.000000
+speechmatics-enhanced,echonova-v1.1 without punctuation,0.182777,0.088877,0.000074,0.000007
+speechmatics-enhanced,echonova-v1.1 without marks,0.182767,0.089040,0.000064,0.000169
+speechmatics-enhanced,echonova-v1.1 without extra_folds,0.182703,0.088871,0.000000,0.000000
+speechmatics-enhanced,echonova-v1.1 without persian_digits,0.182703,0.088871,0.000000,0.000000
+speechmatics-enhanced,echonova-v1.1 without lowercase,0.182703,0.088871,0.000000,0.000000
+speechmatics-enhanced,echonova-v1.1 without whitespace,0.182703,0.103560,0.000000,0.014689
+speechmatics-enhanced,echonova-v1 + sada-paper scoring,0.182885,0.089045,0.000182,0.000174
 audar-asr-v1-turbo,echonova-v1,0.210119,0.102784,0.000239,0.002053
 audar-asr-v1-turbo,echonova-v1.1,0.209880,0.100731,0.000000,0.000000
 audar-asr-v1-turbo,echonova-v1.1 without nfkc,0.209880,0.100731,0.000000,0.000000
@@ -54,6 +76,28 @@ sada-asr,echonova-v1.1 without persian_digits,0.117042,0.047021,0.000000,0.00000
 sada-asr,echonova-v1.1 without lowercase,0.117042,0.047021,0.000000,0.000000
 sada-asr,echonova-v1.1 without whitespace,0.117042,0.063375,0.000000,0.016354
 sada-asr,echonova-v1 + sada-paper scoring,0.117410,0.047175,0.000368,0.000154
+cohere-transcribe-arabic,echonova-v1,0.295359,0.198337,0.000274,0.000694
+cohere-transcribe-arabic,echonova-v1.1,0.295085,0.197642,0.000000,0.000000
+cohere-transcribe-arabic,echonova-v1.1 without nfkc,0.295085,0.197642,0.000000,0.000000
+cohere-transcribe-arabic,echonova-v1.1 without event_tags,0.294645,0.197158,-0.000440,-0.000484
+cohere-transcribe-arabic,echonova-v1.1 without punctuation,0.295391,0.197724,0.000306,0.000082
+cohere-transcribe-arabic,echonova-v1.1 without marks,0.295470,0.197891,0.000385,0.000249
+cohere-transcribe-arabic,echonova-v1.1 without extra_folds,0.295085,0.197642,0.000000,0.000000
+cohere-transcribe-arabic,echonova-v1.1 without persian_digits,0.295085,0.197642,0.000000,0.000000
+cohere-transcribe-arabic,echonova-v1.1 without lowercase,0.295085,0.197642,0.000000,0.000000
+cohere-transcribe-arabic,echonova-v1.1 without whitespace,0.295085,0.207021,0.000000,0.009379
+cohere-transcribe-arabic,echonova-v1 + sada-paper scoring,0.295280,0.197497,0.000195,-0.000145
+jais-asr,echonova-v1,0.165235,0.070147,0.000278,0.000795
+jais-asr,echonova-v1.1,0.164957,0.069353,0.000000,0.000000
+jais-asr,echonova-v1.1 without nfkc,0.164957,0.069353,0.000000,0.000000
+jais-asr,echonova-v1.1 without event_tags,0.164957,0.069353,0.000000,0.000000
+jais-asr,echonova-v1.1 without punctuation,0.165041,0.069368,0.000084,0.000015
+jais-asr,echonova-v1.1 without marks,0.165100,0.069545,0.000143,0.000192
+jais-asr,echonova-v1.1 without extra_folds,0.164957,0.069353,0.000000,0.000000
+jais-asr,echonova-v1.1 without persian_digits,0.164957,0.069353,0.000000,0.000000
+jais-asr,echonova-v1.1 without lowercase,0.164957,0.069353,0.000000,0.000000
+jais-asr,echonova-v1.1 without whitespace,0.164957,0.076374,0.000000,0.007021
+jais-asr,echonova-v1 + sada-paper scoring,0.165235,0.069567,0.000278,0.000215
 nemotron-3.5-asr-streaming-0.6b,echonova-v1,0.285211,0.117039,0.000383,0.000709
 nemotron-3.5-asr-streaming-0.6b,echonova-v1.1,0.284827,0.116330,0.000000,0.000000
 nemotron-3.5-asr-streaming-0.6b,echonova-v1.1 without nfkc,0.284827,0.116330,0.000000,0.000000

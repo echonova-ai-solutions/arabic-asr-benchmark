@@ -1,8 +1,8 @@
 # The public test set
 
 [`echonova-ai/arabic-dialect-asr-benchmark`](https://huggingface.co/datasets/echonova-ai/arabic-dialect-asr-benchmark)
-is a one-sixth sample of the 120-hour private test set evaluated in the EchoNova
-Sada paper (test set version 2). This page describes how it was drawn and what it
+is a one-sixth sample of the 120-hour private test set evaluated in the Sada-ASR
+paper (test set version 2). This page describes how it was drawn and what it
 contains. The dataset card on Hugging Face has the field descriptions and usage
 examples.
 
@@ -57,7 +57,7 @@ clips, as the paper does; the 55 exclusions apply to the draw only.
 
 ## Is the released fold representative?
 
-WER (%) of the eight systems on each fold, `echonova-v1` with `sada-paper`
+WER (%) of the twelve systems on each fold, `echonova-v1` with `sada-paper`
 scoring ([`results/echonova_20h/folds.csv`](../results/echonova_20h/folds.csv)):
 
 | System | Fold 0 (released) | Fold 1 | Fold 2 | Fold 3 | Fold 4 | Fold 5 |
@@ -65,15 +65,21 @@ scoring ([`results/echonova_20h/folds.csv`](../results/echonova_20h/folds.csv)):
 | Sada-ASR | 11.74 | 11.56 | 11.71 | 11.73 | 11.62 | 11.78 |
 | MAI-Transcribe-2 | 13.79 | 13.34 | 13.55 | 13.47 | 13.52 | 13.43 |
 | Gemini 3.5 Transcribe | 16.31 | 15.88 | 16.22 | 16.04 | 16.16 | 16.23 |
+| ElevenLabs Scribe v2 | 16.35 | 16.00 | 16.09 | 16.10 | 16.08 | 16.14 |
+| Jais-ASR | 16.52 | 16.26 | 16.37 | 16.44 | 16.34 | 16.55 |
 | gpt-transcribe | 17.11 | 16.90 | 16.94 | 17.16 | 16.94 | 17.16 |
+| Speechmatics Enhanced | 18.29 | 17.98 | 17.90 | 18.15 | 18.03 | 18.20 |
 | Audar-ASR-V1-Turbo | 21.01 | 20.80 | 20.98 | 20.93 | 20.63 | 20.87 |
 | FastConformer | 26.31 | 25.69 | 25.96 | 25.97 | 25.73 | 26.22 |
 | Whisper large-v3 | 26.82 | 26.81 | 26.38 | 26.35 | 26.64 | 26.50 |
 | Nemotron-3.5 | 28.52 | 28.00 | 28.00 | 28.05 | 27.86 | 28.28 |
+| Cohere Transcribe Arabic | 29.53 | 28.90 | 28.93 | 29.17 | 28.63 | 29.61 |
 
-The ranking of the eight systems is the same in all six folds, and a system's
-WER varies by 0.2-0.7 points between folds. The released fold is slightly harder
-than the others: it has the highest WER of the six for six of the eight systems,
+The ranking of the twelve systems is the same in all six folds, except that
+Gemini 3.5 Transcribe and ElevenLabs Scribe v2, within 0.15 points of each other,
+swap places in three folds; a system's WER varies by 0.2-1.0 points between
+folds. The released fold is slightly harder than the others: it has the highest
+WER of the six for eight of the twelve systems,
 so absolute error rates on it are slightly higher than on the full test set.
 
 ## Audio

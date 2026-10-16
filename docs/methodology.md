@@ -7,21 +7,25 @@ number:
 
 | Track | Data | Systems | Verifiable by others |
 | :--- | :--- | :--- | :--- |
-| `echonova_20h` | The public test set: 8,925 clips, 19.95 h, 9 varieties | 8 | Metrics: yes (references and outputs public) |
-| `echonova_private_120h` | The paper's private test set: 53,597 clips, 119.86 h, 9 varieties | 8 | No (five sixths unreleased); recomputed by EchoNova |
+| `echonova_20h` | The public test set: 8,925 clips, 19.95 h, 9 varieties | 12 | Metrics: yes for the 8 systems whose outputs are public |
+| `echonova_private_120h` | The paper's private test set: 53,597 clips, 119.86 h, 9 varieties | 12 | No (five sixths unreleased); recomputed by EchoNova |
 | `public_leaderboard` | Six test sets of the Open Universal Arabic ASR Leaderboard: 46,757 clips | Sada-ASR | Protocol: yes; outputs: not published |
 
 The public test set is one sixth of the private one, so the first two tracks
 measure the same systems on overlapping data. Their figures are close but not
 identical and should not be mixed in one table.
 
-The eight systems are those compared in the paper: Sada-ASR, three commercial APIs
-(MAI-Transcribe-2, Gemini 3.5 Transcribe, gpt-transcribe) and four open-weight
-models (Audar-ASR-V1-Turbo, FastConformer, Whisper large-v3, Nemotron-3.5). All
-were run on 13 October 2026 on identical audio, with the settings recorded in
-[`results/echonova_20h/systems.json`](../results/echonova_20h/systems.json). No
-system, including Sada-ASR, used contextual biasing, custom vocabulary or other
-adaptation.
+The twelve systems are those compared in the paper: Sada-ASR, five commercial
+APIs (MAI-Transcribe-2, ElevenLabs Scribe v2, Gemini 3.5 Transcribe,
+gpt-transcribe, Speechmatics Enhanced) and six open-weight models (Jais-ASR,
+Audar-ASR-V1-Turbo, FastConformer, Whisper large-v3, Nemotron-3.5, Cohere
+Transcribe Arabic). All were run on identical audio on 13 October 2026, except
+Jais-ASR and Speechmatics Enhanced (15 October 2026, UTC), with the settings
+recorded in [`results/echonova_20h/systems.json`](../results/echonova_20h/systems.json).
+No system, including Sada-ASR, used contextual biasing, custom vocabulary or other
+adaptation. Per-clip outputs are published for eight systems; ElevenLabs Scribe
+v2, Speechmatics Enhanced, Jais-ASR and Cohere Transcribe Arabic are published as
+metrics only.
 
 ## Predictions
 

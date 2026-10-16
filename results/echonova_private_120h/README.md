@@ -1,6 +1,6 @@
 # Results: private test set (`echonova_private_120h`)
 
-The figures of the EchoNova Sada paper (Tables 2, 3 and 5): the eight systems on
+The figures of the paper (Tables 2, 3, 5 and 7): the twelve systems on
 the full private test set, 53,597 clips and 119.86 h in nine varieties, normalizer
 `echonova-v1` with the `sada-paper` scoring. They were recomputed by EchoNova with
 this package from the systems' stored raw outputs and match the paper exactly

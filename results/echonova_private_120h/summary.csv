@@ -1,9 +1,13 @@
 system,type,normalizer,scoring,n_utterances,ref_words,wer,macro_wer,cer,macro_cer,sub,del,ins,empty_rate
 sada-asr,proprietary,echonova-v1,sada-paper,53597,916136,0.116877,0.155220,0.047553,0.065260,68684,27036,11355,0.000037
 mai-transcribe-2,commercial API,echonova-v1,sada-paper,53597,916136,0.135147,0.169609,0.063665,0.078543,81221,23619,18973,0.000019
+elevenlabs-scribe-v2,commercial API,echonova-v1,sada-paper,53597,916136,0.161195,0.206707,0.075377,0.097134,97771,32093,17813,0.000765
 gemini-3.5-transcribe,commercial API,echonova-v1,sada-paper,53597,916136,0.161332,0.208432,0.082302,0.107119,86292,48806,12704,0.000205
+jais-asr,open-weight,echonova-v1,sada-paper,53597,916136,0.164085,0.210003,0.068924,0.090822,98589,35795,15940,0.000019
 gpt-transcribe,commercial API,echonova-v1,sada-paper,53597,916136,0.170293,0.216878,0.085870,0.112075,86322,62747,6943,0.000093
+speechmatics-enhanced,commercial API,echonova-v1,sada-paper,53597,916136,0.180800,0.243699,0.087325,0.122084,100470,55707,9460,0.000019
 audar-asr-v1-turbo,open-weight,echonova-v1,sada-paper,53597,916136,0.208640,0.251667,0.099738,0.117741,120552,49966,20625,0.000000
 nvidia-fastconformer-ar,open-weight,echonova-v1,sada-paper,53597,916136,0.259672,0.329318,0.123142,0.159855,143556,72076,22263,0.000093
 whisper-large-v3,open-weight,echonova-v1,sada-paper,53597,916136,0.265667,0.325579,0.150776,0.182724,138409,83912,21066,0.000000
 nemotron-3.5-asr-streaming-0.6b,open-weight,echonova-v1,sada-paper,53597,916136,0.281059,0.363517,0.114334,0.153558,181362,52870,23256,0.000952
+cohere-transcribe-arabic,open-weight,echonova-v1,sada-paper,53597,916136,0.291140,0.379398,0.194114,0.254284,109574,133325,23825,0.000504

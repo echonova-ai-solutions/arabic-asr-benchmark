@@ -1,14 +1,17 @@
 # Results: public test set (`echonova_20h`)
 
-The eight systems compared in the EchoNova Sada paper, on
+The twelve systems compared in the paper, on
 [`echonova-ai/arabic-dialect-asr-benchmark`](https://huggingface.co/datasets/echonova-ai/arabic-dialect-asr-benchmark)
 (8,925 clips, 19.95 h, 9 varieties). Every file here is generated from the
-published predictions with the `asr-bench` CLI; see
-[docs/reproducibility.md](../../docs/reproducibility.md).
+systems' predictions with the `asr-bench` CLI; see
+[docs/reproducibility.md](../../docs/reproducibility.md). Predictions are published
+for eight systems; ElevenLabs Scribe v2, Speechmatics Enhanced, IFM Jais-ASR and
+Cohere Transcribe Arabic are published as metrics only, so their rows cannot be
+recomputed by others.
 
 | File | Content |
 | :--- | :--- |
-| `predictions/<system>.jsonl` | Raw per-clip output of each system (`{"id", "prediction"}`), exactly as returned, before any normalization or loop cropping |
+| `predictions/<system>.jsonl` | Raw per-clip output (`{"id", "prediction"}`) of the eight systems with published outputs, exactly as returned, before any normalization or loop cropping |
 | `systems.json` | Type, provider, model identifier, evaluation date, settings, and counts of failed requests and re-requested runaway outputs (`null` = not recorded) |
 | `runs/<normalizer>/<system>.json` | Full result records: `echonova-v1` with the `sada-paper` scoring (headline), `echonova-v1.1` and `oual-2026-07` (both with plain scoring) |
 | `summary.csv` | One row per system and normalizer: WER, macro WER, CER, S/D/I, empty rate |
@@ -20,8 +23,9 @@ published predictions with the `asr-bench` CLI; see
 Rates in CSV and JSON files are fractions; multiply by 100 for %. In
 `bootstrap.csv`, `delta_wer_points` is positive when Sada-ASR has the lower WER.
 
-The outputs were produced on 13 October 2026 in the evaluation reported in the
-paper; they were not re-run for this release. A runaway output (more than five
+The outputs were produced in the evaluation reported in the paper, on 13 October
+2026 (Jais-ASR and Speechmatics Enhanced: 15 October 2026, UTC); they were not
+re-run for this release. A runaway output (more than five
 times the reference's word count and more than 50 words) from an API was
 re-requested up to three times and the first normal output kept; `systems.json`
 counts these. Systems benchmarked by EchoNova but not compared in the paper are

@@ -55,6 +55,10 @@ SHORT = {
     "nvidia-fastconformer-ar": "FastConf.",
     "whisper-large-v3": "Whisper",
     "nemotron-3.5-asr-streaming-0.6b": "Nemotron",
+    "elevenlabs-scribe-v2": "Scribe v2",
+    "speechmatics-enhanced": "Speechm.",
+    "jais-asr": "Jais",
+    "cohere-transcribe-arabic": "Cohere",
 }
 LABEL = {
     "sada-asr": "Sada-ASR (EchoNova)",
@@ -65,6 +69,10 @@ LABEL = {
     "nvidia-fastconformer-ar": "NVIDIA FastConformer (ar)",
     "whisper-large-v3": "OpenAI Whisper large-v3",
     "nemotron-3.5-asr-streaming-0.6b": "NVIDIA Nemotron-3.5 0.6B",
+    "elevenlabs-scribe-v2": "ElevenLabs Scribe v2",
+    "speechmatics-enhanced": "Speechmatics Enhanced",
+    "jais-asr": "IFM Jais-ASR",
+    "cohere-transcribe-arabic": "Cohere Transcribe Arabic",
 }
 HIGHLIGHT = "sada-asr"
 
@@ -267,7 +275,9 @@ def wer_overview(t: dict, meta, summary) -> str:
             )
         )
     body += _footer(t, w, h, "Source: results/echonova_20h/summary.csv")
-    return _svg(w, h, body, t, "Word error rate of eight ASR systems on the EchoNova public Arabic test set")
+    return _svg(
+        w, h, body, t, f"Word error rate of {len(rows)} ASR systems on the EchoNova public Arabic test set"
+    )
 
 
 def wer_heatmap(t: dict, meta, summary, per) -> str:

@@ -29,8 +29,8 @@
 
 This repository holds the evaluation code, normalizers, scoring protocol, results
 and per-clip system outputs behind EchoNova's Arabic speech recognition benchmark.
-It accompanies the paper *EchoNova Sada: A Benchmark Study of Dialectal Arabic
-Speech Recognition* and the public test set
+It accompanies the paper *Sada-ASR: A Production Multidialectal Arabic Speech
+Recognition System* and the public test set
 [`echonova-ai/arabic-dialect-asr-benchmark`](https://huggingface.co/datasets/echonova-ai/arabic-dialect-asr-benchmark).
 
 The evaluation works with any system's transcripts: you need a predictions
@@ -42,9 +42,11 @@ file, not access to any model, API key or EchoNova service.
   Egyptian, Saudi, Emirati, Kuwaiti, Qatari, Omani, Syrian and Lebanese speech
   with verbatim transcripts: a one-sixth, duration-stratified sample of the
   120-hour private test set evaluated in the paper.
-- **Eight systems** measured on it: EchoNova's Sada-ASR, three commercial APIs
-  and four open-weight models, the systems compared in the paper. Their raw
-  per-clip outputs are published, so every figure can be recomputed.
+- **Twelve systems** measured on it: EchoNova's Sada-ASR, five commercial APIs
+  and six open-weight models, the systems compared in the paper. The raw per-clip
+  outputs of eight of them are published, so their figures can be recomputed;
+  ElevenLabs Scribe v2, Speechmatics Enhanced, IFM Jais-ASR and Cohere Transcribe
+  Arabic are reported as metrics only.
 - **Versioned normalizers and scoring.** `echonova-v1` and the `sada-paper`
   scoring protocol reproduce the paper's scoring exactly; reproductions of the
   Open Universal Arabic ASR Leaderboard's normalizer are included too.
@@ -60,7 +62,7 @@ file, not access to any model, API key or EchoNova service.
 | Resource | Link |
 | :--- | :--- |
 | Test set (Hugging Face) | [echonova-ai/arabic-dialect-asr-benchmark](https://huggingface.co/datasets/echonova-ai/arabic-dialect-asr-benchmark) |
-| Paper | *EchoNova Sada: A Benchmark Study of Dialectal Arabic Speech Recognition* (Khaled, Abd-Elnaser and Mohsen, 2026), preprint forthcoming <!-- TODO: arXiv link --> |
+| Paper | *Sada-ASR: A Production Multidialectal Arabic Speech Recognition System* (Khaled, Abd-Elnaser and Mohsen, 2026), preprint forthcoming <!-- TODO: arXiv link --> |
 | Open Universal Arabic ASR Leaderboard | [Hugging Face Space](https://huggingface.co/spaces/elmresearchcenter/open_universal_arabic_asr_leaderboard) · [code](https://github.com/Natural-Language-Processing-Elm/open_universal_arabic_asr_leaderboard) |
 | Methodology | [docs/methodology.md](docs/methodology.md) |
 | Normalization and scoring | [docs/normalization.md](docs/normalization.md) |
@@ -75,12 +77,13 @@ file, not access to any model, API key or EchoNova service.
 WER, macro WER and CER in %, normalizer `echonova-v1` with the `sada-paper`
 scoring protocol. WER and CER are corpus micro-averages; macro WER is the
 unweighted mean of the nine per-variety WERs; Empty is the share of clips with an
-empty transcript. Recomputed from each system's stored outputs, which are
-published in [`results/echonova_20h/predictions/`](results/echonova_20h/predictions/).
-**Fully verifiable at the metric level.**
+empty transcript. Recomputed from each system's stored outputs. The outputs of
+eight systems are published in [`results/echonova_20h/predictions/`](results/echonova_20h/predictions/),
+so their figures are **fully verifiable at the metric level**; ElevenLabs Scribe v2,
+Speechmatics Enhanced, IFM Jais-ASR and Cohere Transcribe Arabic are metrics only.
 
 <p align="center">
-<img src="assets/wer-overview.png" alt="Word error rate of eight systems on the public test set. Sada-ASR is lowest at 11.74%. Values are in the table below" width="800">
+<img src="assets/wer-overview.png" alt="Word error rate of twelve systems on the public test set. Sada-ASR is lowest at 11.74%. Values are in the table below" width="800">
 </p>
 
 <!-- BEGIN echonova-20h-summary -->
@@ -89,34 +92,38 @@ published in [`results/echonova_20h/predictions/`](results/echonova_20h/predicti
 | Sada-ASR (EchoNova) | proprietary | 11.74 | 15.56 | 4.72 | 0.00 |
 | Microsoft MAI-Transcribe-2 | commercial API | 13.79 | 17.07 | 6.52 | 0.01 |
 | Google Gemini 3.5 Transcribe | commercial API | 16.31 | 20.80 | 8.39 | 0.03 |
+| ElevenLabs Scribe v2 | commercial API | 16.35 | 20.69 | 7.73 | 0.10 |
+| IFM Jais-ASR | open-weight | 16.52 | 21.03 | 6.96 | 0.00 |
 | OpenAI gpt-transcribe | commercial API | 17.11 | 21.72 | 8.61 | 0.01 |
+| Speechmatics Enhanced | commercial API | 18.29 | 24.54 | 8.90 | 0.00 |
 | Audar-ASR-V1-Turbo | open-weight | 21.01 | 25.29 | 10.09 | 0.00 |
 | NVIDIA FastConformer (Arabic) | open-weight | 26.31 | 33.36 | 12.42 | 0.00 |
 | OpenAI Whisper large-v3 | open-weight | 26.82 | 32.72 | 15.17 | 0.00 |
 | NVIDIA Nemotron-3.5 ASR streaming 0.6B | open-weight | 28.52 | 36.71 | 11.65 | 0.06 |
+| Cohere Transcribe Arabic | open-weight | 29.53 | 38.52 | 19.75 | 0.03 |
 <!-- END echonova-20h-summary -->
 
 WER (%) by variety (best per row in bold):
 
 <p align="center">
-<img src="assets/wer-by-variety.png" alt="Heatmap of word error rate by variety and system on the public test set. Values are in the table below" width="800">
+<img src="assets/wer-by-variety.png" alt="Heatmap of word error rate by variety and system on the public test set. Values are in the table below" width="900">
 </p>
 
 <details>
 <summary>The same values as a table</summary>
 
 <!-- BEGIN echonova-20h-wer-by-dialect -->
-| Dialect | Clips | Sada-ASR (EchoNova) | Microsoft MAI-Transcribe-2 | Google Gemini 3.5 Transcribe | OpenAI gpt-transcribe | Audar-ASR-V1-Turbo | NVIDIA FastConformer (Arabic) | OpenAI Whisper large-v3 | NVIDIA Nemotron-3.5 ASR streaming 0.6B |
-| :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| msa | 3400 | **5.54** | 7.18 | 8.27 | 7.62 | 11.11 | 12.21 | 14.98 | 12.64 |
-| egyptian | 1508 | **9.60** | 13.81 | 14.85 | 18.08 | 25.99 | 29.25 | 28.37 | 32.04 |
-| saudi | 916 | **14.76** | 17.17 | 20.61 | 21.56 | 23.80 | 32.18 | 31.13 | 35.04 |
-| emirati | 1187 | **18.83** | 20.89 | 24.88 | 26.05 | 26.65 | 36.94 | 37.32 | 38.19 |
-| kuwaiti | 423 | **14.94** | 15.70 | 19.63 | 20.12 | 24.05 | 37.54 | 32.12 | 36.44 |
-| qatari | 396 | **15.71** | 16.15 | 19.95 | 21.97 | 23.40 | 35.30 | 32.72 | 34.33 |
-| omani | 371 | **16.06** | 20.05 | 21.60 | 22.52 | 26.10 | 33.84 | 32.41 | 34.69 |
-| syrian | 361 | **19.48** | 19.92 | 24.81 | 26.68 | 31.77 | 39.20 | 41.31 | 50.59 |
-| lebanese | 363 | 25.07 | **22.74** | 32.63 | 30.88 | 34.75 | 43.74 | 44.13 | 56.48 |
+| Dialect | Clips | Sada-ASR (EchoNova) | Microsoft MAI-Transcribe-2 | Google Gemini 3.5 Transcribe | ElevenLabs Scribe v2 | IFM Jais-ASR | OpenAI gpt-transcribe | Speechmatics Enhanced | Audar-ASR-V1-Turbo | NVIDIA FastConformer (Arabic) | OpenAI Whisper large-v3 | NVIDIA Nemotron-3.5 ASR streaming 0.6B | Cohere Transcribe Arabic |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| msa | 3400 | **5.54** | 7.18 | 8.27 | 8.09 | 7.92 | 7.62 | 8.01 | 11.11 | 12.21 | 14.98 | 12.64 | 15.59 |
+| egyptian | 1508 | **9.60** | 13.81 | 14.85 | 15.71 | 16.61 | 18.08 | 17.66 | 25.99 | 29.25 | 28.37 | 32.04 | 25.84 |
+| saudi | 916 | **14.76** | 17.17 | 20.61 | 21.60 | 20.91 | 21.56 | 21.64 | 23.80 | 32.18 | 31.13 | 35.04 | 31.19 |
+| emirati | 1187 | **18.83** | 20.89 | 24.88 | 24.55 | 24.34 | 26.05 | 26.67 | 26.65 | 36.94 | 37.32 | 38.19 | 45.08 |
+| kuwaiti | 423 | **14.94** | 15.70 | 19.63 | 18.97 | 20.66 | 20.12 | 35.38 | 24.05 | 37.54 | 32.12 | 36.44 | 42.86 |
+| qatari | 396 | **15.71** | 16.15 | 19.95 | 21.01 | 20.15 | 21.97 | 21.96 | 23.40 | 35.30 | 32.72 | 34.33 | 44.59 |
+| omani | 371 | **16.06** | 20.05 | 21.60 | 22.28 | 21.50 | 22.52 | 21.80 | 26.10 | 33.84 | 32.41 | 34.69 | 39.82 |
+| syrian | 361 | **19.48** | 19.92 | 24.81 | 24.34 | 26.46 | 26.68 | 32.85 | 31.77 | 39.20 | 41.31 | 50.59 | 43.00 |
+| lebanese | 363 | 25.07 | **22.74** | 32.63 | 29.66 | 30.76 | 30.88 | 34.90 | 34.75 | 43.74 | 44.13 | 56.48 | 58.70 |
 <!-- END echonova-20h-wer-by-dialect -->
 
 </details>
@@ -139,12 +146,16 @@ not released.
 | :--- | :--- | ---: | ---: | ---: | ---: |
 | Sada-ASR (EchoNova) | proprietary | 11.69 | 15.52 | 4.76 | 0.00 |
 | Microsoft MAI-Transcribe-2 | commercial API | 13.51 | 16.96 | 6.37 | 0.00 |
+| ElevenLabs Scribe v2 | commercial API | 16.12 | 20.67 | 7.54 | 0.08 |
 | Google Gemini 3.5 Transcribe | commercial API | 16.13 | 20.84 | 8.23 | 0.02 |
+| IFM Jais-ASR | open-weight | 16.41 | 21.00 | 6.89 | 0.00 |
 | OpenAI gpt-transcribe | commercial API | 17.03 | 21.69 | 8.59 | 0.01 |
+| Speechmatics Enhanced | commercial API | 18.08 | 24.37 | 8.73 | 0.00 |
 | Audar-ASR-V1-Turbo | open-weight | 20.86 | 25.17 | 9.97 | 0.00 |
 | NVIDIA FastConformer (Arabic) | open-weight | 25.97 | 32.93 | 12.31 | 0.01 |
 | OpenAI Whisper large-v3 | open-weight | 26.57 | 32.56 | 15.08 | 0.00 |
 | NVIDIA Nemotron-3.5 ASR streaming 0.6B | open-weight | 28.11 | 36.35 | 11.43 | 0.10 |
+| Cohere Transcribe Arabic | open-weight | 29.11 | 37.94 | 19.41 | 0.05 |
 <!-- END echonova-120h-summary -->
 
 ### Open Universal Arabic ASR Leaderboard test sets
@@ -243,7 +254,8 @@ Details: [docs/methodology.md](docs/methodology.md).
 
 | What | Who can verify it |
 | :--- | :--- |
-| Metric computation for the eight systems on the public test set | Anyone: references and per-clip outputs are public |
+| Metric computation for the eight systems with published outputs | Anyone: references and per-clip outputs are public |
+| Metrics of the four systems reported as metrics only | Not externally: their per-clip outputs are not published |
 | Inference of the open-weight models | Anyone with the models (settings and dates in [`systems.json`](results/echonova_20h/systems.json)) |
 | Inference of the commercial APIs | Only approximately: hosted models change without notice; measurements are dated |
 | Inference of Sada-ASR | Not externally: the model is proprietary |

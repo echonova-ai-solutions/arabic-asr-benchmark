@@ -1,4 +1,24 @@
 {
+  "elevenlabs-scribe-v2": {
+    "display_name": "ElevenLabs Scribe v2",
+    "type": "commercial API",
+    "provider": "ElevenLabs",
+    "model_id": "scribe_v2",
+    "version": null,
+    "evaluation_dates_utc": [
+      "2026-10-13",
+      "2026-10-13"
+    ],
+    "settings": {
+      "access": "ElevenLabs speech-to-text API",
+      "model": "scribe_v2",
+      "language_code": "ar",
+      "tag_audio_events": false,
+      "diarize": false
+    },
+    "failed_requests_scored_as_empty": 0,
+    "runaway_outputs_re_requested": 1
+  },
   "gemini-3.5-transcribe": {
     "display_name": "Google Gemini 3.5 Transcribe",
     "type": "commercial API",
@@ -62,6 +82,25 @@
     "failed_requests_scored_as_empty": 0,
     "runaway_outputs_re_requested": 0
   },
+  "speechmatics-enhanced": {
+    "display_name": "Speechmatics Enhanced",
+    "type": "commercial API",
+    "provider": "Speechmatics",
+    "model_id": "enhanced",
+    "version": null,
+    "evaluation_dates_utc": [
+      "2026-10-15",
+      "2026-10-15"
+    ],
+    "settings": {
+      "access": "Speechmatics batch API",
+      "operating_point": "enhanced",
+      "language": "ar",
+      "note": "keeps disfluencies and writes numbers as digits"
+    },
+    "failed_requests_scored_as_empty": 0,
+    "runaway_outputs_re_requested": 0
+  },
   "audar-asr-v1-turbo": {
     "display_name": "Audar-ASR-V1-Turbo",
     "type": "open-weight",
@@ -93,7 +132,51 @@
     "settings": {
       "hosting": "self-hosted",
       "decoding": "greedy (num_beams=1), no beam search, no decode-time tuning",
+      "repetition_guard": "at most 3 repeats of any 4- to 8-token unit",
+      "max_new_tokens": "14 per second of audio + 16 (at least 20)",
+      "long_audio": "30 s windows with 2 s overlap (no clip of this test set is longer than 30 s)",
       "batch_size": 1
+    },
+    "failed_requests_scored_as_empty": 0,
+    "runaway_outputs_re_requested": 0
+  },
+  "cohere-transcribe-arabic": {
+    "display_name": "Cohere Transcribe Arabic",
+    "type": "open-weight",
+    "provider": "Cohere",
+    "model_id": "CohereLabs/cohere-transcribe-arabic-07-2026",
+    "version": null,
+    "evaluation_dates_utc": [
+      "2026-10-13",
+      "2026-10-13"
+    ],
+    "settings": {
+      "hosting": "self-hosted",
+      "language": "ar",
+      "decoding": "greedy (num_beams=1)",
+      "batch_size": 1
+    },
+    "failed_requests_scored_as_empty": 0,
+    "runaway_outputs_re_requested": 0
+  },
+  "jais-asr": {
+    "display_name": "IFM Jais-ASR",
+    "type": "open-weight",
+    "provider": "IFM",
+    "model_id": "IFM/Jais-ASR",
+    "version": null,
+    "evaluation_dates_utc": [
+      "2026-10-15",
+      "2026-10-15"
+    ],
+    "settings": {
+      "hosting": "self-hosted (transformers)",
+      "model": "IFM/Jais-ASR",
+      "revision": "1323995fa189c479369a3929be0e95039eba5cba",
+      "language": "ar",
+      "decoding": "greedy (num_beams=1, no sampling), repetition_penalty 1.05 (model card)",
+      "max_new_tokens": 256,
+      "batch_size": 4
     },
     "failed_requests_scored_as_empty": 0,
     "runaway_outputs_re_requested": 0

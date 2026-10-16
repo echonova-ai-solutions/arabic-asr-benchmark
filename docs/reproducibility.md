@@ -7,9 +7,10 @@ any EchoNova model, service or credential.
 
 | Claim | Verifiable by | How |
 | :--- | :--- | :--- |
-| Metrics of the eight systems on the public test set | Anyone | Score the published outputs (step 3) |
-| Outputs of the four open-weight models | Anyone | Re-run the models on the public audio; settings we recorded are in `results/echonova_20h/systems.json` |
-| Outputs of MAI-Transcribe-2, Gemini 3.5 Transcribe and gpt-transcribe | Approximately | Hosted APIs change without notice; ours are dated measurements (13 October 2026) |
+| Metrics of the eight systems with published outputs on the public test set | Anyone | Score the published outputs (step 3) |
+| Metrics of ElevenLabs Scribe v2, Speechmatics Enhanced, Jais-ASR and Cohere Transcribe Arabic | Not externally | Their per-clip outputs are not published; their figures are recomputed by EchoNova |
+| Outputs of the six open-weight models | Anyone | Re-run the models on the public audio; settings we recorded are in `results/echonova_20h/systems.json` |
+| Outputs of the five commercial APIs | Approximately | Hosted APIs change without notice; ours are dated measurements (13 October 2026; Speechmatics 15 October) |
 | Outputs of Sada-ASR | Not externally | Proprietary model; its outputs are published so its metrics can be checked |
 | Results on the unreleased five sixths (paper tables) | Not externally | Recomputed by EchoNova with this package from stored outputs |
 | Sada-ASR on the leaderboard test sets | Protocol only | Test sets are public; Sada-ASR's outputs on them are not published |
