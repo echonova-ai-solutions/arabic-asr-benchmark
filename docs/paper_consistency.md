@@ -56,7 +56,7 @@ outside the package. They are neither confirmed nor contradicted here.
   crop and whitespace canonicalization, §6.2). Scoring the same outputs with
   `--scoring none` gives higher WER for the systems whose outputs contain runaway
   repetition loops and slightly higher CER for every system.
-- Per-clip outputs are published for eight of the twelve systems. The figures of
-  ElevenLabs Scribe v2, Speechmatics Enhanced, IFM Jais-ASR and Cohere Transcribe
-  Arabic were recomputed by EchoNova from their stored outputs in the same way,
-  but cannot be recomputed by others.
+- Per-clip outputs are published for nine of the twelve systems. The figures of
+  ElevenLabs Scribe v2, Speechmatics Enhanced and Cohere Transcribe Arabic were
+  recomputed by EchoNova from their stored outputs in the same way, but cannot be
+  recomputed by others.

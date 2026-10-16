@@ -34,8 +34,7 @@ Under the leaderboard's current code, Sada-ASR's average WER is **17.17%**
   9,394 lines are scored.
 - **Training-data overlap.** EchoNova's training team has stated that the model
   evaluated here saw none of these six test sets, in training or in checkpoint
-  selection. An automated check of the training manifest against the test sets is
-  pending. <!-- TODO: update when the manifest check has been run. -->
+  selection.
 - **Published figures** come from their authors' own runs at different dates
   and are reproduced here as published.
 

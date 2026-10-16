@@ -7,7 +7,7 @@ number:
 
 | Track | Data | Systems | Verifiable by others |
 | :--- | :--- | :--- | :--- |
-| `echonova_20h` | The public test set: 8,925 clips, 19.95 h, 9 varieties | 12 | Metrics: yes for the 8 systems whose outputs are public |
+| `echonova_20h` | The public test set: 8,925 clips, 19.95 h, 9 varieties | 12 | Metrics: yes for the 9 systems whose outputs are public |
 | `echonova_private_120h` | The paper's private test set: 53,597 clips, 119.86 h, 9 varieties | 12 | No (five sixths unreleased); recomputed by EchoNova |
 | `public_leaderboard` | Six test sets of the Open Universal Arabic ASR Leaderboard: 46,757 clips | Sada-ASR | Protocol: yes; outputs: not published |
 
@@ -23,9 +23,9 @@ Transcribe Arabic). All were run on identical audio on 13 October 2026, except
 Jais-ASR and Speechmatics Enhanced (15 October 2026, UTC), with the settings
 recorded in [`results/echonova_20h/systems.json`](../results/echonova_20h/systems.json).
 No system, including Sada-ASR, used contextual biasing, custom vocabulary or other
-adaptation. Per-clip outputs are published for eight systems; ElevenLabs Scribe
-v2, Speechmatics Enhanced, Jais-ASR and Cohere Transcribe Arabic are published as
-metrics only.
+adaptation. Per-clip outputs are published for nine systems; ElevenLabs Scribe
+v2, Speechmatics Enhanced and Cohere Transcribe Arabic are published as metrics
+only.
 
 ## Predictions
 
