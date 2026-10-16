@@ -258,7 +258,7 @@ If you use the test set or this code, please cite:
 ```bibtex
 @misc{mohsen2026echonova,
   title        = {EchoNova Arabic Dialect ASR Benchmark},
-  author       = {Mohsen, Mahmoud and Khaled, Mahmoud},
+  author       = {Mohsen, Mahmoud},
   year         = {2026},
   howpublished = {\url{https://huggingface.co/datasets/echonova-ai/arabic-dialect-asr-benchmark}},
   note         = {EchoNova Technologies. Code and results: \url{https://github.com/echonova-ai-solutions/arabic-asr-benchmark}}
