@@ -17,6 +17,7 @@ dependencies = [
 
 [project.optional-dependencies]
 hf = ["datasets>=2.19", "pyarrow>=14"]
+api = ["datasets>=2.19", "requests>=2.28", "soundfile>=0.12"]  # scripts/transcribe_with_sada_api.py
 dev = ["pytest>=7", "ruff>=0.6", "jiwer>=3", "pyarrow>=14"]
 
 [project.scripts]

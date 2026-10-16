@@ -229,6 +229,11 @@ asr-bench evaluate --references examples/synthetic/references.jsonl \
     --predictions examples/synthetic/predictions_system_a.jsonl
 ```
 
+To get Sada-ASR's transcripts yourself, use the EchoNova speech-to-text API:
+[`scripts/transcribe_with_sada_api.py`](scripts/transcribe_with_sada_api.py)
+transcribes the test set through it and writes a predictions file to score as
+above (see [docs/reproducibility.md](docs/reproducibility.md#5-run-sada-asr-yourself)).
+
 ## 📐 Evaluation methodology
 
 - **Normalization.** References and hypotheses are normalized identically
@@ -257,7 +262,7 @@ Details: [docs/methodology.md](docs/methodology.md).
 | Metrics of ElevenLabs Scribe v2 and Speechmatics Enhanced | Not externally: their per-clip outputs are not published |
 | Inference of the open-weight models | Anyone with the models (settings and dates in [`systems.json`](results/echonova_20h/systems.json)) |
 | Inference of the commercial APIs | Only approximately: hosted models change without notice; measurements are dated |
-| Inference of Sada-ASR | Not externally: the model is proprietary |
+| Inference of Sada-ASR | Through the EchoNova speech-to-text API ([`scripts/transcribe_with_sada_api.py`](scripts/transcribe_with_sada_api.py)); the published figures come from the evaluated version on EchoNova's hardware, so API results can differ |
 | Results on the unreleased five sixths | Not externally: recomputed by EchoNova from stored outputs |
 
 Step-by-step commands: [docs/reproducibility.md](docs/reproducibility.md).

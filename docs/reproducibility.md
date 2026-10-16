@@ -11,7 +11,7 @@ any EchoNova model, service or credential.
 | Metrics of ElevenLabs Scribe v2 and Speechmatics Enhanced | Not externally | Their per-clip outputs are not published; their figures are recomputed by EchoNova |
 | Outputs of the six open-weight models | Anyone | Re-run the models on the public audio; settings we recorded are in `results/echonova_20h/systems.json` |
 | Outputs of the five commercial APIs | Approximately | Hosted APIs change without notice; ours are dated measurements (13 October 2026; Speechmatics 15 October) |
-| Outputs of Sada-ASR | Not externally | Proprietary model; its outputs are published so its metrics can be checked |
+| Outputs of Sada-ASR | Through the EchoNova API | Proprietary model, available through the EchoNova speech-to-text API (step 5); the published outputs come from the evaluated version run on EchoNova's hardware, so API outputs can differ |
 | Results on the unreleased five sixths (paper tables) | Not externally | Recomputed by EchoNova with this package from stored outputs |
 | Sada-ASR on the leaderboard test sets | Protocol only | Test sets are public; Sada-ASR's outputs on them are not published |
 
@@ -99,6 +99,25 @@ asr-bench compare --baseline sada-asr --unit recording \
 When reporting results, state the normalizer, the dataset revision, the date
 and settings of your run, and report per-dialect figures and macro WER
 alongside the overall WER. Do not tune on this test set.
+
+## 5. Run Sada-ASR yourself
+
+Sada-ASR is available through the EchoNova speech-to-text API
+(`POST https://api.echonova.ai/v1/speech-to-text`). The script below sends every
+clip of the test set (as 16 kHz WAV, the exact released samples) with
+`language=ar`, keeps only the transcript text of each response, and writes a
+predictions file. It resumes where it stopped if interrupted.
+
+```bash
+pip install "arabic-asr-benchmark[hf,api] @ git+https://github.com/echonova-ai-solutions/arabic-asr-benchmark"
+export ECHONOVA_API_KEY=...
+python scripts/transcribe_with_sada_api.py --output sada-api.jsonl
+asr-bench evaluate --predictions sada-api.jsonl --system sada-asr-api --output sada-asr-api.json
+```
+
+The published Sada-ASR figures were measured by EchoNova on its own hardware
+with the evaluated version (Sada EchoNova v1) during the paper's evaluation, not
+through the API, so results from the API can differ from them.
 
 ## Result record format
 
