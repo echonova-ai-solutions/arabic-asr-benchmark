@@ -48,9 +48,9 @@ see [subset_protocol_v2.md](subset_protocol_v2.md). In short:
 4. **Identifiers.** Public ids and recording ids are assigned in seeded random
    order and carry no information about the source.
 5. **Review.** Clips whose references match self-identification or
-   contact-detail patterns (29 in the released fold) are reviewed by EchoNova's
-   data team before release. <!-- TODO: report the number of clips removed in
-   review (if any) once the review is complete. -->
+   contact-detail patterns (29 in the released fold) were reviewed by EchoNova
+   for personal information and offensive content before release. None was
+   removed.
 
 The full private-set results (`results/echonova_private_120h`) score all 53,597
 clips, as the paper does; the 55 exclusions apply to the draw only.
