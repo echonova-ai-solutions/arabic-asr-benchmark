@@ -7,9 +7,10 @@ Writes a predictions file that `asr-bench evaluate` scores directly:
     python scripts/transcribe_with_sada_api.py --output sada-api.jsonl
     asr-bench evaluate --predictions sada-api.jsonl --system sada-asr-api --output sada-asr-api.json
 
-Each clip is sent as 16 kHz 16-bit WAV, the exact samples of the released FLAC. Only the
-transcript text of each response is kept. The script is resumable: clips already in the
-output file are skipped, so it can be stopped and restarted.
+Each clip is sent as 16 kHz 16-bit WAV, the exact samples of the released FLAC, to the
+synchronous endpoint, with numbers written as words (`numbers_as_digits=false`) as in the
+test set's references. Only the transcript text of each response is kept. The script is
+resumable: clips already in the output file are skipped, so it can be stopped and restarted.
 
 The figures published in this repository were measured by EchoNova on its own hardware
 with the evaluated version (Sada EchoNova v1), not through the API, so API results can
@@ -29,7 +30,7 @@ import wave
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
-API_URL = "https://api.echonova.ai/v1/speech-to-text"
+API_URL = "https://api.echonova.ai/v1/speech-to-text/sync"
 RETRY_STATUS = {429, 500, 502, 503, 504}
 
 
@@ -48,26 +49,26 @@ def to_wav(flac_bytes: bytes) -> bytes:
 
 
 def transcript_of(payload) -> str:
-    """The transcript string of a response; everything else in the response is discarded."""
-    if isinstance(payload, dict):
-        for scope in (payload, payload.get("data")):
-            if isinstance(scope, dict):
-                for key in ("text", "transcription", "transcript"):
-                    if isinstance(scope.get(key), str):
-                        return scope[key]
-    raise ValueError("the response has no transcript field")
+    """The transcript of a response (`data.transcription`); everything else in it is discarded."""
+    if not isinstance(payload, dict) or not payload.get("success"):
+        message = payload.get("errorMessage") if isinstance(payload, dict) else None
+        raise ValueError(f"request not successful: {message or 'no error message'}")
+    text = (payload.get("data") or {}).get("transcription")
+    if not isinstance(text, str):
+        raise ValueError("the response has no transcription")
+    return text
 
 
 def transcribe(
-    session, wav: bytes, clip_id: str, api_key: str, language: str, retries: int, timeout: float
+    session, url: str, wav: bytes, clip_id: str, api_key: str, language: str, retries: int, timeout: float
 ) -> str:
     for attempt in range(retries + 1):
         try:
             r = session.post(
-                API_URL,
+                url,
                 headers={"Authorization": f"Bearer {api_key}"},
                 files={"file": (f"{clip_id}.wav", wav, "audio/wav")},
-                data={"language": language},
+                data={"language": language, "numbers_as_digits": "false"},
                 timeout=timeout,
             )
         except Exception as exc:  # network errors: retry
@@ -103,6 +104,7 @@ def main() -> int:
     ap.add_argument("--retries", type=int, default=5)
     ap.add_argument("--timeout", type=float, default=120)
     ap.add_argument("--limit", type=int, help="only the first N clips (for a trial run)")
+    ap.add_argument("--api-url", default=API_URL, help=argparse.SUPPRESS)
     a = ap.parse_args()
 
     api_key = os.environ.get("ECHONOVA_API_KEY")
@@ -126,7 +128,14 @@ def main() -> int:
         def job(i):
             row = ds[i]
             text = transcribe(
-                session, to_wav(row["audio"]["bytes"]), row["id"], api_key, a.language, a.retries, a.timeout
+                session,
+                a.api_url,
+                to_wav(row["audio"]["bytes"]),
+                row["id"],
+                api_key,
+                a.language,
+                a.retries,
+                a.timeout,
             )
             with lock:
                 out.write(json.dumps({"id": row["id"], "prediction": text}, ensure_ascii=False) + "\n")

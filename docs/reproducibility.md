@@ -102,11 +102,12 @@ alongside the overall WER. Do not tune on this test set.
 
 ## 5. Run Sada-ASR yourself
 
-Sada-ASR is available through the EchoNova speech-to-text API
-(`POST https://api.echonova.ai/v1/speech-to-text`). The script below sends every
-clip of the test set (as 16 kHz WAV, the exact released samples) with
-`language=ar`, keeps only the transcript text of each response, and writes a
-predictions file. It resumes where it stopped if interrupted.
+Sada-ASR is available through the EchoNova speech-to-text API. The script below
+sends every clip of the test set (as 16 kHz WAV, the exact released samples) to
+the synchronous endpoint `POST https://api.echonova.ai/v1/speech-to-text/sync`
+with `language=ar` and `numbers_as_digits=false` (the references write numbers as
+words), keeps only the transcript text of each response (`data.transcription`),
+and writes a predictions file. It resumes where it stopped if interrupted.
 
 ```bash
 pip install "arabic-asr-benchmark[hf,api] @ git+https://github.com/echonova-ai-solutions/arabic-asr-benchmark"
