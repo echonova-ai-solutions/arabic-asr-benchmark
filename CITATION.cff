@@ -11,7 +11,10 @@ authors:
     given-names: Mahmoud
     affiliation: EchoNova
 preferred-citation:
-  type: article
+  type: report
+  url: "https://echonova.ai/research/pdf/EchoNova_Sada-ASR_Technical_Report.pdf"
+  institution:
+    name: EchoNova
   title: "Sada-ASR: A Production Multidialectal Arabic Speech Recognition System"
   authors:
     - family-names: Khaled
@@ -24,4 +27,4 @@ preferred-citation:
       given-names: Mahmoud
       affiliation: EchoNova
   year: 2026
-  notes: "Preprint forthcoming."
+  notes: "EchoNova technical report."

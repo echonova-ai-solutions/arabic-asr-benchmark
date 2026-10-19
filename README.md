@@ -4,7 +4,7 @@
 
 <p>
   <a href="https://huggingface.co/datasets/echonova-ai/arabic-dialect-asr-benchmark"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Dataset-arabic--dialect--asr--benchmark-6E665C?labelColor=171310" alt="Hugging Face dataset"></a>
-  <img src="https://img.shields.io/badge/paper-coming%20soon-6E665C?labelColor=171310" alt="Paper: coming soon">
+  <a href="https://echonova.ai/research/pdf/EchoNova_Sada-ASR_Technical_Report.pdf"><img src="https://img.shields.io/badge/paper-technical%20report-6E665C?labelColor=171310" alt="Paper: technical report"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/code-Apache--2.0-6E665C?labelColor=171310" alt="Code license: Apache-2.0"></a>
   <img src="https://img.shields.io/badge/python-3.10%2B-6E665C?labelColor=171310" alt="Python 3.10+">
   <a href="https://github.com/echonova-ai-solutions/arabic-asr-benchmark/actions/workflows/ci.yml"><img src="https://github.com/echonova-ai-solutions/arabic-asr-benchmark/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
@@ -29,8 +29,8 @@
 
 This repository holds the evaluation code, normalizers, scoring protocol, results
 and per-clip system outputs behind EchoNova's Arabic speech recognition benchmark.
-It accompanies the paper *Sada-ASR: A Production Multidialectal Arabic Speech
-Recognition System* and the public test set
+It accompanies the paper [*Sada-ASR: A Production Multidialectal Arabic Speech
+Recognition System*](https://echonova.ai/research/pdf/EchoNova_Sada-ASR_Technical_Report.pdf) and the public test set
 [`echonova-ai/arabic-dialect-asr-benchmark`](https://huggingface.co/datasets/echonova-ai/arabic-dialect-asr-benchmark).
 
 The evaluation works with any system's transcripts: you need a predictions
@@ -61,7 +61,7 @@ file, not access to any model, API key or EchoNova service.
 | Resource | Link |
 | :--- | :--- |
 | Test set (Hugging Face) | [echonova-ai/arabic-dialect-asr-benchmark](https://huggingface.co/datasets/echonova-ai/arabic-dialect-asr-benchmark) |
-| Paper | *Sada-ASR: A Production Multidialectal Arabic Speech Recognition System* (Khaled, Abd-Elnaser and Mohsen, 2026), preprint forthcoming <!-- TODO: arXiv link --> |
+| Paper | [*Sada-ASR: A Production Multidialectal Arabic Speech Recognition System*](https://echonova.ai/research/pdf/EchoNova_Sada-ASR_Technical_Report.pdf) (Khaled, Abd-Elnaser and Mohsen, 2026), EchoNova technical report |
 | Open Universal Arabic ASR Leaderboard | [Hugging Face Space](https://huggingface.co/spaces/elmresearchcenter/open_universal_arabic_asr_leaderboard) · [code](https://github.com/Natural-Language-Processing-Elm/open_universal_arabic_asr_leaderboard) |
 | Methodology | [docs/methodology.md](docs/methodology.md) |
 | Normalization and scoring | [docs/normalization.md](docs/normalization.md) |
@@ -276,7 +276,8 @@ If you use the test set or this code, please cite the paper:
   title  = {Sada-ASR: A Production Multidialectal Arabic Speech Recognition System},
   author = {Khaled, Mahmoud and Abd-Elnaser, Mohammed and Mohsen, Mahmoud},
   year   = {2026},
-  note   = {EchoNova. Preprint forthcoming}
+  note   = {EchoNova technical report},
+  howpublished = {\url{https://echonova.ai/research/pdf/EchoNova_Sada-ASR_Technical_Report.pdf}}
 }
 ```
 

@@ -1,7 +1,7 @@
 # Paper consistency review
 
-Every number in the paper *Sada-ASR: A Production Multidialectal Arabic Speech
-Recognition System* <!-- TODO: link to the published paper --> that can be
+Every number in the paper [*Sada-ASR: A Production Multidialectal Arabic Speech
+Recognition System*](https://echonova.ai/research/pdf/EchoNova_Sada-ASR_Technical_Report.pdf) that can be
 computed from the release was recomputed with this package and compared with the
 paper at the paper's precision.
 
